@@ -1,0 +1,851 @@
+const http = require('http');
+const url = require('url');
+const { parseMarkdownTasks, generateProjectSummary } = require('./data-parser');
+const { addTask, updateTask, addDecision, updateDecision, getAllData } = require('./data-manager');
+
+const PORT = 8080;
+
+function parsePostData(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString();
+    });
+    req.on('end', () => {
+      try {
+        resolve(JSON.parse(body));
+      } catch (e) {
+        reject(e);
+      }
+    });
+  });
+}
+
+const server = http.createServer(async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
+
+  if (req.method === 'GET' && path === '/') {
+    // Parse real data from markdown + user data
+    const markdownTasks = parseMarkdownTasks('./PB Build - Action Items.md');
+    const userData = getAllData();
+    const allTasks = [...markdownTasks, ...userData.tasks];
+    const summary = generateProjectSummary(allTasks);
+    
+    // Get urgent tasks
+    const urgentTasks = allTasks.filter(t => 
+      t.priority === 'Critical' || 
+      t.priority === 'High' ||
+      new Date(t.dueDate) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    ).slice(0, 8);
+    
+    // Get pending decisions
+    const pendingDecisions = userData.decisions.filter(d => d.status === 'Pending').slice(0, 5);
+    
+    // Contractor phone numbers
+    const contractorPhones = {
+      'Vishal': '+91-98765-43210',
+      'Sabharwal': '+91-98765-43211', 
+      'Arushi': '+91-98765-43212',
+      'Sandeep': '+91-98765-43213',
+      'Pradeep': '+91-98765-43214',
+      'Bhargav': '+91-98765-43215'
+    };
+    
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potbelly Restaurant Build - Data Entry</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc; 
+            line-height: 1.4;
+        }
+        
+        .container { 
+            padding: 16px;
+            max-width: 100%;
+        }
+        
+        .header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .header h1 { 
+            font-size: 24px; 
+            font-weight: 700; 
+            margin-bottom: 8px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .nav-tab {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .nav-tab.active {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 { 
+            color: #1f2937; 
+            margin-bottom: 16px; 
+            font-size: 18px; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background: #059669;
+        }
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .task-item {
+            background: #f8fafc;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .task-urgent { border-left-color: #ef4444; background: #fef2f2; }
+        .task-critical { border-left-color: #dc2626; background: #fef2f2; }
+        
+        .task-title { 
+            font-weight: 600; 
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #1f2937;
+        }
+        
+        .task-meta { 
+            font-size: 14px; 
+            color: #64748b; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            transition: width 0.3s;
+        }
+        
+        .update-form {
+            margin-top: 12px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            display: none;
+        }
+        
+        .update-form.active {
+            display: block;
+        }
+        
+        .call-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 8px;
+        }
+        
+        .edit-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+        
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
+        @media (min-width: 768px) {
+            .container { 
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 24px;
+            }
+            
+            .header h1 { font-size: 32px; }
+            
+            .form-row {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            
+            .btn {
+                width: auto;
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏗️ Potbelly Restaurant Build</h1>
+            <p>Task & Decision Management</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('dashboard')">🏠 Dashboard</button>
+            <button class="nav-tab" onclick="showTab('overview')">📊 Tasks</button>
+            <button class="nav-tab" onclick="showTab('add-task')">➕ Add Task</button>
+            <button class="nav-tab" onclick="showTab('decisions')">⚖️ Decisions</button>
+            <button class="nav-tab" onclick="showTab('update')">✏️ Update</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="progress-overview" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
+                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #1f2937; display: block;">${summary.summary.total}</span>
+                    <div style="color: #64748b; font-size: 14px;">Total Tasks</div>
+                </div>
+                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #2563eb; display: block;">${summary.summary.inProgress}</span>
+                    <div style="color: #64748b; font-size: 14px;">In Progress</div>
+                </div>
+                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #d97706; display: block;">${summary.summary.awaitingDecision}</span>
+                    <div style="color: #64748b; font-size: 14px;">Need Decisions</div>
+                </div>
+                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #16a34a; display: block;">${summary.summary.completed}</span>
+                    <div style="color: #64748b; font-size: 14px;">Completed</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>👥 Your Contractors</h3>
+                <div class="contractor-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                    ${Object.entries(contractorPhones).map(([name, phone]) => {
+                        const contractorTasks = allTasks.filter(t => t.owner === name);
+                        const activeTasks = contractorTasks.filter(t => t.status === 'In Progress').length;
+                        return `
+                            <div class="contractor-card" style="background: #f1f5f9; padding: 16px; border-radius: 8px; text-align: center;">
+                                <div style="font-weight: 600; margin-bottom: 4px; color: #1f2937;">${name}</div>
+                                <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">${contractorTasks.length} tasks • ${activeTasks} active</div>
+                                <a href="tel:${phone}" class="call-btn">📞 Call</a>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>📊 Project Status</h3>
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 48px; font-weight: bold; color: #1f2937; margin-bottom: 8px;">
+                        ${summary.summary.progress}%
+                    </div>
+                    <div style="color: #64748b; margin-bottom: 16px;">Overall Progress</div>
+                    <div class="progress-bar" style="height: 12px;">
+                        <div class="progress-fill" style="width: ${summary.summary.progress}%"></div>
+                    </div>
+                    <div style="background: #fef3c7; color: #d97706; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; margin-top: 16px;">
+                        Target Opening: ${summary.targetOpening}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content">
+            <div class="card">
+                <h3>🚨 Urgent Tasks (${urgentTasks.length})</h3>
+                ${urgentTasks.map(task => `
+                    <div class="task-item ${task.priority.toLowerCase() === 'critical' ? 'task-critical' : task.priority.toLowerCase() === 'high' ? 'task-urgent' : ''}">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-meta">
+                            <span><strong>${task.owner}</strong> • Due: ${new Date(task.dueDate).toLocaleDateString()}</span>
+                            <span style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : '2563eb'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">${task.priority}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${task.progress}%"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">${task.progress}% Complete</div>
+                        ${contractorPhones[task.owner] ? `<a href="tel:${contractorPhones[task.owner]}" class="call-btn">📞 Call ${task.owner}</a>` : ''}
+                        ${task.source === 'user_added' ? `<button class="edit-btn" onclick="editTask(${task.id})">✏️ Edit</button>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+
+            ${pendingDecisions.length > 0 ? `
+            <div class="card">
+                <h3>⚖️ Pending Decisions (${pendingDecisions.length})</h3>
+                ${pendingDecisions.map(decision => `
+                    <div class="task-item">
+                        <div class="task-title">${decision.title}</div>
+                        <div class="task-meta">
+                            <span><strong>${decision.assignedTo}</strong> • Due: ${new Date(decision.dueDate).toLocaleDateString()}</span>
+                            <span style="background: #ea580c; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">${decision.priority}</span>
+                        </div>
+                        <p style="font-size: 14px; color: #64748b; margin-top: 8px;">${decision.description}</p>
+                        <button class="edit-btn" onclick="editDecision(${decision.id})">✏️ Update</button>
+                    </div>
+                `).join('')}
+            </div>
+            ` : ''}
+        </div>
+
+        <!-- Add Task Tab -->
+        <div id="add-task" class="tab-content">
+            <div class="card">
+                <h3>➕ Add New Task</h3>
+                <div id="task-message" class="message"></div>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label class="form-label">Task Title *</label>
+                        <input type="text" class="form-input" name="title" required placeholder="e.g., Install new kitchen equipment">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Assigned To *</label>
+                            <select class="form-select" name="owner" required>
+                                <option value="">Select Contractor</option>
+                                <option value="Vishal">Vishal</option>
+                                <option value="Sabharwal">Sabharwal</option>
+                                <option value="Arushi">Arushi</option>
+                                <option value="Sandeep">Sandeep</option>
+                                <option value="Pradeep">Pradeep</option>
+                                <option value="Bhargav">Bhargav</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" name="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category">
+                                <option value="general">General</option>
+                                <option value="kitchen">Kitchen</option>
+                                <option value="bar">Bar</option>
+                                <option value="electrical">Electrical</option>
+                                <option value="plumbing">Plumbing</option>
+                                <option value="construction">Construction</option>
+                                <option value="finishing">Finishing</option>
+                                <option value="exterior">Exterior</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Due Date *</label>
+                            <input type="date" class="form-input" name="dueDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status">
+                                <option value="Not Started" selected>Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Awaiting Decision">Awaiting Decision</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-textarea" name="notes" placeholder="Additional details, requirements, or dependencies..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">➕ Add Task</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Decisions Tab -->
+        <div id="decisions" class="tab-content">
+            <div class="card">
+                <h3>⚖️ Add New Decision Item</h3>
+                <div id="decision-message" class="message"></div>
+                <form id="decisionForm">
+                    <div class="form-group">
+                        <label class="form-label">Decision Title *</label>
+                        <input type="text" class="form-input" name="title" required placeholder="e.g., Choose bar countertop material">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description *</label>
+                        <textarea class="form-textarea" name="description" required placeholder="Describe the decision that needs to be made, options available, and any constraints..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Assigned To</label>
+                            <select class="form-select" name="assignedTo">
+                                <option value="Arushi" selected>Arushi</option>
+                                <option value="Pooja">Pooja</option>
+                                <option value="Team">Team</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" name="priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Due Date *</label>
+                            <input type="date" class="form-input" name="dueDate" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn">⚖️ Add Decision</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Update Tab -->
+        <div id="update" class="tab-content">
+            <div class="card">
+                <h3>✏️ Update Tasks & Progress</h3>
+                <p style="color: #64748b; margin-bottom: 16px;">Click on any task in the Overview tab to update its progress, status, or details.</p>
+                <div id="update-form-container">
+                    <p style="text-align: center; color: #9ca3af; padding: 40px;">Select a task from the Overview tab to update it here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all nav tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate corresponding nav tab
+            event.target.classList.add('active');
+        }
+
+        // Add task form submission
+        document.getElementById('taskForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const taskData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/tasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(taskData)
+                });
+                
+                const result = await response.json();
+                const messageEl = document.getElementById('task-message');
+                
+                if (result.success) {
+                    messageEl.className = 'message success';
+                    messageEl.textContent = 'Task added successfully!';
+                    messageEl.style.display = 'block';
+                    e.target.reset();
+                    
+                    // Refresh page after 2 seconds
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    throw new Error(result.message || 'Failed to add task');
+                }
+            } catch (error) {
+                const messageEl = document.getElementById('task-message');
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Error: ' + error.message;
+                messageEl.style.display = 'block';
+            }
+        });
+
+        // Add decision form submission
+        document.getElementById('decisionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const decisionData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/decisions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(decisionData)
+                });
+                
+                const result = await response.json();
+                const messageEl = document.getElementById('decision-message');
+                
+                if (result.success) {
+                    messageEl.className = 'message success';
+                    messageEl.textContent = 'Decision added successfully!';
+                    messageEl.style.display = 'block';
+                    e.target.reset();
+                    
+                    // Refresh page after 2 seconds
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    throw new Error(result.message || 'Failed to add decision');
+                }
+            } catch (error) {
+                const messageEl = document.getElementById('decision-message');
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Error: ' + error.message;
+                messageEl.style.display = 'block';
+            }
+        });
+
+        // Edit task function
+        function editTask(taskId) {
+            showTab('update');
+            document.querySelector('[onclick="showTab(\\'update\\')"]').classList.add('active');
+            
+            // Load task edit form
+            loadTaskEditForm(taskId);
+        }
+
+        // Edit decision function
+        function editDecision(decisionId) {
+            showTab('update');
+            document.querySelector('[onclick="showTab(\\'update\\')"]').classList.add('active');
+            
+            // Load decision edit form
+            loadDecisionEditForm(decisionId);
+        }
+
+        async function loadTaskEditForm(taskId) {
+            const container = document.getElementById('update-form-container');
+            container.innerHTML = '<p>Loading task details...</p>';
+            
+            try {
+                const response = await fetch(\`/api/tasks/\${taskId}\`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const task = result.data;
+                    container.innerHTML = \`
+                        <h4>Update Task: \${task.title}</h4>
+                        <form id="updateTaskForm" data-task-id="\${task.id}">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" name="status">
+                                        <option value="Not Started" \${task.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+                                        <option value="In Progress" \${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                        <option value="Awaiting Decision" \${task.status === 'Awaiting Decision' ? 'selected' : ''}>Awaiting Decision</option>
+                                        <option value="Completed" \${task.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Progress (%)</label>
+                                    <input type="number" class="form-input" name="progress" min="0" max="100" value="\${task.progress}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-textarea" name="notes">\${task.notes || ''}</textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn">💾 Update Task</button>
+                        </form>
+                    \`;
+                    
+                    // Add form submission handler
+                    document.getElementById('updateTaskForm').addEventListener('submit', handleTaskUpdate);
+                }
+            } catch (error) {
+                container.innerHTML = '<p style="color: #ef4444;">Error loading task details</p>';
+            }
+        }
+
+        async function handleTaskUpdate(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const updateData = Object.fromEntries(formData.entries());
+            const taskId = e.target.dataset.taskId;
+            
+            try {
+                const response = await fetch(\`/api/tasks/\${taskId}\`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Task updated successfully!');
+                    location.reload();
+                } else {
+                    throw new Error(result.message || 'Failed to update task');
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        // Set default date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(input => {
+            input.value = tomorrow.toISOString().split('T')[0];
+        });
+    </script>
+</body>
+</html>
+    `);
+    
+  } else if (req.method === 'POST' && path === '/api/tasks') {
+    try {
+      const taskData = await parsePostData(req);
+      const newTask = addTask(taskData);
+      
+      if (newTask) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, data: newTask }));
+      } else {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Failed to add task' }));
+      }
+    } catch (error) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: error.message }));
+    }
+    
+  } else if (req.method === 'POST' && path === '/api/decisions') {
+    try {
+      const decisionData = await parsePostData(req);
+      const newDecision = addDecision(decisionData);
+      
+      if (newDecision) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, data: newDecision }));
+      } else {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Failed to add decision' }));
+      }
+    } catch (error) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: error.message }));
+    }
+    
+  } else if (req.method === 'GET' && path.startsWith('/api/tasks/')) {
+    const taskId = path.split('/')[3];
+    const userData = getAllData();
+    const task = userData.tasks.find(t => t.id == taskId);
+    
+    if (task) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, data: task }));
+    } else {
+      res.writeHead(404, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: 'Task not found' }));
+    }
+    
+  } else if (req.method === 'PUT' && path.startsWith('/api/tasks/')) {
+    try {
+      const taskId = path.split('/')[3];
+      const updateData = await parsePostData(req);
+      const updatedTask = updateTask(taskId, updateData);
+      
+      if (updatedTask) {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, data: updatedTask }));
+      } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Task not found' }));
+      }
+    } catch (error) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: error.message }));
+    }
+    
+  } else {
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
+  }
+});
+
+server.listen(PORT, () => {
+  console.log('🏗️ POOJA\'S BUILD MANAGEMENT - WITH DATA ENTRY');
+  console.log(`📱💻 Dashboard: http://localhost:${PORT}`);
+  console.log('✅ Task creation enabled');
+  console.log('⚖️ Decision tracking enabled');
+  console.log('✏️ Progress updates enabled');
+});
