@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(npx next:*)",
+      "Read(//c/ai/**)",
+      "Bash(node server.js)",
+      "Bash(npm run build:*)",
+      "Bash(vercel:*)",
+      "Bash(npx vercel:*)",
+      "Bash(curl:*)",
+      "Bash(node:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
