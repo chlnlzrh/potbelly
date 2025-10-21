@@ -48,7 +48,6 @@ function parseMarkdownTasks(filePath) {
           title: actionItem,
           owner: owner,
           dueDate: parseDueDate(dueDate),
-          priority: mapPriority(priority),
           status: mapStatus(status),
           notes: extractNotes(actionItem),
           progress: calculateProgress(status),
@@ -134,10 +133,10 @@ function extractNotes(actionItem) {
 
 function calculateProgress(status) {
   switch (status.toLowerCase()) {
-    case 'completed': return 100;
-    case 'in progress': return Math.floor(Math.random() * 60) + 20; // 20-80%
+    case 'completed': return 0;
+    case 'in progress': return 0;
     case 'not started': return 0;
-    case 'awaiting decision': return 10;
+    case 'awaiting decision': return 0;
     default: return 0;
   }
 }

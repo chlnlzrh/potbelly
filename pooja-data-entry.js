@@ -36,8 +36,8 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (req.method === 'GET' && path === '/') {
-    // Parse real data from markdown + user data
-    const markdownTasks = parseMarkdownTasks('./PB Build - Action Items.md');
+    // Parse real data from corrected markdown + user data
+    const markdownTasks = parseMarkdownTasks('./PB Build - Action Items - CORRECTED.md');
     const userData = getAllData();
     const allTasks = [...markdownTasks, ...userData.tasks];
     const summary = generateProjectSummary(allTasks);
@@ -493,7 +493,6 @@ const server = http.createServer(async (req, res) => {
                                 <th>Task</th>
                                 <th>Owner</th>
                                 <th>Status</th>
-                                <th>Priority</th>
                                 <th>Due Date</th>
                                 <th>Progress</th>
                                 <th>Category</th>
@@ -505,7 +504,6 @@ const server = http.createServer(async (req, res) => {
                                     <td style="max-width: 200px;"><strong>${task.title}</strong></td>
                                     <td>${task.owner}</td>
                                     <td><span class="status-badge-table" style="background: #${task.status === 'Completed' ? '16a34a' : task.status === 'In Progress' ? '2563eb' : task.status === 'Awaiting Decision' ? 'ea580c' : '64748b'}; color: white;">${task.status}</span></td>
-                                    <td><span class="priority-badge-table" style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : task.priority === 'Medium' ? '2563eb' : '16a34a'}; color: white;">${task.priority}</span></td>
                                     <td>${new Date(task.dueDate).toLocaleDateString()}</td>
                                     <td>
                                         <div class="progress-mini">
@@ -530,7 +528,6 @@ const server = http.createServer(async (req, res) => {
                             <tr>
                                 <th>Task</th>
                                 <th>Owner</th>
-                                <th>Priority</th>
                                 <th>Due Date</th>
                                 <th>Progress</th>
                                 <th>Days Left</th>
@@ -543,7 +540,6 @@ const server = http.createServer(async (req, res) => {
                                     <tr>
                                         <td style="max-width: 200px;"><strong>${task.title}</strong></td>
                                         <td>${task.owner}</td>
-                                        <td><span class="priority-badge-table" style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : task.priority === 'Medium' ? '2563eb' : '16a34a'}; color: white;">${task.priority}</span></td>
                                         <td>${new Date(task.dueDate).toLocaleDateString()}</td>
                                         <td>
                                             <div class="progress-mini">
@@ -571,7 +567,6 @@ const server = http.createServer(async (req, res) => {
                             <tr>
                                 <th>Task</th>
                                 <th>Owner</th>
-                                <th>Priority</th>
                                 <th>Due Date</th>
                                 <th>Category</th>
                                 <th>Days Until Due</th>
@@ -584,7 +579,6 @@ const server = http.createServer(async (req, res) => {
                                     <tr>
                                         <td style="max-width: 200px;"><strong>${task.title}</strong></td>
                                         <td>${task.owner}</td>
-                                        <td><span class="priority-badge-table" style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : task.priority === 'Medium' ? '2563eb' : '16a34a'}; color: white;">${task.priority}</span></td>
                                         <td>${new Date(task.dueDate).toLocaleDateString()}</td>
                                         <td style="text-transform: capitalize;">${task.category}</td>
                                         <td style="color: ${daysLeft < 0 ? '#dc2626' : daysLeft < 3 ? '#ea580c' : '#16a34a'}; font-weight: 600;">
@@ -712,11 +706,10 @@ const server = http.createServer(async (req, res) => {
             <div class="card">
                 <h3>🚨 Urgent Tasks (${urgentTasks.length})</h3>
                 ${urgentTasks.map(task => `
-                    <div class="task-item ${task.priority.toLowerCase() === 'critical' ? 'task-critical' : task.priority.toLowerCase() === 'high' ? 'task-urgent' : ''}">
+                    <div class="task-item">
                         <div class="task-title">${task.title}</div>
                         <div class="task-meta">
                             <span><strong>${task.owner}</strong> • Due: ${new Date(task.dueDate).toLocaleDateString()}</span>
-                            <span style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : '2563eb'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">${task.priority}</span>
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: ${task.progress}%"></div>
