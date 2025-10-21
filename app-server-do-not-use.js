@@ -555,7 +555,6 @@ function getMainAppHTML() {
                         <span>•</span>
                         <span>\${task.dueDate}</span>
                         <span>•</span>
-                        <span>\${task.category}</span>
                     </div>
                     <div style="margin-top: 8px;">
                         <span class="priority-badge priority-\${task.priority.toLowerCase()}">\${task.priority}</span>

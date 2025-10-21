@@ -218,7 +218,7 @@ const server = http.createServer((req, res) => {
                         <div class="task-item">
                             <div class="task-title">${task.title}</div>
                             <div class="task-meta">
-                                <span><strong>${task.owner}</strong> • ${task.category} • ${task.status}</span>
+                                <span><strong>${task.owner}</strong> • ${task.status}</span>
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <span style="font-size: 11px;">${task.progress}%</span>
                                     <div class="progress-bar">

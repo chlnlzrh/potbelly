@@ -3,7 +3,7 @@ const url = require('url');
 const { parseMarkdownTasks, generateProjectSummary } = require('./data-parser');
 const { addTask, updateTask, addDecision, updateDecision, getAllData } = require('./data-manager');
 
-const PORT = 8080;
+const PORT = 3002;
 
 function parsePostData(req) {
   return new Promise((resolve, reject) => {
@@ -63,6 +63,36 @@ const server = http.createServer(async (req, res) => {
       'Bhargav': '+91-9999999999'     // (No number in file, using placeholder)
     };
     
+    // Contact mapping function
+    function getContactButtons(task) {
+        const contactMap = {
+            'Arushi': '9810312309',
+            'Sabharwal': '9868226580', 
+            'Vishal': '9310203344',
+            'Sandeep': '9810165187',
+            'Pradeep': '9540475132',
+            'Sunil': '9810086477'
+        };
+        
+        if (!task.owner) return '<span style="color: #9ca3af; font-size: 12px;">No owner</span>';
+        
+        // Find first owner that has a phone number
+        const owners = task.owner.split(',').map(o => o.trim());
+        const ownerWithPhone = owners.find(owner => contactMap[owner]);
+        
+        if (!ownerWithPhone) return '<span style="color: #9ca3af; font-size: 12px;">No contact</span>';
+        
+        const phoneNumber = contactMap[ownerWithPhone];
+        const taskText = encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`);
+        
+        return `
+            <div style="display: flex; gap: 4px; align-items: center;">
+                <a href="tel:${phoneNumber}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">📞</a>
+                <a href="sms:${phoneNumber}&body=${taskText}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
+            </div>
+        `;
+    }
+    
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(`
 <!DOCTYPE html>
@@ -70,7 +100,7 @@ const server = http.createServer(async (req, res) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potbelly Restaurant Build - Data Entry</title>
+    <title>Potbelly Restaurant Build - Data Entry v${Date.now()}</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -343,7 +373,7 @@ const server = http.createServer(async (req, res) => {
         .data-table td {
             padding: 12px 16px;
             border-bottom: 1px solid #f1f5f9;
-            font-size: 14px;
+            font-size: 12px;
             vertical-align: top;
         }
         
@@ -445,6 +475,27 @@ const server = http.createServer(async (req, res) => {
         .data-table td .inline-edit {
             width: 100%;
             min-width: 100px;
+            font-size: 12px;
+        }
+        
+        .data-table td select,
+        .data-table td input {
+            font-size: 12px;
+        }
+        
+        .data-table th:nth-child(2), 
+        .data-table td:nth-child(2) {
+            width: 140px; /* Owner column */
+        }
+        
+        .data-table th:nth-child(3), 
+        .data-table td:nth-child(3) {
+            width: 140px; /* Status column - fits "Awaiting Decision" */
+        }
+        
+        .data-table th:nth-child(4), 
+        .data-table td:nth-child(4) {
+            width: 140px; /* Due Date column */
         }
         
         .data-table input[type="range"] {
@@ -508,7 +559,7 @@ const server = http.createServer(async (req, res) => {
 
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showTab('dashboard')">🏠 Dashboard</button>
-            <button class="nav-tab" onclick="showTab('overview')">📊 Tasks</button>
+            <button class="nav-tab" onclick="showTab('contacts')">📞 Contacts</button>
             <button class="nav-tab" onclick="showTab('add-task')">➕ Add Task</button>
             <button class="nav-tab" onclick="showTab('decisions')">⚖️ Decisions</button>
             <button class="nav-tab" onclick="showTab('update')">✏️ Update</button>
@@ -551,8 +602,7 @@ const server = http.createServer(async (req, res) => {
                                 <th>Owner</th>
                                 <th>Status</th>
                                 <th>Due Date</th>
-                                <th>Progress</th>
-                                <th>Category</th>
+                                <th>Contact</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -589,7 +639,7 @@ const server = http.createServer(async (req, res) => {
                                                     <input type="checkbox" value="Pradeep" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Pradeep') ? 'checked' : ''}> Pradeep
                                                 </label>
                                                 <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
-                                                    <input type="checkbox" value="Sunil" onchange="updateOwnerSelection(${task.id})" ${task.owner && (task.owner.includes('Sunil') || task.owner.includes('Kitchen Equipment Vendor')) ? 'checked' : ''}> Sunil (Kitchen & Equipment)
+                                                    <input type="checkbox" value="Sunil" onchange="updateOwnerSelection(${task.id})" ${task.owner && (task.owner.includes('Sunil') || task.owner.includes('Kitchen Equipment Vendor')) ? 'checked' : ''}> Sunil
                                                 </label>
                                                 <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px;">
                                                     <input type="checkbox" value="Team" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Team') ? 'checked' : ''}> Team
@@ -614,25 +664,7 @@ const server = http.createServer(async (req, res) => {
                                                style="border: none; background: transparent; width: 100%;">
                                     </td>
                                     <td>
-                                        <input type="range" value="${task.progress}" min="0" max="100" step="5"
-                                               class="inline-edit" 
-                                               onchange="updateTaskField(${task.id}, 'progress', this.value)"
-                                               style="width: 70px; margin-right: 8px;">
-                                        <span>${task.progress}%</span>
-                                    </td>
-                                    <td>
-                                        <select class="inline-edit" 
-                                                onchange="updateTaskField(${task.id}, 'category', this.value)"
-                                                style="border: none; background: transparent; width: 100%;">
-                                            <option value="kitchen" ${task.category === 'kitchen' ? 'selected' : ''}>Kitchen</option>
-                                            <option value="bar" ${task.category === 'bar' ? 'selected' : ''}>Bar</option>
-                                            <option value="electrical" ${task.category === 'electrical' ? 'selected' : ''}>Electrical</option>
-                                            <option value="finishing" ${task.category === 'finishing' ? 'selected' : ''}>Finishing</option>
-                                            <option value="construction" ${task.category === 'construction' ? 'selected' : ''}>Construction</option>
-                                            <option value="exterior" ${task.category === 'exterior' ? 'selected' : ''}>Exterior</option>
-                                            <option value="plumbing" ${task.category === 'plumbing' ? 'selected' : ''}>Plumbing</option>
-                                            <option value="general" ${task.category === 'general' ? 'selected' : ''}>General</option>
-                                        </select>
+                                        ${getContactButtons(task)}
                                     </td>
                                 </tr>
                             `).join('')}
@@ -651,7 +683,6 @@ const server = http.createServer(async (req, res) => {
                                 <th>Task</th>
                                 <th>Owner</th>
                                 <th>Due Date</th>
-                                <th>Progress</th>
                                 <th>Days Left</th>
                             </tr>
                         </thead>
@@ -663,12 +694,6 @@ const server = http.createServer(async (req, res) => {
                                         <td style="max-width: 200px;"><strong>${task.title}</strong></td>
                                         <td>${task.owner}</td>
                                         <td>${new Date(task.dueDate).toLocaleDateString()}</td>
-                                        <td>
-                                            <div class="progress-mini">
-                                                <div class="progress-mini-fill" style="width: ${task.progress}%"></div>
-                                            </div>
-                                            ${task.progress}%
-                                        </td>
                                         <td style="color: ${daysLeft < 0 ? '#dc2626' : daysLeft < 3 ? '#ea580c' : '#16a34a'}; font-weight: 600;">
                                             ${daysLeft < 0 ? `${Math.abs(daysLeft)} overdue` : `${daysLeft} days`}
                                         </td>
@@ -690,21 +715,65 @@ const server = http.createServer(async (req, res) => {
                                 <th>Task</th>
                                 <th>Owner</th>
                                 <th>Due Date</th>
-                                <th>Category</th>
                                 <th>Days Until Due</th>
+                                <th>Contact</th>
                             </tr>
                         </thead>
                         <tbody>
                             ${allTasks.filter(t => t.status === 'Awaiting Decision').map(task => {
                                 const daysLeft = Math.ceil((new Date(task.dueDate) - new Date()) / (1000 * 60 * 60 * 24));
                                 return `
-                                    <tr>
-                                        <td style="max-width: 200px;"><strong>${task.title}</strong></td>
-                                        <td>${task.owner}</td>
-                                        <td>${new Date(task.dueDate).toLocaleDateString()}</td>
-                                        <td style="text-transform: capitalize;">${task.category}</td>
+                                    <tr data-task-id="${task.id}">
+                                        <td style="max-width: 200px;">
+                                            <input type="text" value="${task.title}" 
+                                                   class="inline-edit" 
+                                                   onchange="updateTaskField(${task.id}, 'title', this.value)"
+                                                   style="border: none; background: transparent; width: 100%;">
+                                        </td>
+                                        <td>
+                                            <div class="custom-multi-select" data-task-id="${task.id}">
+                                                <div class="multi-select-display" onclick="toggleMultiSelectDropdown(${task.id})" 
+                                                     style="border: 1px solid #e5e7eb; padding: 6px 8px; border-radius: 4px; cursor: pointer; background: white; min-height: 20px; position: relative;">
+                                                    <span class="selected-owners" style="font-size: 12px;">${task.owner || 'Select owners...'}</span>
+                                                    <span style="float: right; color: #666;">▼</span>
+                                                </div>
+                                                <div class="multi-select-dropdown" id="dropdown-${task.id}" 
+                                                     style="display: none; position: absolute; z-index: 1000; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-width: 200px; max-height: 200px; overflow-y: auto;">
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                        <input type="checkbox" value="Arushi" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Arushi') ? 'checked' : ''}> Arushi
+                                                    </label>
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                        <input type="checkbox" value="Sabharwal" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Sabharwal') ? 'checked' : ''}> Sabharwal
+                                                    </label>
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                        <input type="checkbox" value="Vishal" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Vishal') ? 'checked' : ''}> Vishal
+                                                    </label>
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                        <input type="checkbox" value="Sandeep" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Sandeep') ? 'checked' : ''}> Sandeep
+                                                    </label>
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                        <input type="checkbox" value="Pradeep" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Pradeep') ? 'checked' : ''}> Pradeep
+                                                    </label>
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                        <input type="checkbox" value="Sunil" onchange="updateOwnerSelection(${task.id})" ${task.owner && (task.owner.includes('Sunil') || task.owner.includes('Kitchen Equipment Vendor')) ? 'checked' : ''}> Sunil
+                                                    </label>
+                                                    <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px;">
+                                                        <input type="checkbox" value="Team" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Team') ? 'checked' : ''}> Team
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="date" value="${task.dueDate}" 
+                                                   class="inline-edit" 
+                                                   onchange="updateTaskField(${task.id}, 'dueDate', this.value)"
+                                                   style="border: none; background: transparent; width: 100%;">
+                                        </td>
                                         <td style="color: ${daysLeft < 0 ? '#dc2626' : daysLeft < 3 ? '#ea580c' : '#16a34a'}; font-weight: 600;">
                                             ${daysLeft < 0 ? `${Math.abs(daysLeft)} overdue` : `${daysLeft} days`}
+                                        </td>
+                                        <td>
+                                            ${getContactButtons(task)}
                                         </td>
                                     </tr>
                                 `;
@@ -733,7 +802,6 @@ const server = http.createServer(async (req, res) => {
                                     <tr>
                                         <td style="max-width: 200px;"><strong>${task.title}</strong></td>
                                         <td>${task.owner}</td>
-                                        <td style="text-transform: capitalize;">${task.category}</td>
                                         <td>${new Date(task.updatedAt).toLocaleDateString()}</td>
                                     </tr>
                                 `).join('')}
@@ -749,62 +817,6 @@ const server = http.createServer(async (req, res) => {
                 </div>
             </div>
 
-            <div class="card clickable-card" onclick="toggleDetails('contractors')">
-                <h3>👥 Your Contractors <span style="float: right; font-size: 12px; color: #64748b;">Click for details</span></h3>
-                <div class="contractor-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                    ${Object.entries(contractorPhones).map(([name, phone]) => {
-                        const contractorTasks = allTasks.filter(t => t.owner === name);
-                        const activeTasks = contractorTasks.filter(t => t.status === 'In Progress').length;
-                        return `
-                            <div class="contractor-card" style="background: #f1f5f9; padding: 16px; border-radius: 8px; text-align: center;">
-                                <div style="font-weight: 600; margin-bottom: 4px; color: #1f2937;">${name}</div>
-                                <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">${contractorTasks.length} tasks • ${activeTasks} active</div>
-                                <a href="tel:${phone}" class="call-btn" onclick="event.stopPropagation();">📞 Call</a>
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-                
-                <div id="contractors-details" class="details-section">
-                    <button class="close-details" onclick="event.stopPropagation(); toggleDetails('contractors');">✕ Close</button>
-                    <h4 style="margin-bottom: 16px;">Contractor Task Details</h4>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Contractor</th>
-                                <th>Phone</th>
-                                <th>Total Tasks</th>
-                                <th>Active</th>
-                                <th>Completed</th>
-                                <th>Pending</th>
-                                <th>Next Due</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${Object.entries(contractorPhones).map(([name, phone]) => {
-                                const contractorTasks = allTasks.filter(t => t.owner === name);
-                                const activeTasks = contractorTasks.filter(t => t.status === 'In Progress').length;
-                                const completedTasks = contractorTasks.filter(t => t.status === 'Completed').length;
-                                const pendingTasks = contractorTasks.filter(t => t.status === 'Not Started' || t.status === 'Awaiting Decision').length;
-                                const nextDue = contractorTasks
-                                    .filter(t => t.status !== 'Completed')
-                                    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
-                                return `
-                                    <tr>
-                                        <td><strong>${name}</strong></td>
-                                        <td><a href="tel:${phone}" style="color: #10b981; text-decoration: none;">${phone}</a></td>
-                                        <td>${contractorTasks.length}</td>
-                                        <td><span style="color: #2563eb; font-weight: 600;">${activeTasks}</span></td>
-                                        <td><span style="color: #16a34a; font-weight: 600;">${completedTasks}</span></td>
-                                        <td><span style="color: #d97706; font-weight: 600;">${pendingTasks}</span></td>
-                                        <td>${nextDue ? new Date(nextDue.dueDate).toLocaleDateString() : 'None'}</td>
-                                    </tr>
-                                `;
-                            }).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
             <div class="card">
                 <h3>📊 Project Status</h3>
@@ -813,9 +825,6 @@ const server = http.createServer(async (req, res) => {
                         ${summary.summary.progress}%
                     </div>
                     <div style="color: #64748b; margin-bottom: 16px;">Overall Progress</div>
-                    <div class="progress-bar" style="height: 12px;">
-                        <div class="progress-fill" style="width: ${summary.summary.progress}%"></div>
-                    </div>
                     <div style="background: #fef3c7; color: #d97706; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; margin-top: 16px;">
                         Target Opening: ${summary.targetOpening}
                     </div>
@@ -823,43 +832,6 @@ const server = http.createServer(async (req, res) => {
             </div>
         </div>
 
-        <!-- Overview Tab -->
-        <div id="overview" class="tab-content">
-            <div class="card">
-                <h3>🚨 Urgent Tasks (${urgentTasks.length})</h3>
-                ${urgentTasks.map(task => `
-                    <div class="task-item">
-                        <div class="task-title">${task.title}</div>
-                        <div class="task-meta">
-                            <span><strong>${task.owner}</strong> • Due: ${new Date(task.dueDate).toLocaleDateString()}</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${task.progress}%"></div>
-                        </div>
-                        <div style="font-size: 12px; color: #64748b; margin-top: 4px;">${task.progress}% Complete</div>
-                        ${contractorPhones[task.owner] ? `<a href="tel:${contractorPhones[task.owner]}" class="call-btn">📞 Call ${task.owner}</a>` : ''}
-                        ${task.source === 'user_added' ? `<button class="edit-btn" onclick="editTask(${task.id})">✏️ Edit</button>` : ''}
-                    </div>
-                `).join('')}
-            </div>
-
-            ${pendingDecisions.length > 0 ? `
-            <div class="card">
-                <h3>⚖️ Pending Decisions (${pendingDecisions.length})</h3>
-                ${pendingDecisions.map(decision => `
-                    <div class="task-item">
-                        <div class="task-title">${decision.title}</div>
-                        <div class="task-meta">
-                            <span><strong>${decision.assignedTo}</strong> • Due: ${new Date(decision.dueDate).toLocaleDateString()}</span>
-                            <span style="background: #ea580c; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">${decision.priority}</span>
-                        </div>
-                        <p style="font-size: 14px; color: #64748b; margin-top: 8px;">${decision.description}</p>
-                        <button class="edit-btn" onclick="editDecision(${decision.id})">✏️ Update</button>
-                    </div>
-                `).join('')}
-            </div>
-            ` : ''}
-        </div>
 
         <!-- Add Task Tab -->
         <div id="add-task" class="tab-content">
@@ -882,7 +854,7 @@ const server = http.createServer(async (req, res) => {
                                 <option value="Sabharwal">Sabharwal (Wood Work)</option>
                                 <option value="Sandeep">Sandeep (Tensile Structure)</option>
                                 <option value="Pradeep">Pradeep (HVAC & Exhaust)</option>
-                                <option value="Sunil">Sunil (Kitchen)</option>
+                                <option value="Sunil">Sunil</option>
                                 <option value="Bhargav">Bhargav</option>
                             </select>
                         </div>
@@ -897,19 +869,6 @@ const server = http.createServer(async (req, res) => {
                             </select>
                         </div>
                         
-                        <div class="form-group">
-                            <label class="form-label">Category</label>
-                            <select class="form-select" name="category">
-                                <option value="general">General</option>
-                                <option value="kitchen">Kitchen</option>
-                                <option value="bar">Bar</option>
-                                <option value="electrical">Electrical</option>
-                                <option value="plumbing">Plumbing</option>
-                                <option value="construction">Construction</option>
-                                <option value="finishing">Finishing</option>
-                                <option value="exterior">Exterior</option>
-                            </select>
-                        </div>
                     </div>
                     
                     <div class="form-row">
@@ -994,6 +953,129 @@ const server = http.createServer(async (req, res) => {
                 <div id="update-form-container">
                     <p style="text-align: center; color: #9ca3af; padding: 40px;">Select a task from the Overview tab to update it here.</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Contacts Tab -->
+        <div id="contacts" class="tab-content">
+            <div class="card">
+                
+                <div class="contacts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="color: white; font-weight: 600;">A</span>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px;">Arushi</h4>
+                                <p style="margin: 0; font-size: 14px; color: #64748b;">Architect and Interior Design</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:9810312309" style="color: #3b82f6; text-decoration: none;">9810312309</a>
+                            </div>
+                            <a href="sms:9810312309" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #8b5cf6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="color: white; font-weight: 600;">S</span>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px;">Sabharwal</h4>
+                                <p style="margin: 0; font-size: 14px; color: #64748b;">Wood Work</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:9868226580" style="color: #3b82f6; text-decoration: none;">9868226580</a>
+                            </div>
+                            <a href="sms:9868226580" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="color: white; font-weight: 600;">V</span>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px;">Vishal</h4>
+                                <p style="margin: 0; font-size: 14px; color: #64748b;">General Contractor</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:9310203344" style="color: #3b82f6; text-decoration: none;">9310203344</a>
+                            </div>
+                            <a href="sms:9310203344" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="color: white; font-weight: 600;">S</span>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px;">Sandeep</h4>
+                                <p style="margin: 0; font-size: 14px; color: #64748b;">Tensile Structure</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:9810165187" style="color: #3b82f6; text-decoration: none;">9810165187</a>
+                            </div>
+                            <a href="sms:9810165187" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="color: white; font-weight: 600;">P</span>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px;">Pradeep</h4>
+                                <p style="margin: 0; font-size: 14px; color: #64748b;">HVAC & Exhaust</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:9540475132" style="color: #3b82f6; text-decoration: none;">9540475132</a>
+                            </div>
+                            <a href="sms:9540475132" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 40px; height: 40px; background: #06b6d4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <span style="color: white; font-weight: 600;">S</span>
+                            </div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px;">Sunil</h4>
+                                <p style="margin: 0; font-size: 14px; color: #64748b;">Kitchen & Equipment</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:9810086477" style="color: #3b82f6; text-decoration: none;">9810086477</a>
+                            </div>
+                            <a href="sms:9810086477" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

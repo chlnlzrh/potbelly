@@ -15,9 +15,9 @@
 | Finalize material selection for terrace glass frame (MS vs aluminum) | Arushi                   | Oct 23, 2025 (Proposed) | High         | Awaiting Decision        |
 | Finalize liquor storage room finishes                        | Arushi                   | Oct 23, 2025 (Proposed) | Medium       | Awaiting Decision        |
 | Decide terrace wall treatment (paint vs tiles)               | Arushi                   | Oct 23, 2025 (Proposed) | Medium       | Awaiting Decision        |
-| Deliver kitchen equipment post-Diwali | Sunil + Kitchen Equipment Vendor | Nov 5, 2025 (Proposed)  | Critical     | Awaiting Vendor          |
+| Deliver kitchen equipment post-Diwali | Sunil | Nov 5, 2025 (Proposed)  | Critical     | Awaiting Vendor          |
 | Coordinate kitchen equipment layout meeting | Arushi + Vishal + Sunil + Team   | Oct 23, 2025 (Proposed) | High         | Not Started              |
-| Install electrical fixtures and final fittings               | Sandeep                  | Nov 1-2, 2025           | High         | Awaiting Site Readiness  |
+| Install electrical fixtures and final fittings               | Vishal                   | Nov 1-2, 2025           | High         | Awaiting Site Readiness  |
 | Submit reimbursement documentation for terrace repair to landlord | Vishal                   | Oct 25, 2025 (Proposed) | Medium       | Not Started              |
 | Complete terrace waterproofing and grouting                  | Vishal                   | Oct 28, 2025 (Proposed) | High         | In Progress              |
 | Install terrace roofing (tensile fabric)                     | Sandeep                  | Oct 31, 2025 (Proposed) | High         | Design Approved          |
@@ -31,7 +31,7 @@
 | Complete skirting work in terrace bathroom                   | Vishal                   | Oct 30, 2025 (Proposed) | Medium       | In Progress              |
 | Install bison board enclosure for washing area               | Vishal                   | Oct 28, 2025 (Proposed) | Medium       | In Progress              |
 | Apply commercial tiles over bison board (washing area)       | Vishal                   | Nov 1, 2025 (Proposed)  | Medium       | Awaiting Prerequisites   |
-| Recondition and integrate existing kitchen equipment | Sunil + Kitchen Equipment Vendor | Nov 6, 2025 (Proposed)  | Medium       | Not Started              |
+| Recondition and integrate existing kitchen equipment | Sunil | Nov 6, 2025 (Proposed)  | Medium       | Not Started              |
 | Install stainless steel shelving in liquor storage room      | Vishal                   | Nov 5, 2025 (Proposed)  | Low          | Awaiting Design Approval |
 | Complete fixed furniture installation (all areas)            | Sabharwal                | Nov 3, 2025 (Proposed)  | High         | In Progress              |
 | Repair and paint staircase (folding mechanism retained)      | Vishal                   | Oct 30, 2025 (Proposed) | Medium       | In Progress              |

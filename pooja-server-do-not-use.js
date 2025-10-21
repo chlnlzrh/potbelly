@@ -292,7 +292,7 @@ const server = http.createServer((req, res) => {
                             <div class="task-item">
                                 <div class="task-title">${task.title}</div>
                                 <div class="task-meta">
-                                    <span><strong>${task.owner}</strong> • ${task.category}</span>
+                                    <span><strong>${task.owner}</strong></span>
                                     <span style="background: #${task.status === 'Completed' ? '16a34a' : task.status === 'In Progress' ? '2563eb' : task.status === 'Awaiting Decision' ? 'ea580c' : '64748b'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px;">${task.status}</span>
                                 </div>
                                 <div class="progress-bar">
