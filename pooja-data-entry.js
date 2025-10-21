@@ -422,6 +422,36 @@ const server = http.createServer(async (req, res) => {
             border: 1px solid #ef4444;
         }
         
+        .inline-edit {
+            border: 1px solid transparent;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .inline-edit:hover {
+            border-color: #e5e7eb;
+            background: #f9fafb;
+        }
+        
+        .inline-edit:focus {
+            outline: none;
+            border-color: #3b82f6;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .data-table td .inline-edit {
+            width: 100%;
+            min-width: 100px;
+        }
+        
+        .data-table input[type="range"] {
+            margin: 0;
+            padding: 0;
+        }
+        
         @media (min-width: 768px) {
             .container { 
                 max-width: 1200px;
@@ -500,18 +530,65 @@ const server = http.createServer(async (req, res) => {
                         </thead>
                         <tbody>
                             ${allTasks.map(task => `
-                                <tr>
-                                    <td style="max-width: 200px;"><strong>${task.title}</strong></td>
-                                    <td>${task.owner}</td>
-                                    <td><span class="status-badge-table" style="background: #${task.status === 'Completed' ? '16a34a' : task.status === 'In Progress' ? '2563eb' : task.status === 'Awaiting Decision' ? 'ea580c' : '64748b'}; color: white;">${task.status}</span></td>
-                                    <td>${new Date(task.dueDate).toLocaleDateString()}</td>
-                                    <td>
-                                        <div class="progress-mini">
-                                            <div class="progress-mini-fill" style="width: ${task.progress}%"></div>
-                                        </div>
-                                        ${task.progress}%
+                                <tr data-task-id="${task.id}">
+                                    <td style="max-width: 200px;">
+                                        <input type="text" value="${task.title}" 
+                                               class="inline-edit" 
+                                               onchange="updateTaskField(${task.id}, 'title', this.value)"
+                                               style="border: none; background: transparent; width: 100%; font-weight: bold;">
                                     </td>
-                                    <td style="text-transform: capitalize;">${task.category}</td>
+                                    <td>
+                                        <select class="inline-edit" 
+                                                onchange="updateTaskField(${task.id}, 'owner', this.value)"
+                                                style="border: none; background: transparent; width: 100%;">
+                                            <option value="Arushi" ${task.owner === 'Arushi' ? 'selected' : ''}>Arushi</option>
+                                            <option value="Sabharwal" ${task.owner === 'Sabharwal' ? 'selected' : ''}>Sabharwal</option>
+                                            <option value="Vishal" ${task.owner === 'Vishal' ? 'selected' : ''}>Vishal</option>
+                                            <option value="Sandeep" ${task.owner === 'Sandeep' ? 'selected' : ''}>Sandeep</option>
+                                            <option value="Pradeep" ${task.owner === 'Pradeep' ? 'selected' : ''}>Pradeep</option>
+                                            <option value="Sunil" ${task.owner === 'Sunil' ? 'selected' : ''}>Sunil</option>
+                                            <option value="Sunil + Kitchen Equipment Vendor" ${task.owner === 'Sunil + Kitchen Equipment Vendor' ? 'selected' : ''}>Sunil + Kitchen Equipment Vendor</option>
+                                            <option value="Arushi + Vishal + Sunil + Team" ${task.owner === 'Arushi + Vishal + Sunil + Team' ? 'selected' : ''}>Arushi + Vishal + Sunil + Team</option>
+                                            <option value="Pradeep + Vishal" ${task.owner === 'Pradeep + Vishal' ? 'selected' : ''}>Pradeep + Vishal</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="inline-edit" 
+                                                onchange="updateTaskField(${task.id}, 'status', this.value)"
+                                                style="border: none; background: transparent; width: 100%;">
+                                            <option value="Not Started" ${task.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
+                                            <option value="In Progress" ${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+                                            <option value="Awaiting Decision" ${task.status === 'Awaiting Decision' ? 'selected' : ''}>Awaiting Decision</option>
+                                            <option value="Completed" ${task.status === 'Completed' ? 'selected' : ''}>Completed</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="date" value="${task.dueDate}" 
+                                               class="inline-edit" 
+                                               onchange="updateTaskField(${task.id}, 'dueDate', this.value)"
+                                               style="border: none; background: transparent; width: 100%;">
+                                    </td>
+                                    <td>
+                                        <input type="range" value="${task.progress}" min="0" max="100" step="5"
+                                               class="inline-edit" 
+                                               onchange="updateTaskField(${task.id}, 'progress', this.value)"
+                                               style="width: 70px; margin-right: 8px;">
+                                        <span>${task.progress}%</span>
+                                    </td>
+                                    <td>
+                                        <select class="inline-edit" 
+                                                onchange="updateTaskField(${task.id}, 'category', this.value)"
+                                                style="border: none; background: transparent; width: 100%;">
+                                            <option value="kitchen" ${task.category === 'kitchen' ? 'selected' : ''}>Kitchen</option>
+                                            <option value="bar" ${task.category === 'bar' ? 'selected' : ''}>Bar</option>
+                                            <option value="electrical" ${task.category === 'electrical' ? 'selected' : ''}>Electrical</option>
+                                            <option value="finishing" ${task.category === 'finishing' ? 'selected' : ''}>Finishing</option>
+                                            <option value="construction" ${task.category === 'construction' ? 'selected' : ''}>Construction</option>
+                                            <option value="exterior" ${task.category === 'exterior' ? 'selected' : ''}>Exterior</option>
+                                            <option value="plumbing" ${task.category === 'plumbing' ? 'selected' : ''}>Plumbing</option>
+                                            <option value="general" ${task.category === 'general' ? 'selected' : ''}>General</option>
+                                        </select>
+                                    </td>
                                 </tr>
                             `).join('')}
                         </tbody>
@@ -1001,6 +1078,65 @@ const server = http.createServer(async (req, res) => {
             loadDecisionEditForm(decisionId);
         }
 
+        // Update task field function for inline editing
+        async function updateTaskField(taskId, field, value) {
+            try {
+                const response = await fetch('/api/tasks/update', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        id: taskId, 
+                        field: field, 
+                        value: value 
+                    })
+                });
+                
+                const result = await response.json();
+                if (!result.success) {
+                    throw new Error(result.message || 'Failed to update task');
+                }
+                
+                // Update progress display if progress was changed
+                if (field === 'progress') {
+                    const row = document.querySelector(\`[data-task-id="\${taskId}"]\`);
+                    const progressSpan = row.querySelector('span');
+                    if (progressSpan) {
+                        progressSpan.textContent = value + '%';
+                    }
+                }
+                
+                console.log(\`Updated \${field} for task \${taskId} to \${value}\`);
+            } catch (error) {
+                console.error('Error updating task:', error);
+                alert('Failed to update task: ' + error.message);
+            }
+        }
+
+        // Update decision field function for inline editing
+        async function updateDecisionField(decisionId, field, value) {
+            try {
+                const response = await fetch('/api/decisions/update', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        id: decisionId, 
+                        field: field, 
+                        value: value 
+                    })
+                });
+                
+                const result = await response.json();
+                if (!result.success) {
+                    throw new Error(result.message || 'Failed to update decision');
+                }
+                
+                console.log(\`Updated \${field} for decision \${decisionId} to \${value}\`);
+            } catch (error) {
+                console.error('Error updating decision:', error);
+                alert('Failed to update decision: ' + error.message);
+            }
+        }
+
         async function loadTaskEditForm(taskId) {
             const container = document.getElementById('update-form-container');
             container.innerHTML = '<p>Loading task details...</p>';
@@ -1145,6 +1281,68 @@ const server = http.createServer(async (req, res) => {
       } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: false, message: 'Task not found' }));
+      }
+    } catch (error) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: error.message }));
+    }
+    
+  } else if (req.method === 'PUT' && path === '/api/tasks/update') {
+    try {
+      const { id, field, value } = await parsePostData(req);
+      const userData = getAllData();
+      const taskIndex = userData.tasks.findIndex(t => t.id == id);
+      
+      if (taskIndex !== -1) {
+        // Update specific field
+        userData.tasks[taskIndex][field] = value;
+        
+        // Update timestamp
+        userData.tasks[taskIndex].updatedAt = new Date().toISOString();
+        
+        // Save updated data
+        saveData(userData);
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ 
+          success: true, 
+          data: userData.tasks[taskIndex],
+          message: `Task ${field} updated successfully`
+        }));
+      } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Task not found' }));
+      }
+    } catch (error) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: false, message: error.message }));
+    }
+    
+  } else if (req.method === 'PUT' && path === '/api/decisions/update') {
+    try {
+      const { id, field, value } = await parsePostData(req);
+      const userData = getAllData();
+      const decisionIndex = userData.decisions.findIndex(d => d.id == id);
+      
+      if (decisionIndex !== -1) {
+        // Update specific field
+        userData.decisions[decisionIndex][field] = value;
+        
+        // Update timestamp
+        userData.decisions[decisionIndex].updatedAt = new Date().toISOString();
+        
+        // Save updated data
+        saveData(userData);
+        
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ 
+          success: true, 
+          data: userData.decisions[decisionIndex],
+          message: `Decision ${field} updated successfully`
+        }));
+      } else {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: false, message: 'Decision not found' }));
       }
     } catch (error) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
