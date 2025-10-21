@@ -452,6 +452,33 @@ const server = http.createServer(async (req, res) => {
             padding: 0;
         }
         
+        .multi-select-owner {
+            font-size: 12px !important;
+            line-height: 1.3 !important;
+            overflow-y: auto;
+        }
+        
+        .multi-select-owner option {
+            padding: 2px 4px;
+            font-size: 12px;
+        }
+        
+        .custom-multi-select {
+            position: relative;
+        }
+        
+        .multi-select-display:hover {
+            border-color: #3b82f6;
+        }
+        
+        .multi-select-dropdown label:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .multi-select-dropdown label {
+            transition: background-color 0.2s;
+        }
+        
         @media (min-width: 768px) {
             .container { 
                 max-width: 1200px;
@@ -535,22 +562,40 @@ const server = http.createServer(async (req, res) => {
                                         <input type="text" value="${task.title}" 
                                                class="inline-edit" 
                                                onchange="updateTaskField(${task.id}, 'title', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-weight: bold;">
+                                               style="border: none; background: transparent; width: 100%;">
                                     </td>
                                     <td>
-                                        <select class="inline-edit" 
-                                                onchange="updateTaskField(${task.id}, 'owner', this.value)"
-                                                style="border: none; background: transparent; width: 100%;">
-                                            <option value="Arushi" ${task.owner === 'Arushi' ? 'selected' : ''}>Arushi</option>
-                                            <option value="Sabharwal" ${task.owner === 'Sabharwal' ? 'selected' : ''}>Sabharwal</option>
-                                            <option value="Vishal" ${task.owner === 'Vishal' ? 'selected' : ''}>Vishal</option>
-                                            <option value="Sandeep" ${task.owner === 'Sandeep' ? 'selected' : ''}>Sandeep</option>
-                                            <option value="Pradeep" ${task.owner === 'Pradeep' ? 'selected' : ''}>Pradeep</option>
-                                            <option value="Sunil" ${task.owner === 'Sunil' ? 'selected' : ''}>Sunil</option>
-                                            <option value="Sunil + Kitchen Equipment Vendor" ${task.owner === 'Sunil + Kitchen Equipment Vendor' ? 'selected' : ''}>Sunil + Kitchen Equipment Vendor</option>
-                                            <option value="Arushi + Vishal + Sunil + Team" ${task.owner === 'Arushi + Vishal + Sunil + Team' ? 'selected' : ''}>Arushi + Vishal + Sunil + Team</option>
-                                            <option value="Pradeep + Vishal" ${task.owner === 'Pradeep + Vishal' ? 'selected' : ''}>Pradeep + Vishal</option>
-                                        </select>
+                                        <div class="custom-multi-select" data-task-id="${task.id}">
+                                            <div class="multi-select-display" onclick="toggleMultiSelectDropdown(${task.id})" 
+                                                 style="border: 1px solid #e5e7eb; padding: 6px 8px; border-radius: 4px; cursor: pointer; background: white; min-height: 20px; position: relative;">
+                                                <span class="selected-owners" style="font-size: 12px;">${task.owner || 'Select owners...'}</span>
+                                                <span style="float: right; color: #666;">▼</span>
+                                            </div>
+                                            <div class="multi-select-dropdown" id="dropdown-${task.id}" 
+                                                 style="display: none; position: absolute; z-index: 1000; background: white; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-width: 200px; max-height: 200px; overflow-y: auto;">
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                    <input type="checkbox" value="Arushi" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Arushi') ? 'checked' : ''}> Arushi
+                                                </label>
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                    <input type="checkbox" value="Sabharwal" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Sabharwal') ? 'checked' : ''}> Sabharwal
+                                                </label>
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                    <input type="checkbox" value="Vishal" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Vishal') ? 'checked' : ''}> Vishal
+                                                </label>
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                    <input type="checkbox" value="Sandeep" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Sandeep') ? 'checked' : ''}> Sandeep
+                                                </label>
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                    <input type="checkbox" value="Pradeep" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Pradeep') ? 'checked' : ''}> Pradeep
+                                                </label>
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #eee;">
+                                                    <input type="checkbox" value="Sunil" onchange="updateOwnerSelection(${task.id})" ${task.owner && (task.owner.includes('Sunil') || task.owner.includes('Kitchen Equipment Vendor')) ? 'checked' : ''}> Sunil (Kitchen & Equipment)
+                                                </label>
+                                                <label style="display: block; padding: 4px 8px; cursor: pointer; font-size: 12px;">
+                                                    <input type="checkbox" value="Team" onchange="updateOwnerSelection(${task.id})" ${task.owner && task.owner.includes('Team') ? 'checked' : ''}> Team
+                                                </label>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td>
                                         <select class="inline-edit" 
@@ -1111,6 +1156,71 @@ const server = http.createServer(async (req, res) => {
                 alert('Failed to update task: ' + error.message);
             }
         }
+
+        // Toggle multi-select dropdown
+        function toggleMultiSelectDropdown(taskId) {
+            const dropdown = document.getElementById(\`dropdown-\${taskId}\`);
+            const isVisible = dropdown.style.display === 'block';
+            
+            // Close all other dropdowns
+            document.querySelectorAll('.multi-select-dropdown').forEach(d => {
+                d.style.display = 'none';
+            });
+            
+            // Toggle current dropdown
+            dropdown.style.display = isVisible ? 'none' : 'block';
+        }
+
+        // Update owner selection when checkboxes change
+        async function updateOwnerSelection(taskId) {
+            const dropdown = document.getElementById(\`dropdown-\${taskId}\`);
+            const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+            const selectedValues = [];
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedValues.push(checkbox.value);
+                }
+            });
+            
+            const value = selectedValues.join(' + ');
+            
+            // Update display
+            const displayElement = dropdown.parentElement.querySelector('.selected-owners');
+            displayElement.textContent = value || 'Select owners...';
+            
+            // Save to server
+            try {
+                const response = await fetch('/api/tasks/update', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        id: taskId, 
+                        field: 'owner', 
+                        value: value 
+                    })
+                });
+                
+                const result = await response.json();
+                if (!result.success) {
+                    throw new Error(result.message || 'Failed to update task');
+                }
+                
+                console.log(\`Updated owner for task \${taskId} to \${value}\`);
+            } catch (error) {
+                console.error('Error updating task owner:', error);
+                alert('Failed to update task owner: ' + error.message);
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.custom-multi-select')) {
+                document.querySelectorAll('.multi-select-dropdown').forEach(dropdown => {
+                    dropdown.style.display = 'none';
+                });
+            }
+        });
 
         // Update decision field function for inline editing
         async function updateDecisionField(decisionId, field, value) {
