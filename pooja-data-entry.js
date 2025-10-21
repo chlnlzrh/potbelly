@@ -52,14 +52,15 @@ const server = http.createServer(async (req, res) => {
     // Get pending decisions
     const pendingDecisions = userData.decisions.filter(d => d.status === 'Pending').slice(0, 5);
     
-    // Contractor phone numbers
+    // Real contractor phone numbers from phone numbers.md
     const contractorPhones = {
-      'Vishal': '+91-98765-43210',
-      'Sabharwal': '+91-98765-43211', 
-      'Arushi': '+91-98765-43212',
-      'Sandeep': '+91-98765-43213',
-      'Pradeep': '+91-98765-43214',
-      'Bhargav': '+91-98765-43215'
+      'Arushi': '+91-9810312309',     // Architect and Interior Design
+      'Sabharwal': '+91-9868226580',  // Wood Work
+      'Vishal': '+91-9310203344',     // General Contractor
+      'Sandeep': '+91-9810165187',    // Tensile Structure
+      'Pradeep': '+91-9540475132',    // HVAC & Exhaust
+      'Sunil': '+91-9810086477',      // Kitchen
+      'Bhargav': '+91-9999999999'     // (No number in file, using placeholder)
     };
     
     res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -294,6 +295,114 @@ const server = http.createServer(async (req, res) => {
             margin-left: 8px;
         }
         
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .clickable-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .details-section {
+            margin-top: 20px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .details-section.active {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th {
+            background: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #374151;
+            border-bottom: 2px solid #e5e7eb;
+            font-size: 14px;
+        }
+        
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            vertical-align: top;
+        }
+        
+        .data-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .status-badge-table {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .priority-badge-table {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .progress-mini {
+            width: 60px;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        
+        .progress-mini-fill {
+            height: 100%;
+            background: #10b981;
+        }
+        
+        .close-details {
+            float: right;
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+        
+        .close-details:hover {
+            background: #4b5563;
+        }
+        
         .message {
             padding: 12px;
             border-radius: 8px;
@@ -351,26 +460,181 @@ const server = http.createServer(async (req, res) => {
         <!-- Dashboard Tab -->
         <div id="dashboard" class="tab-content active">
             <div class="progress-overview" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px;">
-                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                <div class="progress-card clickable-card" onclick="toggleDetails('all-tasks')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
                     <span class="big-number" style="font-size: 36px; font-weight: bold; color: #1f2937; display: block;">${summary.summary.total}</span>
                     <div style="color: #64748b; font-size: 14px;">Total Tasks</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
-                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                <div class="progress-card clickable-card" onclick="toggleDetails('in-progress')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
                     <span class="big-number" style="font-size: 36px; font-weight: bold; color: #2563eb; display: block;">${summary.summary.inProgress}</span>
                     <div style="color: #64748b; font-size: 14px;">In Progress</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
-                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                <div class="progress-card clickable-card" onclick="toggleDetails('decisions')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
                     <span class="big-number" style="font-size: 36px; font-weight: bold; color: #d97706; display: block;">${summary.summary.awaitingDecision}</span>
                     <div style="color: #64748b; font-size: 14px;">Need Decisions</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
-                <div class="progress-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                <div class="progress-card clickable-card" onclick="toggleDetails('completed')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
                     <span class="big-number" style="font-size: 36px; font-weight: bold; color: #16a34a; display: block;">${summary.summary.completed}</span>
                     <div style="color: #64748b; font-size: 14px;">Completed</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
+                </div>
+            </div>
+            
+            <!-- Task Details Sections -->
+            <div id="all-tasks-details" class="details-section">
+                <div class="card">
+                    <button class="close-details" onclick="toggleDetails('all-tasks');">✕ Close</button>
+                    <h4 style="margin-bottom: 16px;">All Tasks (${allTasks.length})</h4>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Owner</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Due Date</th>
+                                <th>Progress</th>
+                                <th>Category</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${allTasks.map(task => `
+                                <tr>
+                                    <td style="max-width: 200px;"><strong>${task.title}</strong></td>
+                                    <td>${task.owner}</td>
+                                    <td><span class="status-badge-table" style="background: #${task.status === 'Completed' ? '16a34a' : task.status === 'In Progress' ? '2563eb' : task.status === 'Awaiting Decision' ? 'ea580c' : '64748b'}; color: white;">${task.status}</span></td>
+                                    <td><span class="priority-badge-table" style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : task.priority === 'Medium' ? '2563eb' : '16a34a'}; color: white;">${task.priority}</span></td>
+                                    <td>${new Date(task.dueDate).toLocaleDateString()}</td>
+                                    <td>
+                                        <div class="progress-mini">
+                                            <div class="progress-mini-fill" style="width: ${task.progress}%"></div>
+                                        </div>
+                                        ${task.progress}%
+                                    </td>
+                                    <td style="text-transform: capitalize;">${task.category}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="in-progress-details" class="details-section">
+                <div class="card">
+                    <button class="close-details" onclick="toggleDetails('in-progress');">✕ Close</button>
+                    <h4 style="margin-bottom: 16px;">In Progress Tasks (${allTasks.filter(t => t.status === 'In Progress').length})</h4>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Owner</th>
+                                <th>Priority</th>
+                                <th>Due Date</th>
+                                <th>Progress</th>
+                                <th>Days Left</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${allTasks.filter(t => t.status === 'In Progress').map(task => {
+                                const daysLeft = Math.ceil((new Date(task.dueDate) - new Date()) / (1000 * 60 * 60 * 24));
+                                return `
+                                    <tr>
+                                        <td style="max-width: 200px;"><strong>${task.title}</strong></td>
+                                        <td>${task.owner}</td>
+                                        <td><span class="priority-badge-table" style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : task.priority === 'Medium' ? '2563eb' : '16a34a'}; color: white;">${task.priority}</span></td>
+                                        <td>${new Date(task.dueDate).toLocaleDateString()}</td>
+                                        <td>
+                                            <div class="progress-mini">
+                                                <div class="progress-mini-fill" style="width: ${task.progress}%"></div>
+                                            </div>
+                                            ${task.progress}%
+                                        </td>
+                                        <td style="color: ${daysLeft < 0 ? '#dc2626' : daysLeft < 3 ? '#ea580c' : '#16a34a'}; font-weight: 600;">
+                                            ${daysLeft < 0 ? `${Math.abs(daysLeft)} overdue` : `${daysLeft} days`}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="decisions-details" class="details-section">
+                <div class="card">
+                    <button class="close-details" onclick="toggleDetails('decisions');">✕ Close</button>
+                    <h4 style="margin-bottom: 16px;">Awaiting Decision Tasks (${allTasks.filter(t => t.status === 'Awaiting Decision').length})</h4>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Task</th>
+                                <th>Owner</th>
+                                <th>Priority</th>
+                                <th>Due Date</th>
+                                <th>Category</th>
+                                <th>Days Until Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${allTasks.filter(t => t.status === 'Awaiting Decision').map(task => {
+                                const daysLeft = Math.ceil((new Date(task.dueDate) - new Date()) / (1000 * 60 * 60 * 24));
+                                return `
+                                    <tr>
+                                        <td style="max-width: 200px;"><strong>${task.title}</strong></td>
+                                        <td>${task.owner}</td>
+                                        <td><span class="priority-badge-table" style="background: #${task.priority === 'Critical' ? 'dc2626' : task.priority === 'High' ? 'ea580c' : task.priority === 'Medium' ? '2563eb' : '16a34a'}; color: white;">${task.priority}</span></td>
+                                        <td>${new Date(task.dueDate).toLocaleDateString()}</td>
+                                        <td style="text-transform: capitalize;">${task.category}</td>
+                                        <td style="color: ${daysLeft < 0 ? '#dc2626' : daysLeft < 3 ? '#ea580c' : '#16a34a'}; font-weight: 600;">
+                                            ${daysLeft < 0 ? `${Math.abs(daysLeft)} overdue` : `${daysLeft} days`}
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="completed-details" class="details-section">
+                <div class="card">
+                    <button class="close-details" onclick="toggleDetails('completed');">✕ Close</button>
+                    <h4 style="margin-bottom: 16px;">Completed Tasks (${allTasks.filter(t => t.status === 'Completed').length})</h4>
+                    ${allTasks.filter(t => t.status === 'Completed').length > 0 ? `
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Owner</th>
+                                    <th>Category</th>
+                                    <th>Completed Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${allTasks.filter(t => t.status === 'Completed').map(task => `
+                                    <tr>
+                                        <td style="max-width: 200px;"><strong>${task.title}</strong></td>
+                                        <td>${task.owner}</td>
+                                        <td style="text-transform: capitalize;">${task.category}</td>
+                                        <td>${new Date(task.updatedAt).toLocaleDateString()}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    ` : `
+                        <div style="text-align: center; padding: 40px; color: #9ca3af;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">🚧</div>
+                            <p>No tasks completed yet</p>
+                            <p style="font-size: 14px; margin-top: 8px;">Tasks will appear here once marked as completed</p>
+                        </div>
+                    `}
                 </div>
             </div>
 
-            <div class="card">
-                <h3>👥 Your Contractors</h3>
+            <div class="card clickable-card" onclick="toggleDetails('contractors')">
+                <h3>👥 Your Contractors <span style="float: right; font-size: 12px; color: #64748b;">Click for details</span></h3>
                 <div class="contractor-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                     ${Object.entries(contractorPhones).map(([name, phone]) => {
                         const contractorTasks = allTasks.filter(t => t.owner === name);
@@ -379,10 +643,50 @@ const server = http.createServer(async (req, res) => {
                             <div class="contractor-card" style="background: #f1f5f9; padding: 16px; border-radius: 8px; text-align: center;">
                                 <div style="font-weight: 600; margin-bottom: 4px; color: #1f2937;">${name}</div>
                                 <div style="font-size: 12px; color: #64748b; margin-bottom: 8px;">${contractorTasks.length} tasks • ${activeTasks} active</div>
-                                <a href="tel:${phone}" class="call-btn">📞 Call</a>
+                                <a href="tel:${phone}" class="call-btn" onclick="event.stopPropagation();">📞 Call</a>
                             </div>
                         `;
                     }).join('')}
+                </div>
+                
+                <div id="contractors-details" class="details-section">
+                    <button class="close-details" onclick="event.stopPropagation(); toggleDetails('contractors');">✕ Close</button>
+                    <h4 style="margin-bottom: 16px;">Contractor Task Details</h4>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Contractor</th>
+                                <th>Phone</th>
+                                <th>Total Tasks</th>
+                                <th>Active</th>
+                                <th>Completed</th>
+                                <th>Pending</th>
+                                <th>Next Due</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Object.entries(contractorPhones).map(([name, phone]) => {
+                                const contractorTasks = allTasks.filter(t => t.owner === name);
+                                const activeTasks = contractorTasks.filter(t => t.status === 'In Progress').length;
+                                const completedTasks = contractorTasks.filter(t => t.status === 'Completed').length;
+                                const pendingTasks = contractorTasks.filter(t => t.status === 'Not Started' || t.status === 'Awaiting Decision').length;
+                                const nextDue = contractorTasks
+                                    .filter(t => t.status !== 'Completed')
+                                    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))[0];
+                                return `
+                                    <tr>
+                                        <td><strong>${name}</strong></td>
+                                        <td><a href="tel:${phone}" style="color: #10b981; text-decoration: none;">${phone}</a></td>
+                                        <td>${contractorTasks.length}</td>
+                                        <td><span style="color: #2563eb; font-weight: 600;">${activeTasks}</span></td>
+                                        <td><span style="color: #16a34a; font-weight: 600;">${completedTasks}</span></td>
+                                        <td><span style="color: #d97706; font-weight: 600;">${pendingTasks}</span></td>
+                                        <td>${nextDue ? new Date(nextDue.dueDate).toLocaleDateString() : 'None'}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -458,11 +762,12 @@ const server = http.createServer(async (req, res) => {
                             <label class="form-label">Assigned To *</label>
                             <select class="form-select" name="owner" required>
                                 <option value="">Select Contractor</option>
-                                <option value="Vishal">Vishal</option>
-                                <option value="Sabharwal">Sabharwal</option>
-                                <option value="Arushi">Arushi</option>
-                                <option value="Sandeep">Sandeep</option>
-                                <option value="Pradeep">Pradeep</option>
+                                <option value="Arushi">Arushi (Architect & Interior Design)</option>
+                                <option value="Vishal">Vishal (General Contractor)</option>
+                                <option value="Sabharwal">Sabharwal (Wood Work)</option>
+                                <option value="Sandeep">Sandeep (Tensile Structure)</option>
+                                <option value="Pradeep">Pradeep (HVAC & Exhaust)</option>
+                                <option value="Sunil">Sunil (Kitchen)</option>
                                 <option value="Bhargav">Bhargav</option>
                             </select>
                         </div>
@@ -596,6 +901,23 @@ const server = http.createServer(async (req, res) => {
             
             // Activate corresponding nav tab
             event.target.classList.add('active');
+        }
+
+        // Toggle details sections
+        function toggleDetails(sectionName) {
+            const detailsSection = document.getElementById(sectionName + '-details');
+            const isActive = detailsSection.classList.contains('active');
+            
+            // Hide all other details sections
+            document.querySelectorAll('.details-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Toggle current section
+            if (!isActive) {
+                detailsSection.classList.add('active');
+                detailsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
 
         // Add task form submission
