@@ -1,0 +1,506 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Complete kitchen ducting to terrace",
+      "owner": "Pradeep",
+      "dueDate": "2025-10-25",
+      "priority": "High",
+      "status": "Completed",
+      "category": "HVAC",
+      "notes": "",
+      "updatedAt": "2025-10-23T15:30:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "Commence painting (main floor + upstairs)",
+      "owner": "Vishal",
+      "dueDate": "2025-10-25",
+      "priority": "Critical",
+      "status": "Completed",
+      "category": "Painting",
+      "notes": "",
+      "updatedAt": "2025-10-24T00:53:00.000Z"
+    },
+    {
+      "id": 3,
+      "title": "Install acoustic panels post-painting",
+      "owner": "Vishal",
+      "dueDate": "2025-11-01",
+      "priority": "High",
+      "status": "Awaiting Prerequisites",
+      "category": "Interior",
+      "notes": ""
+    },
+    {
+      "id": 4,
+      "title": "Complete bathroom fixture installation (upstairs)",
+      "owner": "Vishal",
+      "dueDate": "2025-10-28",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Plumbing",
+      "notes": ""
+    },
+    {
+      "id": 5,
+      "title": "Order and install Kota stone flooring (washing area)",
+      "owner": "Vishal",
+      "dueDate": "2025-10-30",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Flooring",
+      "notes": ""
+    },
+    {
+      "id": 6,
+      "title": "Finalize material selection for terrace glass frame (MS vs aluminum)",
+      "owner": "Arushi",
+      "dueDate": "2025-10-23",
+      "priority": "High",
+      "status": "Awaiting Decision",
+      "category": "Design",
+      "notes": ""
+    },
+    {
+      "id": 7,
+      "title": "Finalize liquor storage room finishes",
+      "owner": "Arushi",
+      "dueDate": "2025-10-23",
+      "priority": "Medium",
+      "status": "Awaiting Decision",
+      "category": "Design",
+      "notes": ""
+    },
+    {
+      "id": 8,
+      "title": "Decide terrace wall treatment (paint vs tiles)",
+      "owner": "Arushi",
+      "dueDate": "2025-10-23",
+      "priority": "Medium",
+      "status": "Awaiting Decision",
+      "category": "Design",
+      "notes": ""
+    },
+    {
+      "id": 9,
+      "title": "Deliver kitchen equipment post-Diwali",
+      "owner": "Sunil",
+      "dueDate": "2025-11-05",
+      "priority": "Critical",
+      "status": "Awaiting Vendor",
+      "category": "Kitchen",
+      "notes": ""
+    },
+    {
+      "id": 10,
+      "title": "Coordinate kitchen equipment layout meeting",
+      "owner": "Arushi + Vishal + Sunil + Team",
+      "dueDate": "2025-10-23",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Planning",
+      "notes": ""
+    },
+    {
+      "id": 11,
+      "title": "Install electrical fixtures and final fittings",
+      "owner": "Vishal",
+      "dueDate": "2025-11-01",
+      "priority": "High",
+      "status": "Awaiting Site Readiness",
+      "category": "Electrical",
+      "notes": ""
+    },
+    {
+      "id": 12,
+      "title": "Submit reimbursement documentation for terrace repair to landlord",
+      "owner": "Vishal",
+      "dueDate": "2025-10-25",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Documentation",
+      "notes": ""
+    },
+    {
+      "id": 13,
+      "title": "Complete terrace waterproofing and grouting",
+      "owner": "Vishal",
+      "dueDate": "2025-10-28",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Waterproofing",
+      "notes": ""
+    },
+    {
+      "id": 14,
+      "title": "Install terrace roofing (tensile fabric)",
+      "owner": "Sandeep",
+      "dueDate": "2025-10-31",
+      "priority": "High",
+      "status": "Design Approved",
+      "category": "Roofing",
+      "notes": ""
+    },
+    {
+      "id": 15,
+      "title": "Install signage at stairwell entrance",
+      "owner": "Vishal & Bhargav",
+      "dueDate": "2025-11-03",
+      "priority": "Low",
+      "status": "Not Started",
+      "category": "Signage",
+      "notes": ""
+    },
+    {
+      "id": 16,
+      "title": "Finalize stairwell wall treatment (wallpaper/photos)",
+      "owner": "Arushi",
+      "dueDate": "2025-10-25",
+      "priority": "Medium",
+      "status": "Awaiting Decision",
+      "category": "Design",
+      "notes": ""
+    },
+    {
+      "id": 17,
+      "title": "Complete floor grouting and machine buffing (terrace)",
+      "owner": "Vishal",
+      "dueDate": "2025-11-01",
+      "priority": "Medium",
+      "status": "Awaiting Prerequisites",
+      "category": "Flooring",
+      "notes": ""
+    },
+    {
+      "id": 18,
+      "title": "Install wallpaper for bar back",
+      "owner": "Vishal",
+      "dueDate": "2025-11-02",
+      "priority": "Medium",
+      "status": "Design in Progress",
+      "category": "Interior",
+      "notes": ""
+    },
+    {
+      "id": 19,
+      "title": "Install RO (reverse osmosis) system in terrace bathroom",
+      "owner": "Vishal",
+      "dueDate": "2025-10-30",
+      "priority": "Low",
+      "status": "Not Started",
+      "category": "Plumbing",
+      "notes": ""
+    },
+    {
+      "id": 20,
+      "title": "Apply waterproof texture paint on terrace walls",
+      "owner": "Vishal",
+      "dueDate": "2025-11-03",
+      "priority": "Medium",
+      "status": "Awaiting Prerequisites",
+      "category": "Painting",
+      "notes": ""
+    },
+    {
+      "id": 21,
+      "title": "Install wall fans for washing area ventilation (2 units)",
+      "owner": "Pradeep + Vishal",
+      "dueDate": "2025-10-30",
+      "priority": "Low",
+      "status": "Not Started",
+      "category": "HVAC",
+      "notes": ""
+    },
+    {
+      "id": 22,
+      "title": "Complete skirting work in terrace bathroom",
+      "owner": "Vishal",
+      "dueDate": "2025-10-30",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Interior",
+      "notes": ""
+    },
+    {
+      "id": 23,
+      "title": "Install bison board enclosure for washing area",
+      "owner": "Vishal",
+      "dueDate": "2025-10-28",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Construction",
+      "notes": ""
+    },
+    {
+      "id": 24,
+      "title": "Apply commercial tiles over bison board (washing area)",
+      "owner": "Vishal",
+      "dueDate": "2025-11-01",
+      "priority": "Medium",
+      "status": "Awaiting Prerequisites",
+      "category": "Tiling",
+      "notes": ""
+    },
+    {
+      "id": 25,
+      "title": "Recondition and integrate existing kitchen equipment",
+      "owner": "Sunil",
+      "dueDate": "2025-11-06",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Kitchen",
+      "notes": ""
+    },
+    {
+      "id": 26,
+      "title": "Install stainless steel shelving in liquor storage room",
+      "owner": "Vishal",
+      "dueDate": "2025-11-05",
+      "priority": "Low",
+      "status": "Awaiting Design Approval",
+      "category": "Storage",
+      "notes": ""
+    },
+    {
+      "id": 27,
+      "title": "Complete fixed furniture installation (all areas)",
+      "owner": "Sabharwal",
+      "dueDate": "2025-11-03",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Furniture",
+      "notes": ""
+    },
+    {
+      "id": 28,
+      "title": "Repair and paint staircase (folding mechanism retained)",
+      "owner": "Vishal",
+      "dueDate": "2025-10-30",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Painting",
+      "notes": ""
+    },
+    {
+      "id": 29,
+      "title": "Install electrical point for terrace signage",
+      "owner": "Sandeep",
+      "dueDate": "2025-10-28",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Electrical",
+      "notes": ""
+    },
+    {
+      "id": 30,
+      "title": "Obtain restaurant license and food safety permits",
+      "owner": "Arushi",
+      "dueDate": "2025-11-10",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Legal",
+      "notes": "FSSAI license, local municipal permits"
+    },
+    {
+      "id": 31,
+      "title": "Install fire safety equipment (extinguishers, smoke detectors)",
+      "owner": "Sandeep",
+      "dueDate": "2025-11-01",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Safety",
+      "notes": "NOC from fire department required"
+    },
+    {
+      "id": 32,
+      "title": "Complete grease trap installation for kitchen drainage",
+      "owner": "Vishal",
+      "dueDate": "2025-10-29",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Plumbing",
+      "notes": "Required for restaurant wastewater compliance"
+    },
+    {
+      "id": 33,
+      "title": "Install commercial dishwasher and three-compartment sink",
+      "owner": "Sunil + Vishal",
+      "dueDate": "2025-11-05",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Kitchen",
+      "notes": "Health department requirement"
+    },
+    {
+      "id": 34,
+      "title": "Set up commercial refrigeration units (walk-in cooler/freezer)",
+      "owner": "Sunil",
+      "dueDate": "2025-11-07",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Kitchen",
+      "notes": "Temperature logging required"
+    },
+    {
+      "id": 35,
+      "title": "Install POS system and payment processing equipment",
+      "owner": "Team",
+      "dueDate": "2025-11-08",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Technology",
+      "notes": "Credit card terminals, cash register"
+    },
+    {
+      "id": 36,
+      "title": "Complete staff handwashing stations installation",
+      "owner": "Vishal",
+      "dueDate": "2025-10-31",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Plumbing",
+      "notes": "Health code requirement - hot/cold water, soap dispensers"
+    },
+    {
+      "id": 37,
+      "title": "Install commercial grade flooring in kitchen area",
+      "owner": "Vishal",
+      "dueDate": "2025-10-30",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Flooring",
+      "notes": "Non-slip, easy-to-clean material required"
+    },
+    {
+      "id": 38,
+      "title": "Set up liquor license and bar inventory system",
+      "owner": "Arushi",
+      "dueDate": "2025-11-15",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Legal",
+      "notes": "State liquor license, inventory tracking"
+    },
+    {
+      "id": 39,
+      "title": "Install emergency exit lighting and signage",
+      "owner": "Sandeep",
+      "dueDate": "2025-11-02",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Safety",
+      "notes": "Fire code compliance"
+    },
+    {
+      "id": 40,
+      "title": "Complete kitchen exhaust hood and ventilation system",
+      "owner": "Pradeep",
+      "dueDate": "2025-10-27",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "HVAC",
+      "notes": "Required for cooking operations"
+    },
+    {
+      "id": 41,
+      "title": "Install food storage shelving and dry goods storage",
+      "owner": "Sunil",
+      "dueDate": "2025-11-04",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Storage",
+      "notes": "NSF certified shelving 6 inches off floor"
+    },
+    {
+      "id": 42,
+      "title": "Set up employee break room and changing area",
+      "owner": "Vishal",
+      "dueDate": "2025-11-01",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Interior",
+      "notes": "Labor law compliance"
+    },
+    {
+      "id": 43,
+      "title": "Install commercial water heater for kitchen operations",
+      "owner": "Vishal",
+      "dueDate": "2025-10-29",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Plumbing",
+      "notes": "High capacity for dishwashing and food prep"
+    },
+    {
+      "id": 44,
+      "title": "Complete final health department inspection",
+      "owner": "Arushi + Team",
+      "dueDate": "2025-11-12",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Legal",
+      "notes": "Required before opening"
+    },
+    {
+      "id": 45,
+      "title": "Install security system (cameras, alarms)",
+      "owner": "Sandeep",
+      "dueDate": "2025-11-05",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Security",
+      "notes": "Insurance requirement"
+    },
+    {
+      "id": 46,
+      "title": "Set up Wi-Fi network and internet connectivity",
+      "owner": "Team",
+      "dueDate": "2025-11-06",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Technology",
+      "notes": "Guest and staff access"
+    },
+    {
+      "id": 47,
+      "title": "Complete final cleaning and sanitization",
+      "owner": "Team",
+      "dueDate": "2025-11-14",
+      "priority": "High",
+      "status": "Not Started",
+      "category": "Cleaning",
+      "notes": "Deep clean before opening"
+    },
+    {
+      "id": 48,
+      "title": "Install music and sound system",
+      "owner": "Sandeep",
+      "dueDate": "2025-11-04",
+      "priority": "Low",
+      "status": "Not Started",
+      "category": "Technology",
+      "notes": "Background music, announcements"
+    },
+    {
+      "id": 49,
+      "title": "Set up waste management and recycling system",
+      "owner": "Vishal",
+      "dueDate": "2025-11-03",
+      "priority": "Medium",
+      "status": "Not Started",
+      "category": "Operations",
+      "notes": "Garbage disposal, composting, recycling bins"
+    },
+    {
+      "id": 50,
+      "title": "Complete insurance documentation and coverage",
+      "owner": "Arushi",
+      "dueDate": "2025-11-10",
+      "priority": "Critical",
+      "status": "Not Started",
+      "category": "Legal",
+      "notes": "General liability, property, workers comp"
+    }
+  ]
+}

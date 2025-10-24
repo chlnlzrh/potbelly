@@ -1,0 +1,100 @@
+{
+  "decisions": [
+    {
+      "id": 1,
+      "title": "Finalize material selection for terrace glass frame (MS vs aluminum)",
+      "description": "Choose between mild steel (MS) and aluminum for terrace glass frame construction. Consider durability, cost, maintenance, and aesthetic requirements.",
+      "assignedTo": "Arushi",
+      "dueDate": "2025-10-23",
+      "priority": "High",
+      "status": "Pending",
+      "options": [
+        {
+          "option": "Mild Steel (MS)",
+          "pros": ["Stronger", "More durable", "Better security"],
+          "cons": ["Requires regular maintenance", "Higher cost", "Rust potential"]
+        },
+        {
+          "option": "Aluminum",
+          "pros": ["Lightweight", "Corrosion resistant", "Lower maintenance"],
+          "cons": ["Less secure", "Higher material cost", "Limited strength"]
+        }
+      ],
+      "impact": "High - affects structural integrity and long-term maintenance",
+      "createdAt": "2025-10-22T00:00:00.000Z",
+      "updatedAt": "2025-10-22T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "Finalize liquor storage room finishes",
+      "description": "Decide on wall finishes, flooring, lighting, and storage solutions for the liquor storage room. Consider regulations, security, and accessibility.",
+      "assignedTo": "Arushi",
+      "dueDate": "2025-10-23",
+      "priority": "Medium",
+      "status": "Pending",
+      "options": [
+        {
+          "option": "Premium finishes with specialized storage",
+          "pros": ["Professional appearance", "Better organization", "Climate control"],
+          "cons": ["Higher cost", "Longer installation time"]
+        },
+        {
+          "option": "Standard finishes with basic storage",
+          "pros": ["Cost effective", "Faster installation", "Easy maintenance"],
+          "cons": ["Basic appearance", "Limited organization options"]
+        }
+      ],
+      "impact": "Medium - affects functionality and compliance",
+      "createdAt": "2025-10-22T00:00:00.000Z",
+      "updatedAt": "2025-10-22T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "title": "Decide terrace wall treatment (paint vs tiles)",
+      "description": "Choose between paint and tiles for terrace walls. Consider weather resistance, maintenance, cost, and aesthetic appeal.",
+      "assignedTo": "Arushi",
+      "dueDate": "2025-10-23",
+      "priority": "Medium",
+      "status": "Pending",
+      "options": [
+        {
+          "option": "Waterproof texture paint",
+          "pros": ["Lower cost", "Easier application", "Flexible design"],
+          "cons": ["Requires regular maintenance", "Less durable", "Weather dependent"]
+        },
+        {
+          "option": "Exterior tiles",
+          "pros": ["Very durable", "Weather resistant", "Low maintenance"],
+          "cons": ["Higher cost", "Complex installation", "Limited design flexibility"]
+        }
+      ],
+      "impact": "Medium - affects durability and maintenance costs",
+      "createdAt": "2025-10-22T00:00:00.000Z",
+      "updatedAt": "2025-10-22T00:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "title": "Finalize stairwell wall treatment (wallpaper/photos)",
+      "description": "Decide on wall treatment for stairwell area. Consider branding, aesthetics, durability, and customer experience.",
+      "assignedTo": "Arushi",
+      "dueDate": "2025-10-25",
+      "priority": "Medium",
+      "status": "Pending",
+      "options": [
+        {
+          "option": "Custom wallpaper with restaurant branding",
+          "pros": ["Strong branding", "Professional look", "Customizable"],
+          "cons": ["Higher cost", "Replacement complexity", "Design limitations"]
+        },
+        {
+          "option": "Framed photos/artwork",
+          "pros": ["Changeable content", "Personal touch", "Cost effective"],
+          "cons": ["Maintenance required", "Fragility", "Less cohesive look"]
+        }
+      ],
+      "impact": "Low - primarily aesthetic, affects customer experience",
+      "createdAt": "2025-10-22T00:00:00.000Z",
+      "updatedAt": "2025-10-22T00:00:00.000Z"
+    }
+  ]
+}
