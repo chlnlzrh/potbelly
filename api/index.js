@@ -933,7 +933,104 @@ module.exports = async (req, res) => {
         <div id="contacts" class="tab-content">
             <div class="card">
                 <h3>📞 Contacts</h3>
-                <p>Contact information for project team members.</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px;">
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="margin-right: 8px; font-size: 24px;">👷</span>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 600;">Pradeep</h4>
+                                <p style="margin: 4px 0 0 0; font-size: 14px; color: #64748b;">HVAC & Electrical</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:+919810312309" style="color: #3b82f6; text-decoration: none;">+91 9810312309</a>
+                            </div>
+                            <a href="sms:+919810312309" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="margin-right: 8px; font-size: 24px;">🔨</span>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 600;">Vishal</h4>
+                                <p style="margin: 4px 0 0 0; font-size: 14px; color: #64748b;">General Construction</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:+919868226580" style="color: #3b82f6; text-decoration: none;">+91 9868226580</a>
+                            </div>
+                            <a href="sms:+919868226580" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="margin-right: 8px; font-size: 24px;">🍽️</span>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 600;">Sunil</h4>
+                                <p style="margin: 4px 0 0 0; font-size: 14px; color: #64748b;">Kitchen Equipment</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:+919310203344" style="color: #3b82f6; text-decoration: none;">+91 9310203344</a>
+                            </div>
+                            <a href="sms:+919310203344" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="margin-right: 8px; font-size: 24px;">🎨</span>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 600;">Arushi</h4>
+                                <p style="margin: 4px 0 0 0; font-size: 14px; color: #64748b;">Design & Permits</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:+919810165187" style="color: #3b82f6; text-decoration: none;">+91 9810165187</a>
+                            </div>
+                            <a href="sms:+919810165187" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="margin-right: 8px; font-size: 24px;">⚡</span>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 600;">Sandeep</h4>
+                                <p style="margin: 4px 0 0 0; font-size: 14px; color: #64748b;">Electrical & Safety</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:+919540475132" style="color: #3b82f6; text-decoration: none;">+91 9540475132</a>
+                            </div>
+                            <a href="sms:+919540475132" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                    <div class="contact-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <span style="margin-right: 8px; font-size: 24px;">🪑</span>
+                            <div>
+                                <h4 style="margin: 0; font-size: 16px; font-weight: 600;">Sabharwal</h4>
+                                <p style="margin: 4px 0 0 0; font-size: 14px; color: #64748b;">Furniture & Fixtures</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <span style="margin-right: 8px;">📱</span>
+                                <a href="tel:+919810086477" style="color: #3b82f6; text-decoration: none;">+91 9810086477</a>
+                            </div>
+                            <a href="sms:+919810086477" style="background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-size: 12px;">💬 Text</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -978,7 +1075,10 @@ module.exports = async (req, res) => {
                                 <td class="priority-${task.priority.toLowerCase()}" style="width: 9%;">${task.priority}</td>
                                 <td style="width: 11%;">${new Date(task.dueDate).toLocaleDateString()}</td>
                                 <td class="status-${task.status.toLowerCase().replace(/\s+/g, '-')}" style="width: 9%;">${task.status}</td>
-                                <td style="width: 8%;"><a href="#" class="btn btn-contact" onclick="contactOwner('${task.owner}', '${task.title}')">📞</a></td>
+                                <td style="width: 8%; white-space: nowrap;">
+                                    <a href="tel:${getOwnerPhone(task.owner)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
+                                    <a href="sms:${getOwnerPhone(task.owner)}&body=${encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
+                                </td>
                                 <td style="width: 6%;"><button class="btn btn-delete" onclick="deleteTask(${task.id})">×</button></td>
                             </tr>
                         `).join('')}
@@ -1014,7 +1114,10 @@ module.exports = async (req, res) => {
                                 <td class="priority-${decision.priority.toLowerCase()}" style="width: 9%;">${decision.priority}</td>
                                 <td style="width: 11%;">${new Date(decision.dueDate).toLocaleDateString()}</td>
                                 <td class="status-${decision.status.toLowerCase()}" style="width: 9%;">${decision.status}</td>
-                                <td style="width: 8%;"><a href="#" class="btn btn-contact" onclick="contactOwner('${decision.assignedTo}', '${decision.title}')">📞</a></td>
+                                <td style="width: 8%; white-space: nowrap;">
+                                    <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
+                                    <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}\nPriority: ${decision.priority}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
+                                </td>
                                 <td style="width: 6%;"><button class="btn btn-delete" onclick="deleteDecision(${decision.id})">×</button></td>
                             </tr>
                         `).join('')}
@@ -1054,6 +1157,35 @@ module.exports = async (req, res) => {
             document.getElementById('decision-details').style.display = 'none';
         }
 
+        // Phone number mapping functions
+        function getOwnerPhone(owner) {
+            const phoneMap = {
+                'Pradeep': '+919810312309',
+                'Vishal': '+919868226580',
+                'Sunil': '+919310203344',
+                'Arushi': '+919810165187',
+                'Sandeep': '+919540475132',
+                'Sabharwal': '+919810086477',
+                'Team': '+919810312309',
+                'Bhargav': '+919810312309'
+            };
+            return phoneMap[owner] || '+919810312309';
+        }
+        
+        function getDecisionContactPhone(assignedTo) {
+            const phoneMap = {
+                'Pradeep': '+919810312309',
+                'Vishal': '+919868226580',
+                'Sunil': '+919310203344',
+                'Arushi': '+919810165187',
+                'Sandeep': '+919540475132',
+                'Sabharwal': '+919810086477',
+                'Team': '+919810312309',
+                'Bhargav': '+919810312309'
+            };
+            return phoneMap[assignedTo] || '+919810312309';
+        }
+        
         function contactOwner(owner, title) {
             alert(\`Contact \${owner} about: \${title}\`);
         }
