@@ -320,7 +320,7 @@ function TaskSection({
 
           {tasks.length === 0 ? (
             <div className="text-xs text-gray-500 text-center py-4">
-              No tasks in this category
+              No tasks in this section
             </div>
           ) : (
             tasks.map((task) => (
@@ -360,20 +360,6 @@ function TaskCard({ task }: { task: any }) {
           </div>
         </div>
         
-        {task.progress && (
-          <div className="mt-2">
-            <div className="flex items-center justify-between text-xs mb-1">
-              <span className="text-gray-500">Progress</span>
-              <span className="font-bold">{task.progress}% done</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5">
-              <div 
-                className="progress-bar h-1.5 rounded-full"
-                style={{ width: `${task.progress}%` }}
-              />
-            </div>
-          </div>
-        )}
       </div>
 
       {expanded && (

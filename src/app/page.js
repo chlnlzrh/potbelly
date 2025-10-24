@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { TasksTab } from '../components/mobile/TasksTab'
 
 export default function Dashboard() {
   const [isDesktop, setIsDesktop] = useState(false)
-  const [activeTab, setActiveTab] = useState('home')
+  const [activeTab, setActiveTab] = useState('tasks')
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -51,6 +52,7 @@ export default function Dashboard() {
     )
   }
 
+  // Show TasksTab for mobile by default
   return (
     <div className="h-screen bg-gray-50 flex flex-col">
       <header className="bg-white border-b border-gray-200 p-4">
@@ -66,19 +68,6 @@ export default function Dashboard() {
 
       <div className="flex-1 p-4">
         <div className="space-y-6">
-          <div className="bg-white rounded-lg border p-4">
-            <h2 className="text-xs font-bold mb-3">PROJECT OVERVIEW</h2>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-600">Progress</span>
-                <span className="text-xs font-bold">78% Complete</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-green-500 h-2 rounded-full" style={{width: '78%'}}></div>
-              </div>
-            </div>
-          </div>
-
           <div className="bg-white rounded-lg border p-4">
             <h2 className="text-xs font-bold mb-3">MOBILE PWA FOR POOJA</h2>
             <p className="text-xs text-gray-600 mb-3">iPhone 17 Pro Max optimized interface</p>
@@ -99,23 +88,65 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg border p-4">
-            <h2 className="text-xs font-bold mb-3">SYSTEM STATUS</h2>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-xs">Server Running Successfully</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-xs">Mobile & Desktop Interfaces Ready</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-xs">Data Management Active</span>
+          {activeTab === 'tasks' && (
+            <div className="bg-white rounded-lg border overflow-hidden">
+              <div className="h-96">
+                <TasksTab />
               </div>
             </div>
-          </div>
+          )}
+
+          {activeTab === 'home' && (
+            <>
+              <div className="bg-white rounded-lg border p-4">
+                <h2 className="text-xs font-bold mb-3">PROJECT OVERVIEW</h2>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-600">Progress</span>
+                    <span className="text-xs font-bold">78% Complete</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="bg-green-500 h-2 rounded-full" style={{width: '78%'}}></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-lg border p-4">
+                <h2 className="text-xs font-bold mb-3">SYSTEM STATUS</h2>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-xs">Server Running Successfully</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-xs">Mobile & Desktop Interfaces Ready</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-xs">Data Management Active</span>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {activeTab === 'team' && (
+            <div className="bg-white rounded-lg border p-4">
+              <h2 className="text-xs font-bold mb-3">TEAM CONTACTS</h2>
+              <div className="space-y-3">
+                {['Vishal', 'Arushi', 'Sabharwal', 'Sandeep', 'Pradeep', 'Bhargav'].map((name) => (
+                  <div key={name} className="flex items-center justify-between py-2 border-b border-gray-100">
+                    <span className="text-xs font-medium">{name}</span>
+                    <div className="flex space-x-2">
+                      <button className="px-2 py-1 bg-blue-50 text-blue-600 rounded text-xs">📞 Call</button>
+                      <button className="px-2 py-1 bg-green-50 text-green-600 rounded text-xs">💬 Message</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
