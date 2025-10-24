@@ -629,6 +629,155 @@ const DECISIONS_DATA = [
     "impact": "Low - primarily aesthetic, affects customer experience",
     "createdAt": "2025-10-22T00:00:00.000Z",
     "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 5,
+    "title": "Bar countertop material selection",
+    "description": "Choose material for bar countertop considering durability, aesthetics, maintenance, and cost for high-traffic restaurant environment.",
+    "assignedTo": "Arushi + Vishal",
+    "dueDate": "2025-10-24",
+    "priority": "High",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Natural stone (granite/marble)",
+        "pros": ["Elegant appearance", "Heat resistant", "Durable"],
+        "cons": ["High cost", "Requires sealing", "Heavy installation"]
+      },
+      {
+        "option": "Engineered quartz",
+        "pros": ["Consistent appearance", "Non-porous", "Low maintenance"],
+        "cons": ["Moderate to high cost", "Can chip", "Not heat resistant"]
+      },
+      {
+        "option": "Solid wood",
+        "pros": ["Warm appearance", "Repairable", "Cost effective"],
+        "cons": ["High maintenance", "Water damage risk", "Regular refinishing needed"]
+      }
+    ],
+    "impact": "High - affects daily operations and maintenance costs",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 6,
+    "title": "Kitchen equipment layout finalization",
+    "description": "Finalize the placement and configuration of all kitchen equipment to optimize workflow, safety, and efficiency.",
+    "assignedTo": "Arushi + Vishal",
+    "dueDate": "2025-10-25",
+    "priority": "Critical",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Linear workflow layout",
+        "pros": ["Efficient workflow", "Easy supervision", "Space efficient"],
+        "cons": ["Limited flexibility", "Potential bottlenecks", "Single direction flow"]
+      },
+      {
+        "option": "Zone-based layout",
+        "pros": ["Flexible operations", "Multiple work areas", "Better organization"],
+        "cons": ["More space required", "Complex coordination", "Higher setup cost"]
+      }
+    ],
+    "impact": "Critical - affects operational efficiency and safety",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 7,
+    "title": "HVAC system capacity decision",
+    "description": "Determine the appropriate HVAC capacity for the restaurant space considering peak occupancy and kitchen heat load.",
+    "assignedTo": "Pradeep + Team",
+    "dueDate": "2025-10-26",
+    "priority": "Critical",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Standard capacity system",
+        "pros": ["Lower initial cost", "Standard installation", "Common maintenance"],
+        "cons": ["May be insufficient for peak loads", "Higher operating costs", "Poor temperature control"]
+      },
+      {
+        "option": "High capacity system",
+        "pros": ["Handles peak loads easily", "Better temperature control", "Energy efficient"],
+        "cons": ["Higher initial investment", "Complex installation", "Specialized maintenance"]
+      }
+    ],
+    "impact": "Critical - affects customer comfort and operational efficiency",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 8,
+    "title": "Lighting design scheme selection",
+    "description": "Choose lighting design approach for different areas of the restaurant (dining, bar, kitchen, terrace).",
+    "assignedTo": "Arushi + Team",
+    "dueDate": "2025-10-24",
+    "priority": "High",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Warm ambient lighting",
+        "pros": ["Creates cozy atmosphere", "Energy efficient LEDs", "Easy to control"],
+        "cons": ["May be too dim for some areas", "Limited functionality", "Monotonous"]
+      },
+      {
+        "option": "Multi-zone lighting system",
+        "pros": ["Flexible control", "Different moods", "Optimized for each area"],
+        "cons": ["Higher cost", "Complex installation", "More maintenance points"]
+      }
+    ],
+    "impact": "High - affects ambiance and customer experience",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 9,
+    "title": "Terrace seating arrangement",
+    "description": "Decide on the layout and type of seating for the terrace area considering weather protection and capacity.",
+    "assignedTo": "Arushi + Vishal",
+    "dueDate": "2025-10-25",
+    "priority": "High",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Fixed seating with umbrellas",
+        "pros": ["Stable arrangement", "Weather protection", "Defined capacity"],
+        "cons": ["Less flexibility", "Storage issues", "Limited configurations"]
+      },
+      {
+        "option": "Modular seating system",
+        "pros": ["Flexible arrangements", "Adaptable to weather", "Multiple configurations"],
+        "cons": ["Higher cost", "Storage requirements", "More maintenance"]
+      }
+    ],
+    "impact": "High - affects outdoor dining capacity and customer comfort",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 10,
+    "title": "Sound system specification",
+    "description": "Determine the audio system requirements for background music, announcements, and ambiance control.",
+    "assignedTo": "Team",
+    "dueDate": "2025-10-27",
+    "priority": "Medium",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Basic sound system",
+        "pros": ["Cost effective", "Simple installation", "Easy operation"],
+        "cons": ["Limited zones", "Basic sound quality", "No advanced features"]
+      },
+      {
+        "option": "Professional multi-zone system",
+        "pros": ["Superior sound quality", "Zone control", "Advanced features"],
+        "cons": ["Higher investment", "Complex setup", "Professional maintenance needed"]
+      }
+    ],
+    "impact": "Medium - affects customer experience and operational functionality",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
   }
 ];
 
@@ -1641,10 +1790,9 @@ module.exports = async (req, res) => {
                     <div style="color: #64748b; font-size: 14px;">Decisions</div>
                     <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
-                <div class="progress-card" onclick="toggleDetails('decisions')">
+                <div class="progress-card" onclick="toggleDetails('in-progress')">
                     <span class="big-number" style="color: #d97706;">${progress}%</span>
                     <div style="color: #64748b; font-size: 14px;">Overall Progress</div>
-                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
                 <div class="progress-card" onclick="toggleDetails('completed')">
                     <span class="big-number" style="color: #16a34a;">${completed}</span>
@@ -2024,6 +2172,112 @@ module.exports = async (req, res) => {
                 </div>
             </div>
         </div>
+        
+        <div id="completed-details" style="display: none;">
+            <div class="card">
+                <button style="float: right; background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-bottom: 16px;" onclick="hideDetails()">✕ Close</button>
+                <h4 style="margin-bottom: 16px;">Completed Items</h4>
+                
+                <!-- Completed Tasks Section -->
+                <h5 style="color: #1f2937; margin-bottom: 12px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px;">✅ Completed Tasks</h5>
+                <div class="tasks-grid" style="margin-bottom: 32px;">
+                    ${TASKS_DATA.filter(task => task.status === 'Completed').map(task => `
+                        <div class="task-card status-completed" data-task-id="${task.id}">
+                            <div class="task-header">
+                                <div class="task-title editable" data-field="title">
+                                    ${task.title}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="task-meta">
+                                <div class="task-owner editable" data-field="owner">
+                                    <span class="task-icon">👤</span>
+                                    ${task.owner}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                <div class="task-due editable" data-field="dueDate">
+                                    <span class="task-icon">📅</span>
+                                    ${new Date(task.dueDate).toLocaleDateString()}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="task-actions">
+                                <div class="task-status-badge completed editable" data-field="status">
+                                    ${task.status}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                
+                                <div class="task-contact-actions">
+                                    <a href="tel:${getOwnerPhone(task.owner)}" class="task-contact-btn phone">
+                                        📞 Call
+                                    </a>
+                                    <a href="sms:${getOwnerPhone(task.owner)}&body=${encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`)}" class="task-contact-btn sms">
+                                        💬 Text
+                                    </a>
+                                    <button class="task-delete-btn" onclick="deleteTask(${task.id})">
+                                        🗑️ Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <!-- Completed Decisions Section -->
+                <h5 style="color: #1f2937; margin-bottom: 12px; border-bottom: 2px solid #e5e7eb; padding-bottom: 8px;">✅ Completed Decisions</h5>
+                <div class="decisions-grid">
+                    ${DECISIONS_DATA.filter(decision => decision.status === 'Decided').map(decision => `
+                        <div class="decision-card status-decided" data-decision-id="${decision.id}">
+                            <div class="decision-header">
+                                <div class="decision-title editable" data-field="title">
+                                    ${decision.title}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="decision-description editable" data-field="description">
+                                ${decision.description}
+                                <span class="edit-indicator">✏️</span>
+                            </div>
+                            
+                            <div class="decision-meta">
+                                <div class="decision-assignee editable" data-field="assignedTo">
+                                    <span class="decision-icon">👤</span>
+                                    ${decision.assignedTo}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                <div class="decision-due editable" data-field="dueDate">
+                                    <span class="decision-icon">📅</span>
+                                    ${new Date(decision.dueDate).toLocaleDateString()}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="decision-actions">
+                                <div class="decision-status-badge decided editable" data-field="status">
+                                    ${decision.status}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                
+                                <div class="decision-contact-actions">
+                                    <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" class="decision-contact-btn phone">
+                                        📞 Call
+                                    </a>
+                                    <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}`)}" class="decision-contact-btn sms">
+                                        💬 Text
+                                    </a>
+                                    <button class="decision-delete-btn" onclick="deleteDecision(${decision.id})">
+                                        🗑️ Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -2047,6 +2301,8 @@ module.exports = async (req, res) => {
                 document.getElementById('task-details').style.display = 'block';
             } else if (type === 'decisions') {
                 document.getElementById('decision-details').style.display = 'block';
+            } else if (type === 'completed') {
+                document.getElementById('completed-details').style.display = 'block';
             }
             // Add other detail views as needed
         }
@@ -2054,6 +2310,7 @@ module.exports = async (req, res) => {
         function hideDetails() {
             document.getElementById('task-details').style.display = 'none';
             document.getElementById('decision-details').style.display = 'none';
+            document.getElementById('completed-details').style.display = 'none';
         }
 
         // Phone number mapping functions
