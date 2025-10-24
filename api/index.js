@@ -896,6 +896,62 @@ module.exports = async (req, res) => {
             line-height: 1.4;
         }
         
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 12px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        
         @media (max-width: 768px) {
             body { padding: 10px; }
             .header h1 { font-size: 1.8rem; }
@@ -1067,7 +1123,93 @@ module.exports = async (req, res) => {
         <div id="add-task" class="tab-content">
             <div class="card">
                 <h3>➕ Add New Task</h3>
-                <p>Task creation functionality would be implemented here.</p>
+                <div id="task-message" class="message"></div>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label class="form-label">Task Title *</label>
+                        <input type="text" class="form-input" name="title" required placeholder="e.g., Install new kitchen equipment">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Assigned To *</label>
+                            <select class="form-select" name="owner" required>
+                                <option value="">Select Contractor</option>
+                                <option value="Arushi">Arushi (Architect & Interior Design)</option>
+                                <option value="Vishal">Vishal (General Contractor)</option>
+                                <option value="Sabharwal">Sabharwal (Wood Work)</option>
+                                <option value="Pradeep">Pradeep (HVAC & Electrical)</option>
+                                <option value="Sunil">Sunil (Kitchen Equipment)</option>
+                                <option value="Sandeep">Sandeep (Electrical & Safety)</option>
+                                <option value="Team">Team (Multiple)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" name="priority">
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Due Date *</label>
+                            <input type="date" class="form-input" name="dueDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status">
+                                <option value="Not Started" selected>Not Started</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Awaiting Decision">Awaiting Decision</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select class="form-select" name="category">
+                            <option value="">Select Category</option>
+                            <option value="HVAC">HVAC</option>
+                            <option value="Painting">Painting</option>
+                            <option value="Interior">Interior</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="Flooring">Flooring</option>
+                            <option value="Design">Design</option>
+                            <option value="Kitchen">Kitchen</option>
+                            <option value="Planning">Planning</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="Documentation">Documentation</option>
+                            <option value="Waterproofing">Waterproofing</option>
+                            <option value="Roofing">Roofing</option>
+                            <option value="Signage">Signage</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Tiling">Tiling</option>
+                            <option value="Storage">Storage</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Safety">Safety</option>
+                            <option value="Legal">Legal</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Security">Security</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-textarea" name="notes" placeholder="Additional details, requirements, or dependencies..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">➕ Add Task</button>
+                </form>
             </div>
         </div>
         
@@ -1075,7 +1217,63 @@ module.exports = async (req, res) => {
         <div id="decisions" class="tab-content">
             <div class="card">
                 <h3>➕ Add Decisions</h3>
-                <p>Decision creation functionality would be implemented here.</p>
+                <div id="decision-message" class="message"></div>
+                <form id="decisionForm">
+                    <div class="form-group">
+                        <label class="form-label">Decision Title *</label>
+                        <input type="text" class="form-input" name="title" required placeholder="e.g., Choose flooring material for dining area">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Assigned To *</label>
+                            <select class="form-select" name="assignedTo" required>
+                                <option value="">Select Person</option>
+                                <option value="Arushi">Arushi (Architect & Interior Design)</option>
+                                <option value="Vishal">Vishal (General Contractor)</option>
+                                <option value="Sabharwal">Sabharwal (Wood Work)</option>
+                                <option value="Pradeep">Pradeep (HVAC & Electrical)</option>
+                                <option value="Sunil">Sunil (Kitchen Equipment)</option>
+                                <option value="Sandeep">Sandeep (Electrical & Safety)</option>
+                                <option value="Team">Team (Multiple)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Priority</label>
+                            <select class="form-select" name="priority">
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Due Date *</label>
+                            <input type="date" class="form-input" name="dueDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" name="status">
+                                <option value="Pending" selected>Pending</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Decided">Decided</option>
+                                <option value="On Hold">On Hold</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-textarea" name="description" placeholder="Details about the decision needed, options to consider, impact on project..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">➕ Add Decision</button>
+                </form>
             </div>
         </div>
         
@@ -1230,6 +1428,79 @@ module.exports = async (req, res) => {
                 alert('Decision deletion would be implemented here');
             }
         }
+        
+        // Form submission handlers
+        document.getElementById('taskForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const taskData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/tasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(taskData)
+                });
+                
+                const result = await response.json();
+                const messageEl = document.getElementById('task-message');
+                
+                if (result.success) {
+                    messageEl.className = 'message success';
+                    messageEl.textContent = '✅ Task added successfully! Page will refresh in 3 seconds...';
+                    messageEl.style.display = 'block';
+                    messageEl.style.fontSize = '14px';
+                    messageEl.style.fontWeight = 'bold';
+                    e.target.reset();
+                    
+                    // Refresh page after 3 seconds
+                    setTimeout(() => location.reload(), 3000);
+                } else {
+                    throw new Error(result.message || 'Failed to add task');
+                }
+            } catch (error) {
+                const messageEl = document.getElementById('task-message');
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Error: ' + error.message;
+                messageEl.style.display = 'block';
+            }
+        });
+        
+        document.getElementById('decisionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const decisionData = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/decisions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(decisionData)
+                });
+                
+                const result = await response.json();
+                const messageEl = document.getElementById('decision-message');
+                
+                if (result.success) {
+                    messageEl.className = 'message success';
+                    messageEl.textContent = '✅ Decision added successfully! Page will refresh in 3 seconds...';
+                    messageEl.style.display = 'block';
+                    messageEl.style.fontSize = '14px';
+                    messageEl.style.fontWeight = 'bold';
+                    e.target.reset();
+                    
+                    // Refresh page after 3 seconds
+                    setTimeout(() => location.reload(), 3000);
+                } else {
+                    throw new Error(result.message || 'Failed to add decision');
+                }
+            } catch (error) {
+                const messageEl = document.getElementById('decision-message');
+                messageEl.className = 'message error';
+                messageEl.textContent = 'Error: ' + error.message;
+                messageEl.style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>`;
