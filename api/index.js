@@ -1645,7 +1645,7 @@ module.exports = async (req, res) => {
                 </div>
                 <div class="progress-card" onclick="toggleDetails('decisions')">
                     <span class="big-number" style="color: #d97706;">${DECISIONS_DATA.length}</span>
-                    <div style="color: #64748b; font-size: 14px;">Total Decisions</div>
+                    <div style="color: #64748b; font-size: 14px;">Project Status Card</div>
                     <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
                 <div class="progress-card" onclick="toggleDetails('completed')">
