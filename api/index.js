@@ -1,62 +1,131 @@
-const fs = require('fs');
-const path = require('path');
-const { parseMarkdownTasks, generateProjectSummary } = require('../data-parser');
-const { addTask, updateTask, addDecision, updateDecision, getAllData, writeData } = require('../data-manager');
-
-// Load tasks from JSON file
-function loadTasks() {
-  try {
-    const data = fs.readFileSync(path.join(process.cwd(), 'tasks.json'), 'utf8');
-    const tasks = JSON.parse(data).tasks;
-    
-    // Ensure all tasks have IDs
-    let maxId = 0;
-    tasks.forEach(task => {
-      if (task.id) {
-        maxId = Math.max(maxId, task.id);
-      }
-    });
-    
-    tasks.forEach((task, index) => {
-      if (!task.id) {
-        task.id = ++maxId;
-        console.log(`Assigned ID ${task.id} to task: ${task.title}`);
-      }
-    });
-    
-    return tasks;
-  } catch (error) {
-    console.log('No tasks.json found, returning empty array');
-    return [];
+// Embedded data for serverless function
+const TASKS_DATA = [
+  {
+    "id": 1,
+    "title": "Complete kitchen ducting to terrace",
+    "owner": "Pradeep",
+    "dueDate": "2025-10-25",
+    "priority": "High",
+    "status": "Completed",
+    "category": "HVAC",
+    "notes": "",
+    "updatedAt": "2025-10-23T15:30:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Commence painting (main floor + upstairs)",
+    "owner": "Vishal",
+    "dueDate": "2025-10-25",
+    "priority": "Critical",
+    "status": "Completed",
+    "category": "Painting",
+    "notes": "",
+    "updatedAt": "2025-10-24T00:53:00.000Z"
+  },
+  {
+    "id": 3,
+    "title": "Install acoustic panels post-painting",
+    "owner": "Vishal",
+    "dueDate": "2025-11-01",
+    "priority": "High",
+    "status": "Awaiting Prerequisites",
+    "category": "Interior",
+    "notes": ""
+  },
+  {
+    "id": 4,
+    "title": "Complete bathroom fixture installation (upstairs)",
+    "owner": "Vishal",
+    "dueDate": "2025-10-28",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Plumbing",
+    "notes": ""
+  },
+  {
+    "id": 5,
+    "title": "Order and install Kota stone flooring (washing area)",
+    "owner": "Vishal",
+    "dueDate": "2025-10-30",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Flooring",
+    "notes": ""
   }
+];
+
+const DECISIONS_DATA = [
+  {
+    "id": 1,
+    "title": "Finalize material selection for terrace glass frame (MS vs aluminum)",
+    "description": "Choose between mild steel (MS) and aluminum for terrace glass frame construction. Consider durability, cost, maintenance, and aesthetic requirements.",
+    "assignedTo": "Arushi",
+    "dueDate": "2025-10-23",
+    "priority": "High",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Mild Steel (MS)",
+        "pros": ["Stronger", "More durable", "Better security"],
+        "cons": ["Requires regular maintenance", "Higher cost", "Rust potential"]
+      },
+      {
+        "option": "Aluminum",
+        "pros": ["Lightweight", "Corrosion resistant", "Lower maintenance"],
+        "cons": ["Less secure", "Higher material cost", "Limited strength"]
+      }
+    ],
+    "impact": "High - affects structural integrity and long-term maintenance",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Finalize liquor storage room finishes",
+    "description": "Decide on wall finishes, flooring, lighting, and storage solutions for the liquor storage room. Consider regulations, security, and accessibility.",
+    "assignedTo": "Arushi",
+    "dueDate": "2025-10-23",
+    "priority": "Medium",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Premium finishes with specialized storage",
+        "pros": ["Professional appearance", "Better organization", "Climate control"],
+        "cons": ["Higher cost", "Longer installation time"]
+      },
+      {
+        "option": "Standard finishes with basic storage",
+        "pros": ["Cost effective", "Faster installation", "Easy maintenance"],
+        "cons": ["Basic appearance", "Limited organization options"]
+      }
+    ],
+    "impact": "Medium - affects functionality and compliance",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  }
+];
+
+// Load tasks from embedded data
+function loadTasks() {
+  return TASKS_DATA;
 }
 
-// Load decisions from JSON file
+// Load decisions from embedded data
 function loadDecisions() {
-  try {
-    const data = fs.readFileSync(path.join(process.cwd(), 'decisions.json'), 'utf8');
-    const decisions = JSON.parse(data).decisions;
-    
-    // Ensure all decisions have IDs
-    let maxId = 0;
-    decisions.forEach(decision => {
-      if (decision.id) {
-        maxId = Math.max(maxId, decision.id);
-      }
-    });
-    
-    decisions.forEach((decision, index) => {
-      if (!decision.id) {
-        decision.id = ++maxId;
-        console.log(`Assigned ID ${decision.id} to decision: ${decision.title}`);
-      }
-    });
-    
-    return decisions;
-  } catch (error) {
-    console.log('No decisions.json found, returning empty array');
-    return [];
-  }
+  return DECISIONS_DATA;
+}
+
+// Simple project summary generator
+function generateProjectSummary(tasks) {
+  const summary = {
+    total: tasks.length,
+    completed: tasks.filter(t => t.status === 'Completed').length,
+    inProgress: tasks.filter(t => t.status === 'In Progress').length,
+    awaitingDecision: tasks.filter(t => t.status === 'Awaiting Decision').length,
+    notStarted: tasks.filter(t => t.status === 'Not Started').length
+  };
+  
+  return { summary };
 }
 
 // Parse POST data
@@ -88,22 +157,9 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'GET' && req.url === '/') {
-      // Load data from JSON files
-      const jsonTasks = loadTasks();
-      const jsonDecisions = loadDecisions();
-      const userData = getAllData();
-      
-      // Use JSON tasks as primary source (they have proper IDs)
-      const jsonTaskIds = new Set(jsonTasks.map(t => t.id));
-      const additionalUserTasks = userData.tasks.filter(t => t.id && !jsonTaskIds.has(t.id));
-      
-      const allTasks = [...jsonTasks, ...additionalUserTasks];
-      
-      // Combine decisions from JSON file and data-manager
-      const jsonDecisionIds = new Set(jsonDecisions.map(d => d.id));
-      const additionalUserDecisions = userData.decisions.filter(d => d.id && !jsonDecisionIds.has(d.id));
-      
-      const allDecisions = [...jsonDecisions, ...additionalUserDecisions];
+      // Load data from embedded sources
+      const allTasks = loadTasks();
+      const allDecisions = loadDecisions();
       const summary = generateProjectSummary(allTasks);
       
       // Get urgent tasks
@@ -112,8 +168,8 @@ module.exports = async (req, res) => {
         new Date(t.dueDate) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
       ).slice(0, 8);
       
-      // Get pending decisions from JSON
-      const pendingDecisions = jsonDecisions.filter(d => d.status === 'Pending').slice(0, 5);
+      // Get pending decisions
+      const pendingDecisions = allDecisions.filter(d => d.status === 'Pending').slice(0, 5);
       
       // Contact mapping function
       function getContactButtons(task) {
