@@ -642,6 +642,56 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
+  if (req.method === 'POST') {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    if (url.pathname === '/api/tasks') {
+      try {
+        const taskData = req.body;
+        const newTask = {
+          id: Math.max(...TASKS_DATA.map(t => t.id)) + 1,
+          title: taskData.title,
+          owner: taskData.owner,
+          dueDate: taskData.dueDate,
+          priority: taskData.priority || 'Medium',
+          status: taskData.status || 'Not Started',
+          category: taskData.category || '',
+          notes: taskData.notes || '',
+          updatedAt: new Date().toISOString()
+        };
+        
+        TASKS_DATA.push(newTask);
+        return res.json({ success: true, message: 'Task added successfully', task: newTask });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: 'Failed to add task: ' + error.message });
+      }
+    }
+    
+    if (url.pathname === '/api/decisions') {
+      try {
+        const decisionData = req.body;
+        const newDecision = {
+          id: Math.max(...DECISIONS_DATA.map(d => d.id)) + 1,
+          title: decisionData.title,
+          description: decisionData.description || '',
+          assignedTo: decisionData.assignedTo,
+          dueDate: decisionData.dueDate,
+          priority: decisionData.priority || 'Medium',
+          status: decisionData.status || 'Pending',
+          impact: 'TBD - impact assessment needed',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          options: []
+        };
+        
+        DECISIONS_DATA.push(newDecision);
+        return res.json({ success: true, message: 'Decision added successfully', decision: newDecision });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: 'Failed to add decision: ' + error.message });
+      }
+    }
+  }
+
   if (req.method === 'GET') {
     const url = new URL(req.url, `http://${req.headers.host}`);
     
