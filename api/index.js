@@ -1,4 +1,4 @@
-// Embedded data for serverless function
+// Complete embedded data for serverless function
 const TASKS_DATA = [
   {
     "id": 1,
@@ -51,6 +51,456 @@ const TASKS_DATA = [
     "status": "Not Started",
     "category": "Flooring",
     "notes": ""
+  },
+  {
+    "id": 6,
+    "title": "Finalize material selection for terrace glass frame (MS vs aluminum)",
+    "owner": "Arushi",
+    "dueDate": "2025-10-23",
+    "priority": "High",
+    "status": "Awaiting Decision",
+    "category": "Design",
+    "notes": ""
+  },
+  {
+    "id": 7,
+    "title": "Finalize liquor storage room finishes",
+    "owner": "Arushi",
+    "dueDate": "2025-10-23",
+    "priority": "Medium",
+    "status": "Awaiting Decision",
+    "category": "Design",
+    "notes": ""
+  },
+  {
+    "id": 8,
+    "title": "Decide terrace wall treatment (paint vs tiles)",
+    "owner": "Arushi",
+    "dueDate": "2025-10-23",
+    "priority": "Medium",
+    "status": "Awaiting Decision",
+    "category": "Design",
+    "notes": ""
+  },
+  {
+    "id": 9,
+    "title": "Deliver kitchen equipment post-Diwali",
+    "owner": "Sunil",
+    "dueDate": "2025-11-05",
+    "priority": "Critical",
+    "status": "Awaiting Vendor",
+    "category": "Kitchen",
+    "notes": ""
+  },
+  {
+    "id": 10,
+    "title": "Coordinate kitchen equipment layout meeting",
+    "owner": "Arushi + Vishal + Sunil + Team",
+    "dueDate": "2025-10-23",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Planning",
+    "notes": ""
+  },
+  {
+    "id": 11,
+    "title": "Install electrical fixtures and final fittings",
+    "owner": "Vishal",
+    "dueDate": "2025-11-01",
+    "priority": "High",
+    "status": "Awaiting Site Readiness",
+    "category": "Electrical",
+    "notes": ""
+  },
+  {
+    "id": 12,
+    "title": "Submit reimbursement documentation for terrace repair to landlord",
+    "owner": "Vishal",
+    "dueDate": "2025-10-25",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Documentation",
+    "notes": ""
+  },
+  {
+    "id": 13,
+    "title": "Complete terrace waterproofing and grouting",
+    "owner": "Vishal",
+    "dueDate": "2025-10-28",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Waterproofing",
+    "notes": ""
+  },
+  {
+    "id": 14,
+    "title": "Install terrace roofing (tensile fabric)",
+    "owner": "Sandeep",
+    "dueDate": "2025-10-31",
+    "priority": "High",
+    "status": "Design Approved",
+    "category": "Roofing",
+    "notes": ""
+  },
+  {
+    "id": 15,
+    "title": "Install signage at stairwell entrance",
+    "owner": "Vishal & Bhargav",
+    "dueDate": "2025-11-03",
+    "priority": "Low",
+    "status": "Not Started",
+    "category": "Signage",
+    "notes": ""
+  },
+  {
+    "id": 16,
+    "title": "Finalize stairwell wall treatment (wallpaper/photos)",
+    "owner": "Arushi",
+    "dueDate": "2025-10-25",
+    "priority": "Medium",
+    "status": "Awaiting Decision",
+    "category": "Design",
+    "notes": ""
+  },
+  {
+    "id": 17,
+    "title": "Complete floor grouting and machine buffing (terrace)",
+    "owner": "Vishal",
+    "dueDate": "2025-11-01",
+    "priority": "Medium",
+    "status": "Awaiting Prerequisites",
+    "category": "Flooring",
+    "notes": ""
+  },
+  {
+    "id": 18,
+    "title": "Install wallpaper for bar back",
+    "owner": "Vishal",
+    "dueDate": "2025-11-02",
+    "priority": "Medium",
+    "status": "Design in Progress",
+    "category": "Interior",
+    "notes": ""
+  },
+  {
+    "id": 19,
+    "title": "Install RO (reverse osmosis) system in terrace bathroom",
+    "owner": "Vishal",
+    "dueDate": "2025-10-30",
+    "priority": "Low",
+    "status": "Not Started",
+    "category": "Plumbing",
+    "notes": ""
+  },
+  {
+    "id": 20,
+    "title": "Apply waterproof texture paint on terrace walls",
+    "owner": "Vishal",
+    "dueDate": "2025-11-03",
+    "priority": "Medium",
+    "status": "Awaiting Prerequisites",
+    "category": "Painting",
+    "notes": ""
+  },
+  {
+    "id": 21,
+    "title": "Install wall fans for washing area ventilation (2 units)",
+    "owner": "Pradeep + Vishal",
+    "dueDate": "2025-10-30",
+    "priority": "Low",
+    "status": "Not Started",
+    "category": "HVAC",
+    "notes": ""
+  },
+  {
+    "id": 22,
+    "title": "Complete skirting work in terrace bathroom",
+    "owner": "Vishal",
+    "dueDate": "2025-10-30",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Interior",
+    "notes": ""
+  },
+  {
+    "id": 23,
+    "title": "Install bison board enclosure for washing area",
+    "owner": "Vishal",
+    "dueDate": "2025-10-28",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Construction",
+    "notes": ""
+  },
+  {
+    "id": 24,
+    "title": "Apply commercial tiles over bison board (washing area)",
+    "owner": "Vishal",
+    "dueDate": "2025-11-01",
+    "priority": "Medium",
+    "status": "Awaiting Prerequisites",
+    "category": "Tiling",
+    "notes": ""
+  },
+  {
+    "id": 25,
+    "title": "Recondition and integrate existing kitchen equipment",
+    "owner": "Sunil",
+    "dueDate": "2025-11-06",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Kitchen",
+    "notes": ""
+  },
+  {
+    "id": 26,
+    "title": "Install stainless steel shelving in liquor storage room",
+    "owner": "Vishal",
+    "dueDate": "2025-11-05",
+    "priority": "Low",
+    "status": "Awaiting Design Approval",
+    "category": "Storage",
+    "notes": ""
+  },
+  {
+    "id": 27,
+    "title": "Complete fixed furniture installation (all areas)",
+    "owner": "Sabharwal",
+    "dueDate": "2025-11-03",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Furniture",
+    "notes": ""
+  },
+  {
+    "id": 28,
+    "title": "Repair and paint staircase (folding mechanism retained)",
+    "owner": "Vishal",
+    "dueDate": "2025-10-30",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Painting",
+    "notes": ""
+  },
+  {
+    "id": 29,
+    "title": "Install electrical point for terrace signage",
+    "owner": "Sandeep",
+    "dueDate": "2025-10-28",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Electrical",
+    "notes": ""
+  },
+  {
+    "id": 30,
+    "title": "Obtain restaurant license and food safety permits",
+    "owner": "Arushi",
+    "dueDate": "2025-11-10",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Legal",
+    "notes": "FSSAI license, local municipal permits"
+  },
+  {
+    "id": 31,
+    "title": "Install fire safety equipment (extinguishers, smoke detectors)",
+    "owner": "Sandeep",
+    "dueDate": "2025-11-01",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Safety",
+    "notes": "NOC from fire department required"
+  },
+  {
+    "id": 32,
+    "title": "Complete grease trap installation for kitchen drainage",
+    "owner": "Vishal",
+    "dueDate": "2025-10-29",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Plumbing",
+    "notes": "Required for restaurant wastewater compliance"
+  },
+  {
+    "id": 33,
+    "title": "Install commercial dishwasher and three-compartment sink",
+    "owner": "Sunil + Vishal",
+    "dueDate": "2025-11-05",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Kitchen",
+    "notes": "Health department requirement"
+  },
+  {
+    "id": 34,
+    "title": "Set up commercial refrigeration units (walk-in cooler/freezer)",
+    "owner": "Sunil",
+    "dueDate": "2025-11-07",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Kitchen",
+    "notes": "Temperature logging required"
+  },
+  {
+    "id": 35,
+    "title": "Install POS system and payment processing equipment",
+    "owner": "Team",
+    "dueDate": "2025-11-08",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Technology",
+    "notes": "Credit card terminals, cash register"
+  },
+  {
+    "id": 36,
+    "title": "Complete staff handwashing stations installation",
+    "owner": "Vishal",
+    "dueDate": "2025-10-31",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Plumbing",
+    "notes": "Health code requirement - hot/cold water, soap dispensers"
+  },
+  {
+    "id": 37,
+    "title": "Install commercial grade flooring in kitchen area",
+    "owner": "Vishal",
+    "dueDate": "2025-10-30",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Flooring",
+    "notes": "Non-slip, easy-to-clean material required"
+  },
+  {
+    "id": 38,
+    "title": "Set up liquor license and bar inventory system",
+    "owner": "Arushi",
+    "dueDate": "2025-11-15",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Legal",
+    "notes": "State liquor license, inventory tracking"
+  },
+  {
+    "id": 39,
+    "title": "Install emergency exit lighting and signage",
+    "owner": "Sandeep",
+    "dueDate": "2025-11-02",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Safety",
+    "notes": "Fire code compliance"
+  },
+  {
+    "id": 40,
+    "title": "Complete kitchen exhaust hood and ventilation system",
+    "owner": "Pradeep",
+    "dueDate": "2025-10-27",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "HVAC",
+    "notes": "Required for cooking operations"
+  },
+  {
+    "id": 41,
+    "title": "Install food storage shelving and dry goods storage",
+    "owner": "Sunil",
+    "dueDate": "2025-11-04",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Storage",
+    "notes": "NSF certified shelving 6 inches off floor"
+  },
+  {
+    "id": 42,
+    "title": "Set up employee break room and changing area",
+    "owner": "Vishal",
+    "dueDate": "2025-11-01",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Interior",
+    "notes": "Labor law compliance"
+  },
+  {
+    "id": 43,
+    "title": "Install commercial water heater for kitchen operations",
+    "owner": "Vishal",
+    "dueDate": "2025-10-29",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Plumbing",
+    "notes": "High capacity for dishwashing and food prep"
+  },
+  {
+    "id": 44,
+    "title": "Complete final health department inspection",
+    "owner": "Arushi + Team",
+    "dueDate": "2025-11-12",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Legal",
+    "notes": "Required before opening"
+  },
+  {
+    "id": 45,
+    "title": "Install security system (cameras, alarms)",
+    "owner": "Sandeep",
+    "dueDate": "2025-11-05",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Security",
+    "notes": "Insurance requirement"
+  },
+  {
+    "id": 46,
+    "title": "Set up Wi-Fi network and internet connectivity",
+    "owner": "Team",
+    "dueDate": "2025-11-06",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Technology",
+    "notes": "Guest and staff access"
+  },
+  {
+    "id": 47,
+    "title": "Complete final cleaning and sanitization",
+    "owner": "Team",
+    "dueDate": "2025-11-14",
+    "priority": "High",
+    "status": "Not Started",
+    "category": "Cleaning",
+    "notes": "Deep clean before opening"
+  },
+  {
+    "id": 48,
+    "title": "Install music and sound system",
+    "owner": "Sandeep",
+    "dueDate": "2025-11-04",
+    "priority": "Low",
+    "status": "Not Started",
+    "category": "Technology",
+    "notes": "Background music, announcements"
+  },
+  {
+    "id": 49,
+    "title": "Set up waste management and recycling system",
+    "owner": "Vishal",
+    "dueDate": "2025-11-03",
+    "priority": "Medium",
+    "status": "Not Started",
+    "category": "Operations",
+    "notes": "Garbage disposal, composting, recycling bins"
+  },
+  {
+    "id": 50,
+    "title": "Complete insurance documentation and coverage",
+    "owner": "Arushi",
+    "dueDate": "2025-11-10",
+    "priority": "Critical",
+    "status": "Not Started",
+    "category": "Legal",
+    "notes": "General liability, property, workers comp"
   }
 ];
 
@@ -102,1106 +552,523 @@ const DECISIONS_DATA = [
     "impact": "Medium - affects functionality and compliance",
     "createdAt": "2025-10-22T00:00:00.000Z",
     "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "title": "Decide terrace wall treatment (paint vs tiles)",
+    "description": "Choose between paint and tiles for terrace walls. Consider weather resistance, maintenance, cost, and aesthetic appeal.",
+    "assignedTo": "Arushi",
+    "dueDate": "2025-10-23",
+    "priority": "Medium",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Waterproof texture paint",
+        "pros": ["Lower cost", "Easier application", "Flexible design"],
+        "cons": ["Requires regular maintenance", "Less durable", "Weather dependent"]
+      },
+      {
+        "option": "Exterior tiles",
+        "pros": ["Very durable", "Weather resistant", "Low maintenance"],
+        "cons": ["Higher cost", "Complex installation", "Limited design flexibility"]
+      }
+    ],
+    "impact": "Medium - affects durability and maintenance costs",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "Finalize stairwell wall treatment (wallpaper/photos)",
+    "description": "Decide on wall treatment for stairwell area. Consider branding, aesthetics, durability, and customer experience.",
+    "assignedTo": "Arushi",
+    "dueDate": "2025-10-25",
+    "priority": "Medium",
+    "status": "Pending",
+    "options": [
+      {
+        "option": "Custom wallpaper with restaurant branding",
+        "pros": ["Strong branding", "Professional look", "Customizable"],
+        "cons": ["Higher cost", "Replacement complexity", "Design limitations"]
+      },
+      {
+        "option": "Framed photos/artwork",
+        "pros": ["Changeable content", "Personal touch", "Cost effective"],
+        "cons": ["Maintenance required", "Fragility", "Less cohesive look"]
+      }
+    ],
+    "impact": "Low - primarily aesthetic, affects customer experience",
+    "createdAt": "2025-10-22T00:00:00.000Z",
+    "updatedAt": "2025-10-22T00:00:00.000Z"
   }
 ];
 
-// Load tasks from embedded data
-function loadTasks() {
-  return TASKS_DATA;
-}
-
-// Load decisions from embedded data
-function loadDecisions() {
-  return DECISIONS_DATA;
-}
-
-// Simple project summary generator
-function generateProjectSummary(tasks) {
-  const summary = {
-    total: tasks.length,
-    completed: tasks.filter(t => t.status === 'Completed').length,
-    inProgress: tasks.filter(t => t.status === 'In Progress').length,
-    awaitingDecision: tasks.filter(t => t.status === 'Awaiting Decision').length,
-    notStarted: tasks.filter(t => t.status === 'Not Started').length
-  };
-  
-  return { summary };
-}
-
-// Parse POST data
-function parsePostData(req) {
-  return new Promise((resolve, reject) => {
-    let body = '';
-    req.on('data', chunk => {
-      body += chunk.toString();
-    });
-    req.on('end', () => {
-      try {
-        resolve(JSON.parse(body));
-      } catch (error) {
-        reject(error);
-      }
-    });
-  });
-}
-
 module.exports = async (req, res) => {
-  try {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-    if (req.method === 'OPTIONS') {
-      res.status(200).end();
-      return;
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  if (req.method === 'GET') {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    if (url.pathname === '/api/tasks') {
+      return res.json(TASKS_DATA);
+    }
+    
+    if (url.pathname === '/api/decisions') {
+      return res.json(DECISIONS_DATA);
     }
 
-    if (req.method === 'GET' && req.url === '/') {
-      // Load data from embedded sources
-      const allTasks = loadTasks();
-      const allDecisions = loadDecisions();
-      const summary = generateProjectSummary(allTasks);
-      
-      // Get urgent tasks
-      const urgentTasks = allTasks.filter(t => 
-        t.priority === 'Critical' || t.priority === 'High' ||
-        new Date(t.dueDate) <= new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-      ).slice(0, 8);
-      
-      // Get pending decisions
-      const pendingDecisions = allDecisions.filter(d => d.status === 'Pending').slice(0, 5);
-      
-      // Contact mapping function
-      function getContactButtons(task) {
-          const contactMap = {
-              'Arushi': '+919810312309',
-              'Sabharwal': '+919868226580', 
-              'Vishal': '+919310203344',
-              'Sandeep': '+919810165187',
-              'Pradeep': '+919540475132',
-              'Sunil': '+919810086477'
-          };
-          
-          if (!task.owner) return '<span style="color: #9ca3af; font-size: 12px;">No owner</span>';
-          
-          // Handle multiple owners (comma or + separated)
-          const owners = task.owner.split(/[,+&]/).map(o => o.trim());
-          const buttons = owners.map(owner => {
-              const phone = contactMap[owner];
-              if (!phone) return '';
-              
-              return `
-                  <a href="tel:${phone}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 4px;">📞</a>
-                  <a href="sms:${phone}&body=${encodeURIComponent(`Task: ${task.title}\\nDue: ${task.dueDate}\\nPriority: ${task.priority}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
-              `;
-          }).join('');
-          
-          return `
-              <div style="display: flex; flex-wrap: wrap; gap: 2px;">
-                  ${buttons}
-              </div>
-          `;
-      }
-      
-      // Get phone number for decision contacts
-      function getDecisionContactPhone(assignedTo) {
-          const contactMap = {
-              'Arushi': '+919810312309',
-              'Sabharwal': '+919868226580', 
-              'Vishal': '+919310203344',
-              'Sandeep': '+919810165187',
-              'Pradeep': '+919540475132',
-              'Sunil': '+919810086477',
-              'Team': '+919810312309' // Default to Arushi for team decisions
-          };
-          return contactMap[assignedTo] || '+919810312309';
-      }
-      
-      res.setHeader('Content-Type', 'text/html');
-      res.status(200).send(`
+    // Serve main HTML page
+    const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏗️ Pooja's Restaurant Build Management</title>
+    <title>🏗️ POOJA'S BUILD MANAGEMENT</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            font-size: 12px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             padding: 20px;
         }
         
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
         .header {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
             padding: 30px;
-            border-radius: 20px;
             text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
         }
         
-        .header h1 { 
-            color: #1f2937; 
-            margin-bottom: 10px; 
-            font-size: 28px;
-            font-weight: 700;
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         
-        .header p { 
-            color: #6b7280; 
-            font-size: 14px;
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
         
         .nav-tabs {
             display: flex;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 5px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
         }
         
         .nav-tab {
             flex: 1;
-            padding: 12px 20px;
+            padding: 20px;
+            background: none;
             border: none;
-            background: transparent;
-            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
-            color: #6b7280;
-            font-size: 12px;
+            border-bottom: 3px solid transparent;
         }
         
         .nav-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-        
-        .nav-tab:hover:not(.active) {
-            background: rgba(102, 126, 234, 0.1);
+            background: white;
             color: #667eea;
+            border-bottom-color: #667eea;
         }
         
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        
-        .progress-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 20px; 
-            margin-bottom: 30px;
+        .nav-tab:hover {
+            background: #e9ecef;
         }
         
-        .progress-card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 25px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+        .tab-content {
+            padding: 30px;
+            min-height: 600px;
         }
         
-        .progress-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        .tab-pane {
+            display: none;
         }
         
-        .clickable-card {
-            cursor: pointer;
+        .tab-pane.active {
+            display: block;
         }
         
-        .clickable-card:hover {
-            background: rgba(255, 255, 255, 1);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
-        .big-number { 
-            display: block; 
-            font-size: 42px; 
-            font-weight: 800; 
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .card { 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 30px; 
-            border-radius: 20px; 
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .card h3 { 
-            color: #1f2937; 
-            margin-bottom: 16px; 
-            font-size: 12px; 
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .data-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 15px;
-        }
-        
-        .data-table th, .data-table td { 
-            padding: 12px; 
-            text-align: left; 
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 12px;
-        }
-        
-        .data-table th { 
-            background: #f9fafb; 
-            font-weight: 600; 
-            color: #374151;
-        }
-        
-        .data-table tr:hover { 
-            background: #f9fafb; 
-        }
-        
-        .form-group { margin-bottom: 20px; }
-        
-        .form-label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #374151;
-            font-size: 12px;
-        }
-        
-        .form-input, .form-select, .form-textarea { 
-            width: 100%; 
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 12px;
-            transition: border-color 0.2s;
-        }
-        
-        .form-input:focus, .form-select:focus, .form-textarea:focus { 
-            outline: none; 
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        
-        .form-textarea { 
-            min-height: 100px; 
-            resize: vertical; 
-        }
-        
-        .form-row { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 20px; 
-        }
-        
-        .btn { 
+        th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* Optimized column widths */
+        th:nth-child(1), td:nth-child(1) { width: 45%; font-size: 12px; } /* Decision */
+        th:nth-child(2), td:nth-child(2) { width: 12%; font-size: 11px; } /* Assigned To */
+        th:nth-child(3), td:nth-child(3) { width: 9%; font-size: 11px; } /* Priority */
+        th:nth-child(4), td:nth-child(4) { width: 11%; font-size: 11px; } /* Due Date */
+        th:nth-child(5), td:nth-child(5) { width: 9%; font-size: 11px; } /* Status */
+        th:nth-child(6), td:nth-child(6) { width: 8%; font-size: 11px; } /* Contact */
+        th:nth-child(7), td:nth-child(7) { width: 6%; font-size: 11px; } /* Delete */
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .priority-high { color: #dc3545; font-weight: 600; }
+        .priority-medium { color: #fd7e14; font-weight: 600; }
+        .priority-critical { color: #dc3545; font-weight: 700; background: #ffe6e6; }
+        .priority-low { color: #6c757d; }
+        
+        .status-completed { color: #28a745; font-weight: 600; }
+        .status-in-progress { color: #007bff; font-weight: 600; }
+        .status-not-started { color: #6c757d; }
+        .status-pending { color: #fd7e14; font-weight: 600; }
+        
+        .btn {
+            padding: 8px 16px;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            border-radius: 6px;
+            cursor: pointer;
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
         }
         
-        .btn:hover { 
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-        
-        .btn-secondary {
-            background: #6b7280;
-        }
-        
-        .btn-secondary:hover {
-            background: #4b5563;
-            box-shadow: 0 8px 25px rgba(75, 85, 99, 0.3);
-        }
-        
-        .message { 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-            font-weight: 500;
-            font-size: 12px;
-        }
-        
-        .message.success { 
-            background: #d1fae5; 
-            color: #065f46; 
-            border: 1px solid #10b981;
-        }
-        
-        .message.error { 
-            background: #fee2e2; 
-            color: #991b1b; 
-            border: 1px solid #ef4444;
-        }
-        
-        .task-item { 
-            background: white; 
-            border-radius: 12px; 
-            padding: 20px; 
-            margin-bottom: 15px;
-            border: 1px solid #e5e7eb;
-            transition: all 0.2s;
-        }
-        
-        .task-item:hover { 
-            border-color: #667eea;
-            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
-        }
-        
-        .task-title { 
-            font-weight: 600; 
-            margin-bottom: 8px;
-            font-size: 12px;
-            color: #1f2937;
-        }
-        
-        .task-meta { 
-            color: #6b7280; 
-            font-size: 11px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-        
-        .priority-high { color: #dc2626; font-weight: 600; }
-        .priority-medium { color: #d97706; font-weight: 600; }
-        .priority-low { color: #059669; font-weight: 600; }
-        .priority-critical { color: #7c2d12; font-weight: 600; background: #fed7aa; padding: 2px 6px; border-radius: 4px; }
-        
-        .status-completed { color: #059669; font-weight: 600; }
-        .status-in-progress { color: #0891b2; font-weight: 600; }
-        .status-pending { color: #d97706; font-weight: 600; }
-        .status-blocked { color: #dc2626; font-weight: 600; }
-        
-        .details-section {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .details-section.active {
-            display: block;
-        }
-        
-        .details-section .card {
-            max-width: 95%;
-            margin: 20px auto;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        
-        .close-details {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: #ef4444;
+        .btn-contact {
+            background: #28a745;
             color: white;
-            border: none;
+            gap: 4px;
+        }
+        
+        .btn-contact:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 14px;
         }
         
-        .inline-edit {
-            background: transparent;
-            border: 1px solid transparent;
-            padding: 2px 4px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            width: 100%;
-            font-size: 12px;
+        .btn-delete:hover {
+            background: #c82333;
+            transform: translateY(-1px);
         }
         
-        .inline-edit:hover {
-            background: #f9fafb;
-            border-color: #d1d5db;
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-size: 18px;
         }
         
-        .inline-edit:focus {
-            background: white;
-            border-color: #667eea;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .word-wrap {
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: normal;
+            max-width: 100%;
+            line-height: 1.4;
         }
         
         @media (max-width: 768px) {
-            .container { padding: 15px; }
-            
-            .header { padding: 20px; }
-            .header h1 { font-size: 24px; }
-            
-            .nav-tabs { flex-wrap: wrap; }
-            .nav-tab { 
-                min-width: 120px; 
-                margin: 2px;
-            }
-            
-            .progress-grid { 
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-                gap: 15px; 
-            }
-            
-            .form-row { 
-                grid-template-columns: 1fr; 
-            }
-            
-            .data-table { 
-                font-size: 11px; 
-            }
-            
-            .data-table th, .data-table td { 
-                padding: 8px; 
-            }
-            
-            .details-section .card {
-                max-width: 100%;
-                margin: 10px auto;
-                padding: 20px;
-            }
+            body { padding: 10px; }
+            .header h1 { font-size: 1.8rem; }
+            .nav-tab { padding: 15px 10px; font-size: 14px; }
+            .tab-content { padding: 20px 15px; }
+            th, td { padding: 8px 6px; font-size: 12px; }
+            .stats { grid-template-columns: repeat(2, 1fr); gap: 15px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏗️ Pooja's Restaurant Build Management</h1>
-            <p>Real-time project tracking & team coordination • Updated ${new Date().toLocaleDateString()}</p>
+            <h1>🏗️ POOJA'S BUILD MANAGEMENT</h1>
+            <div class="subtitle">📱💻 Restaurant Construction & Decision Tracking Dashboard</div>
         </div>
-
+        
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab('dashboard')">🏠 Dashboard</button>
-            <button class="nav-tab" onclick="showTab('contacts')">📞 Contacts</button>
-            <button class="nav-tab" onclick="showTab('add-task')">➕ Add Task</button>
-            <button class="nav-tab" onclick="showTab('decisions')">➕ Add Decisions</button>
+            <button class="nav-tab active" onclick="showTab('tasks')">📋 All Tasks</button>
+            <button class="nav-tab" onclick="showTab('decisions')">⚖️ All Decisions</button>
         </div>
-
-        <!-- Dashboard Tab -->
-        <div id="dashboard" class="tab-content active">
-            <div class="progress-grid">
-                <div class="progress-card clickable-card" onclick="toggleDetails('urgent')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
-                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #dc2626; display: block;">${summary.summary.total}</span>
-                    <div style="color: #64748b; font-size: 14px;">Total Tasks</div>
-                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
-                </div>
-                <div class="progress-card clickable-card" onclick="toggleDetails('decisions')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
-                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #d97706; display: block;">${allDecisions.length}</span>
-                    <div style="color: #64748b; font-size: 14px;">Total Decisions</div>
-                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
-                </div>
-                <div class="progress-card clickable-card" onclick="toggleDetails('completed')" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
-                    <span class="big-number" style="font-size: 36px; font-weight: bold; color: #059669; display: block;">${summary.summary.completed}</span>
-                    <div style="color: #64748b; font-size: 14px;">Completed</div>
-                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
-                </div>
+        
+        <div class="tab-content">
+            <div id="tasks" class="tab-pane active">
+                <div class="stats" id="taskStats"></div>
+                <div class="loading" id="tasksLoading">Loading tasks...</div>
+                <table id="tasksTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Owner</th>
+                            <th>Priority</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Contact</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tasksBody"></tbody>
+                </table>
             </div>
             
-            <!-- Details sections will be populated here -->
-            ${allTasks.length > 0 ? `
-            <div id="urgent-details" class="details-section">
-                <div class="card">
-                    <button class="close-details" onclick="toggleDetails('urgent');">✕ Close</button>
-                    <h4 style="margin-bottom: 16px;">All Tasks (${allTasks.length})</h4>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Owner</th>
-                                <th>Category</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Due Date</th>
-                                <th>Contact</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${allTasks.map(task => `
-                                <tr data-task-id="${task.id}">
-                                    <td style="max-width: 200px;">
-                                        <input type="text" value="${task.title}" 
-                                               class="inline-edit" 
-                                               onchange="updateTaskField(${task.id}, 'title', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-weight: 600; font-size: 12px;">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="${task.owner || ''}" 
-                                               class="inline-edit" 
-                                               onchange="updateTaskField(${task.id}, 'owner', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-size: 12px;">
-                                    </td>
-                                    <td>
-                                        <input type="text" value="${task.category || 'General'}" 
-                                               class="inline-edit" 
-                                               onchange="updateTaskField(${task.id}, 'category', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-size: 12px;">
-                                    </td>
-                                    <td>
-                                        <select class="inline-edit" 
-                                                onchange="updateTaskField(${task.id}, 'priority', this.value)"
-                                                style="border: none; background: transparent; width: 100%; font-size: 12px;">
-                                            <option value="Low" ${task.priority === 'Low' ? 'selected' : ''}>Low</option>
-                                            <option value="Medium" ${task.priority === 'Medium' ? 'selected' : ''}>Medium</option>
-                                            <option value="High" ${task.priority === 'High' ? 'selected' : ''}>High</option>
-                                            <option value="Critical" ${task.priority === 'Critical' ? 'selected' : ''}>Critical</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select class="inline-edit" 
-                                                onchange="updateTaskField(${task.id}, 'status', this.value)"
-                                                style="border: none; background: transparent; width: 100%; font-size: 12px;">
-                                            <option value="Not Started" ${task.status === 'Not Started' ? 'selected' : ''}>Not Started</option>
-                                            <option value="In Progress" ${task.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-                                            <option value="Awaiting Decision" ${task.status === 'Awaiting Decision' ? 'selected' : ''}>Awaiting Decision</option>
-                                            <option value="Awaiting Prerequisites" ${task.status === 'Awaiting Prerequisites' ? 'selected' : ''}>Awaiting Prerequisites</option>
-                                            <option value="Awaiting Vendor" ${task.status === 'Awaiting Vendor' ? 'selected' : ''}>Awaiting Vendor</option>
-                                            <option value="Awaiting Site Readiness" ${task.status === 'Awaiting Site Readiness' ? 'selected' : ''}>Awaiting Site Readiness</option>
-                                            <option value="Design in Progress" ${task.status === 'Design in Progress' ? 'selected' : ''}>Design in Progress</option>
-                                            <option value="Design Approved" ${task.status === 'Design Approved' ? 'selected' : ''}>Design Approved</option>
-                                            <option value="Awaiting Design Approval" ${task.status === 'Awaiting Design Approval' ? 'selected' : ''}>Awaiting Design Approval</option>
-                                            <option value="Completed" ${task.status === 'Completed' ? 'selected' : ''}>Completed</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="date" value="${task.dueDate}" 
-                                               class="inline-edit" 
-                                               onchange="updateTaskField(${task.id}, 'dueDate', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-size: 12px;">
-                                    </td>
-                                    <td>
-                                        ${getContactButtons(task)}
-                                    </td>
-                                    <td>
-                                        <button onclick="deleteTask(${task.id})" 
-                                                style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 16px; padding: 4px; border-radius: 4px; hover: background-color: #fef2f2;" 
-                                                title="Delete task">
-                                            🗑️
-                                        </button>
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            ` : ''}
-            
-            ${allDecisions.length > 0 ? `
-            <div id="decisions-details" class="details-section">
-                <div class="card">
-                    <button class="close-details" onclick="toggleDetails('decisions');">✕ Close</button>
-                    <h4 style="margin-bottom: 16px;">All Decisions (${allDecisions.length})</h4>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 45%;">Decision</th>
-                                <th style="width: 12%;">Assigned To</th>
-                                <th style="width: 9%;">Priority</th>
-                                <th style="width: 11%;">Due Date</th>
-                                <th style="width: 9%;">Status</th>
-                                <th style="width: 8%;">Contact</th>
-                                <th style="width: 6%;">Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${allDecisions.map(decision => `
-                                <tr data-decision-id="${decision.id}">
-                                    <td style="width: 45%; max-width: 400px; word-wrap: break-word; white-space: normal;">
-                                        <textarea 
-                                               class="inline-edit" 
-                                               onchange="updateDecisionField(${decision.id}, 'title', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-weight: 600; font-size: 12px; resize: none; overflow: hidden; min-height: 20px; word-wrap: break-word;"
-                                               oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px';">${decision.title}</textarea>
-                                        ${decision.description ? `<br><textarea 
-                                               class="inline-edit" 
-                                               onchange="updateDecisionField(${decision.id}, 'description', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-size: 11px; color: #6b7280; resize: none; overflow: hidden; min-height: 18px; word-wrap: break-word;"
-                                               placeholder="Add description..."
-                                               oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px';">${decision.description}</textarea>` : 
-                                               `<br><textarea 
-                                               class="inline-edit" 
-                                               onchange="updateDecisionField(${decision.id}, 'description', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-size: 11px; color: #6b7280; resize: none; overflow: hidden; min-height: 18px; word-wrap: break-word;"
-                                               placeholder="Add description..."
-                                               oninput="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px';"></textarea>`}
-                                    </td>
-                                    <td style="width: 12%;">
-                                        <select class="inline-edit" 
-                                                onchange="updateDecisionField(${decision.id}, 'assignedTo', this.value)"
-                                                style="border: none; background: transparent; width: 100%; font-size: 11px;">
-                                            <option value="Arushi" ${decision.assignedTo === 'Arushi' ? 'selected' : ''}>Arushi</option>
-                                            <option value="Vishal" ${decision.assignedTo === 'Vishal' ? 'selected' : ''}>Vishal</option>
-                                            <option value="Sabharwal" ${decision.assignedTo === 'Sabharwal' ? 'selected' : ''}>Sabharwal</option>
-                                            <option value="Sandeep" ${decision.assignedTo === 'Sandeep' ? 'selected' : ''}>Sandeep</option>
-                                            <option value="Pradeep" ${decision.assignedTo === 'Pradeep' ? 'selected' : ''}>Pradeep</option>
-                                            <option value="Sunil" ${decision.assignedTo === 'Sunil' ? 'selected' : ''}>Sunil</option>
-                                            <option value="Team" ${decision.assignedTo === 'Team' ? 'selected' : ''}>Team</option>
-                                        </select>
-                                    </td>
-                                    <td style="width: 9%;">
-                                        <select class="inline-edit" 
-                                                onchange="updateDecisionField(${decision.id}, 'priority', this.value)"
-                                                style="border: none; background: transparent; width: 100%; font-size: 11px;">
-                                            <option value="Low" ${decision.priority === 'Low' ? 'selected' : ''}>Low</option>
-                                            <option value="Medium" ${decision.priority === 'Medium' ? 'selected' : ''}>Medium</option>
-                                            <option value="High" ${decision.priority === 'High' ? 'selected' : ''}>High</option>
-                                            <option value="Critical" ${decision.priority === 'Critical' ? 'selected' : ''}>Critical</option>
-                                        </select>
-                                    </td>
-                                    <td style="width: 11%;">
-                                        <input type="date" value="${decision.dueDate}" 
-                                               class="inline-edit" 
-                                               onchange="updateDecisionField(${decision.id}, 'dueDate', this.value)"
-                                               style="border: none; background: transparent; width: 100%; font-size: 11px;">
-                                    </td>
-                                    <td style="width: 9%;">
-                                        <select class="inline-edit" 
-                                                onchange="updateDecisionField(${decision.id}, 'status', this.value)"
-                                                style="border: none; background: transparent; width: 100%; font-size: 11px;">
-                                            <option value="Pending" ${decision.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                                            <option value="In Progress" ${decision.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-                                            <option value="Decided" ${decision.status === 'Decided' ? 'selected' : ''}>Decided</option>
-                                            <option value="On Hold" ${decision.status === 'On Hold' ? 'selected' : ''}>On Hold</option>
-                                        </select>
-                                    </td>
-                                    <td style="width: 8%;">
-                                        <div style="display: flex; gap: 2px; align-items: center;">
-                                            <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" 
-                                               style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">📞</a>
-                                            <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\\nDue: ${decision.dueDate}\\nPriority: ${decision.priority}`)}" 
-                                               style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
-                                        </div>
-                                    </td>
-                                    <td style="width: 6%;">
-                                        <button onclick="deleteDecision(${decision.id})" 
-                                                style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 14px; padding: 2px; border-radius: 4px; hover: background-color: #fef2f2;" 
-                                                title="Delete decision">
-                                            🗑️
-                                        </button>
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            ` : ''}
-            
-            ${allTasks.filter(t => t.status === 'Completed').length > 0 ? `
-            <div id="completed-details" class="details-section">
-                <div class="card">
-                    <button class="close-details" onclick="toggleDetails('completed');">✕ Close</button>
-                    <h4 style="margin-bottom: 16px;">Completed Tasks (${allTasks.filter(t => t.status === 'Completed').length})</h4>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Task</th>
-                                <th>Owner</th>
-                                <th>Category</th>
-                                <th>Completed Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${allTasks.filter(t => t.status === 'Completed').map(task => `
-                                <tr>
-                                    <td style="max-width: 200px;"><strong>${task.title}</strong></td>
-                                    <td>${task.owner}</td>
-                                    <td>${task.category || 'General'}</td>
-                                    <td>${task.updatedAt ? new Date(task.updatedAt).toLocaleDateString() : new Date().toLocaleDateString()}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            ` : ''}
-        </div>
-
-        <!-- Contacts Tab -->
-        <div id="contacts" class="tab-content">
-            <div class="card">
-                <h3>📞 Project Team Contacts</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #667eea;">
-                        <h4 style="color: #1e293b; margin-bottom: 10px; font-size: 14px;">🏗️ Site Management</h4>
-                        <div style="color: #64748b; font-size: 12px; line-height: 1.5;">
-                            <strong>Vishal - Site Manager</strong><br>
-                            📱 +91 9310203344<br>
-                            <a href="tel:+919310203344" class="btn" style="font-size: 10px; padding: 6px 12px; margin-top: 8px; margin-right: 8px;">Call</a>
-                            <a href="sms:+919310203344" class="btn btn-secondary" style="font-size: 10px; padding: 6px 12px; margin-top: 8px;">SMS</a>
-                        </div>
-                    </div>
-                    
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #10b981;">
-                        <h4 style="color: #1e293b; margin-bottom: 10px; font-size: 14px;">🎨 Design & Decisions</h4>
-                        <div style="color: #64748b; font-size: 12px; line-height: 1.5;">
-                            <strong>Arushi - Design Lead</strong><br>
-                            📱 +91 9810312309<br>
-                            <a href="tel:+919810312309" class="btn" style="font-size: 10px; padding: 6px 12px; margin-top: 8px; margin-right: 8px;">Call</a>
-                            <a href="sms:+919810312309" class="btn btn-secondary" style="font-size: 10px; padding: 6px 12px; margin-top: 8px;">SMS</a>
-                        </div>
-                    </div>
-                    
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #f59e0b;">
-                        <h4 style="color: #1e293b; margin-bottom: 10px; font-size: 14px;">🔧 Specialized Work</h4>
-                        <div style="color: #64748b; font-size: 12px; line-height: 1.5;">
-                            <strong>Sabharwal - Contractor</strong><br>
-                            📱 +91 9868226580<br>
-                            <strong>Sandeep - Electrical/Roofing</strong><br>
-                            📱 +91 9810165187<br>
-                            <strong>Pradeep - HVAC</strong><br>
-                            📱 +91 9540475132<br>
-                        </div>
-                    </div>
-                    
-                    <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border-left: 4px solid #8b5cf6;">
-                        <h4 style="color: #1e293b; margin-bottom: 10px; font-size: 14px;">🍽️ Kitchen Equipment</h4>
-                        <div style="color: #64748b; font-size: 12px; line-height: 1.5;">
-                            <strong>Sunil - Equipment Vendor</strong><br>
-                            📱 +91 9810086477<br>
-                            <a href="tel:+919810086477" class="btn" style="font-size: 10px; padding: 6px 12px; margin-top: 8px; margin-right: 8px;">Call</a>
-                            <a href="sms:+919810086477" class="btn btn-secondary" style="font-size: 10px; padding: 6px 12px; margin-top: 8px;">SMS</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Add Task Tab -->
-        <div id="add-task" class="tab-content">
-            <div class="card">
-                <h3>➕ Add New Task</h3>
-                <div id="task-message" class="message" style="display: none;"></div>
-                <form id="taskForm">
-                    <div class="form-group">
-                        <label class="form-label">Task Title *</label>
-                        <input type="text" class="form-input" name="title" required placeholder="e.g., Install kitchen exhaust system">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Owner/Contractor *</label>
-                            <input type="text" class="form-input" name="owner" required placeholder="e.g., Vishal, Sabharwal">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Category</label>
-                            <select class="form-select" name="category">
-                                <option value="General">General</option>
-                                <option value="HVAC">HVAC</option>
-                                <option value="Painting">Painting</option>
-                                <option value="Interior">Interior</option>
-                                <option value="Plumbing">Plumbing</option>
-                                <option value="Flooring">Flooring</option>
-                                <option value="Design">Design</option>
-                                <option value="Kitchen">Kitchen</option>
-                                <option value="Planning">Planning</option>
-                                <option value="Electrical">Electrical</option>
-                                <option value="Documentation">Documentation</option>
-                                <option value="Waterproofing">Waterproofing</option>
-                                <option value="Roofing">Roofing</option>
-                                <option value="Signage">Signage</option>
-                                <option value="Tiling">Tiling</option>
-                                <option value="Storage">Storage</option>
-                                <option value="Furniture">Furniture</option>
-                                <option value="Safety">Safety</option>
-                                <option value="Legal">Legal</option>
-                                <option value="Security">Security</option>
-                                <option value="Technology">Technology</option>
-                                <option value="Cleaning">Cleaning</option>
-                                <option value="Operations">Operations</option>
-                                <option value="Construction">Construction</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Priority</label>
-                            <select class="form-select" name="priority">
-                                <option value="Medium" selected>Medium</option>
-                                <option value="Low">Low</option>
-                                <option value="High">High</option>
-                                <option value="Critical">Critical</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Due Date</label>
-                            <input type="date" class="form-input" name="dueDate" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Notes</label>
-                        <textarea class="form-textarea" name="notes" placeholder="Additional details, requirements, or constraints..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn">Add Task</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Add Decisions Tab -->
-        <div id="decisions" class="tab-content">
-            <div class="card">
-                <h3>➕ Add New Decision</h3>
-                <div id="decision-message" class="message" style="display: none;"></div>
-                <form id="decisionForm">
-                    <div class="form-group">
-                        <label class="form-label">Decision Title *</label>
-                        <input type="text" class="form-input" name="title" required placeholder="e.g., Choose flooring material for dining area">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Assigned To *</label>
-                            <select class="form-select" name="assignedTo" required>
-                                <option value="">Select Person</option>
-                                <option value="Arushi">Arushi</option>
-                                <option value="Vishal">Vishal</option>
-                                <option value="Sabharwal">Sabharwal</option>
-                                <option value="Sandeep">Sandeep</option>
-                                <option value="Pradeep">Pradeep</option>
-                                <option value="Sunil">Sunil</option>
-                                <option value="Team">Team</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Priority</label>
-                            <select class="form-select" name="priority">
-                                <option value="Medium" selected>Medium</option>
-                                <option value="Low">Low</option>
-                                <option value="High">High</option>
-                                <option value="Critical">Critical</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Due Date</label>
-                        <input type="date" class="form-input" name="dueDate" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-textarea" name="description" placeholder="Describe the decision needed, options available, constraints, etc."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn">Add Decision</button>
-                </form>
+            <div id="decisions" class="tab-pane">
+                <div class="stats" id="decisionStats"></div>
+                <div class="loading" id="decisionsLoading">Loading decisions...</div>
+                <table id="decisionsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Decision</th>
+                            <th>Assigned To</th>
+                            <th>Priority</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                            <th>Contact</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="decisionsBody"></tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
-        // Tab functionality
+        let tasks = [];
+        let decisions = [];
+
         function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
 
-        // Details toggle functionality
-        function toggleDetails(section) {
-            const detailsEl = document.getElementById(section + '-details');
-            if (detailsEl) {
-                detailsEl.classList.toggle('active');
+        async function loadTasks() {
+            try {
+                const response = await fetch('/api/tasks');
+                tasks = await response.json();
+                
+                document.getElementById('tasksLoading').style.display = 'none';
+                document.getElementById('tasksTable').style.display = 'table';
+                
+                renderTasks();
+                renderTaskStats();
+            } catch (error) {
+                console.error('Error loading tasks:', error);
+                document.getElementById('tasksLoading').textContent = 'Error loading tasks';
             }
         }
 
-        // Form submission handlers
-        document.getElementById('taskForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const taskData = Object.fromEntries(formData.entries());
-            
+        async function loadDecisions() {
             try {
-                const response = await fetch('/api/tasks', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(taskData)
-                });
+                const response = await fetch('/api/decisions');
+                decisions = await response.json();
                 
-                if (response.ok) {
-                    document.getElementById('task-message').innerHTML = '✅ Task added successfully!';
-                    document.getElementById('task-message').className = 'message success';
-                    document.getElementById('task-message').style.display = 'block';
-                    e.target.reset();
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    throw new Error('Failed to add task');
-                }
-            } catch (error) {
-                document.getElementById('task-message').innerHTML = '❌ Error adding task. Please try again.';
-                document.getElementById('task-message').className = 'message error';
-                document.getElementById('task-message').style.display = 'block';
-            }
-        });
-
-        document.getElementById('decisionForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const decisionData = Object.fromEntries(formData.entries());
-            
-            try {
-                const response = await fetch('/api/decisions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(decisionData)
-                });
+                document.getElementById('decisionsLoading').style.display = 'none';
+                document.getElementById('decisionsTable').style.display = 'table';
                 
-                if (response.ok) {
-                    document.getElementById('decision-message').innerHTML = '✅ Decision added successfully!';
-                    document.getElementById('decision-message').className = 'message success';
-                    document.getElementById('decision-message').style.display = 'block';
-                    e.target.reset();
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    throw new Error('Failed to add decision');
-                }
+                renderDecisions();
+                renderDecisionStats();
             } catch (error) {
-                document.getElementById('decision-message').innerHTML = '❌ Error adding decision. Please try again.';
-                document.getElementById('decision-message').className = 'message error';
-                document.getElementById('decision-message').style.display = 'block';
-            }
-        });
-
-        // Update functions for inline editing
-        async function updateTaskField(taskId, field, value) {
-            try {
-                const response = await fetch(\`/api/tasks/\${taskId}\`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ [field]: value })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Failed to update task');
-                }
-            } catch (error) {
-                alert('Error updating task: ' + error.message);
+                console.error('Error loading decisions:', error);
+                document.getElementById('decisionsLoading').textContent = 'Error loading decisions';
             }
         }
 
-        async function updateDecisionField(decisionId, field, value) {
-            try {
-                const response = await fetch(\`/api/decisions/\${decisionId}\`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ [field]: value })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Failed to update decision');
-                }
-            } catch (error) {
-                alert('Error updating decision: ' + error.message);
-            }
+        function renderTasks() {
+            const tbody = document.getElementById('tasksBody');
+            tbody.innerHTML = tasks.map(task => \`
+                <tr>
+                    <td class="word-wrap">\${task.title}</td>
+                    <td>\${task.owner}</td>
+                    <td class="priority-\${task.priority.toLowerCase()}">\${task.priority}</td>
+                    <td>\${new Date(task.dueDate).toLocaleDateString()}</td>
+                    <td class="status-\${task.status.toLowerCase().replace(/\\s+/g, '-')}">\${task.status}</td>
+                    <td><a href="#" class="btn btn-contact" onclick="contactOwner('\${task.owner}', '\${task.title}')">📞</a></td>
+                    <td><button class="btn btn-delete" onclick="deleteTask(\${task.id})">×</button></td>
+                </tr>
+            \`).join('');
         }
 
-        async function deleteTask(taskId) {
+        function renderDecisions() {
+            const tbody = document.getElementById('decisionsBody');
+            tbody.innerHTML = decisions.map(decision => \`
+                <tr>
+                    <td class="word-wrap">
+                        <strong>\${decision.title}</strong><br>
+                        <small style="color: #6c757d;">\${decision.description}</small>
+                    </td>
+                    <td>\${decision.assignedTo}</td>
+                    <td class="priority-\${decision.priority.toLowerCase()}">\${decision.priority}</td>
+                    <td>\${new Date(decision.dueDate).toLocaleDateString()}</td>
+                    <td class="status-\${decision.status.toLowerCase()}">\${decision.status}</td>
+                    <td><a href="#" class="btn btn-contact" onclick="contactOwner('\${decision.assignedTo}', '\${decision.title}')">📞</a></td>
+                    <td><button class="btn btn-delete" onclick="deleteDecision(\${decision.id})">×</button></td>
+                </tr>
+            \`).join('');
+        }
+
+        function renderTaskStats() {
+            const stats = {
+                total: tasks.length,
+                completed: tasks.filter(t => t.status === 'Completed').length,
+                inProgress: tasks.filter(t => t.status === 'In Progress').length,
+                critical: tasks.filter(t => t.priority === 'Critical').length
+            };
+
+            document.getElementById('taskStats').innerHTML = \`
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.total}</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.completed}</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.inProgress}</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.critical}</div>
+                    <div class="stat-label">Critical Priority</div>
+                </div>
+            \`;
+        }
+
+        function renderDecisionStats() {
+            const stats = {
+                total: decisions.length,
+                pending: decisions.filter(d => d.status === 'Pending').length,
+                high: decisions.filter(d => d.priority === 'High').length,
+                overdue: decisions.filter(d => new Date(d.dueDate) < new Date()).length
+            };
+
+            document.getElementById('decisionStats').innerHTML = \`
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.total}</div>
+                    <div class="stat-label">Total Decisions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.pending}</div>
+                    <div class="stat-label">Pending</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.high}</div>
+                    <div class="stat-label">High Priority</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">\${stats.overdue}</div>
+                    <div class="stat-label">Overdue</div>
+                </div>
+            \`;
+        }
+
+        function contactOwner(owner, title) {
+            alert(\`Contact \${owner} about: \${title}\`);
+        }
+
+        function deleteTask(id) {
             if (confirm('Are you sure you want to delete this task?')) {
-                try {
-                    const response = await fetch(\`/api/tasks/\${taskId}\`, {
-                        method: 'DELETE'
-                    });
-                    
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        throw new Error('Failed to delete task');
-                    }
-                } catch (error) {
-                    alert('Error deleting task: ' + error.message);
-                }
+                tasks = tasks.filter(t => t.id !== id);
+                renderTasks();
+                renderTaskStats();
             }
         }
 
-        async function deleteDecision(decisionId) {
+        function deleteDecision(id) {
             if (confirm('Are you sure you want to delete this decision?')) {
-                try {
-                    const response = await fetch(\`/api/decisions/\${decisionId}\`, {
-                        method: 'DELETE'
-                    });
-                    
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        throw new Error('Failed to delete decision');
-                    }
-                } catch (error) {
-                    alert('Error deleting decision: ' + error.message);
-                }
+                decisions = decisions.filter(d => d.id !== id);
+                renderDecisions();
+                renderDecisionStats();
             }
         }
+
+        // Load data on page load
+        loadTasks();
+        loadDecisions();
     </script>
 </body>
-</html>
-      `);
-      return;
-    }
+</html>`;
 
-    // API endpoints would be handled here
-    res.status(404).json({ error: 'Not found' });
-    
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.setHeader('Content-Type', 'text/html').send(html);
   }
+
+  return res.status(405).json({ error: 'Method not allowed' });
 };
