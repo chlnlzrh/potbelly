@@ -883,7 +883,7 @@ module.exports = async (req, res) => {
         
         .progress-overview {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 16px;
             margin-bottom: 24px;
         }
@@ -1162,6 +1162,400 @@ module.exports = async (req, res) => {
             font-weight: 600;
         }
         
+        /* Decision Card Layout */
+        .decisions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .decision-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 5px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .decision-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .decision-card.status-pending {
+            border-left-color: #f59e0b;
+        }
+        
+        .decision-card.status-in-progress {
+            border-left-color: #3b82f6;
+        }
+        
+        .decision-card.status-decided {
+            border-left-color: #10b981;
+        }
+        
+        .decision-card.status-on-hold {
+            border-left-color: #ef4444;
+        }
+        
+        .decision-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        
+        .decision-title {
+            flex: 1;
+            margin-right: 12px;
+        }
+        
+        .decision-description {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            min-height: 20px;
+        }
+        
+        .decision-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .decision-assignee {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #374151;
+            font-weight: 600;
+        }
+        
+        .decision-due {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .decision-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .decision-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .decision-status-badge.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .decision-status-badge.in-progress {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .decision-status-badge.decided {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .decision-status-badge.on-hold {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .decision-contact-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .decision-contact-btn {
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .decision-contact-btn.phone {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .decision-contact-btn.phone:hover {
+            background: #2563eb;
+        }
+        
+        .decision-contact-btn.sms {
+            background: #10b981;
+            color: white;
+        }
+        
+        .decision-contact-btn.sms:hover {
+            background: #059669;
+        }
+        
+        .decision-delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .decision-delete-btn:hover {
+            background: #dc2626;
+        }
+        
+        .decision-icon {
+            margin-right: 6px;
+        }
+        
+        /* Task Card Layout */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .task-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 5px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .task-card.status-completed {
+            border-left-color: #10b981;
+        }
+        
+        .task-card.status-in-progress {
+            border-left-color: #3b82f6;
+        }
+        
+        .task-card.status-not-started {
+            border-left-color: #6b7280;
+        }
+        
+        .task-card.status-awaiting-decision {
+            border-left-color: #f59e0b;
+        }
+        
+        .task-card.status-awaiting-prerequisites {
+            border-left-color: #8b5cf6;
+        }
+        
+        .task-card.status-design-approved {
+            border-left-color: #10b981;
+        }
+        
+        .task-card.status-awaiting-vendor {
+            border-left-color: #f59e0b;
+        }
+        
+        .task-card.status-awaiting-site-readiness {
+            border-left-color: #6b7280;
+        }
+        
+        .task-card.status-design-in-progress {
+            border-left-color: #3b82f6;
+        }
+        
+        .task-card.status-awaiting-design-approval {
+            border-left-color: #f59e0b;
+        }
+        
+        .task-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+        
+        .task-title {
+            flex: 1;
+            margin-right: 12px;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .task-owner {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #374151;
+            font-weight: 600;
+        }
+        
+        .task-due {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .task-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .task-status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .task-status-badge.completed {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .task-status-badge.in-progress {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .task-status-badge.not-started {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .task-status-badge.awaiting-decision {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .task-status-badge.awaiting-prerequisites {
+            background: #ede9fe;
+            color: #8b5cf6;
+        }
+        
+        .task-status-badge.design-approved {
+            background: #d1fae5;
+            color: #059669;
+        }
+        
+        .task-status-badge.awaiting-vendor {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .task-status-badge.awaiting-site-readiness {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .task-status-badge.design-in-progress {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .task-status-badge.awaiting-design-approval {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .task-contact-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .task-contact-btn {
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .task-contact-btn.phone {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .task-contact-btn.phone:hover {
+            background: #2563eb;
+        }
+        
+        .task-contact-btn.sms {
+            background: #10b981;
+            color: white;
+        }
+        
+        .task-contact-btn.sms:hover {
+            background: #059669;
+        }
+        
+        .task-delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .task-delete-btn:hover {
+            background: #dc2626;
+        }
+        
+        .task-icon {
+            margin-right: 6px;
+        }
+        
         @media (max-width: 768px) {
             body { padding: 10px; }
             .header h1 { font-size: 1.8rem; }
@@ -1169,14 +1563,64 @@ module.exports = async (req, res) => {
             .tab-content { padding: 20px 15px; }
             th, td { padding: 8px 6px; font-size: 12px; }
             .progress-overview { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            
+            /* Mobile decision cards */
+            .decisions-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .decision-card {
+                padding: 16px;
+            }
+            
+            .decision-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .decision-actions {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+            
+            .decision-contact-actions {
+                justify-content: center;
+            }
+            
+            /* Mobile task cards */
+            .tasks-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .task-card {
+                padding: 16px;
+            }
+            
+            .task-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .task-actions {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+            
+            .task-contact-actions {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏗️ Potbelly Restaurant Build</h1>
-            <div class="subtitle">Task & Decision Management</div>
         </div>
         
         <div class="nav-tabs">
@@ -1217,9 +1661,6 @@ module.exports = async (req, res) => {
                         ${progress}%
                     </div>
                     <div style="color: #64748b; margin-bottom: 16px;">Overall Progress</div>
-                    <div style="background: #fef3c7; color: #d97706; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; margin-top: 16px;">
-                        Target Opening: Mid November 2025
-                    </div>
                 </div>
             </div>
         </div>
@@ -1492,33 +1933,50 @@ module.exports = async (req, res) => {
             <div class="card">
                 <button style="float: right; background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-bottom: 16px;" onclick="hideDetails()">✕ Close</button>
                 <h4 style="margin-bottom: 16px;">All Tasks (${total})</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 50%;">Task</th>
-                            <th style="width: 15%;">Owner</th>
-                            <th style="width: 12%;">Due Date</th>
-                            <th style="width: 11%;">Status</th>
-                            <th style="width: 8%;">Contact</th>
-                            <th style="width: 4%;">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${TASKS_DATA.map(task => `
-                            <tr data-task-id="${task.id}">
-                                <td class="word-wrap editable" data-field="title" style="width: 50%; max-width: 400px;">${task.title}<span class="edit-indicator">✏️ Click to edit</span></td>
-                                <td class="editable" data-field="owner" style="width: 15%;">${task.owner}<span class="edit-indicator">✏️</span></td>
-                                <td class="editable" data-field="dueDate" style="width: 12%;">${new Date(task.dueDate).toLocaleDateString()}<span class="edit-indicator">✏️</span></td>
-                                <td class="editable status-${task.status.toLowerCase().replace(/\s+/g, '-')}" data-field="status" style="width: 11%;">${task.status}<span class="edit-indicator">✏️</span></td>
-                                <td style="width: 8%; white-space: nowrap;">
-                                    <a href="tel:${getOwnerPhone(task.owner)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
-                                    <a href="sms:${getOwnerPhone(task.owner)}&body=${encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
-                                </td>
-                                <td style="width: 4%;"><button class="btn btn-delete" onclick="deleteTask(${task.id})">×</button></td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="tasks-grid">
+                    ${TASKS_DATA.map(task => `
+                        <div class="task-card status-${task.status.toLowerCase().replace(/\s+/g, '-')}" data-task-id="${task.id}">
+                            <div class="task-header">
+                                <div class="task-title editable" data-field="title">
+                                    ${task.title}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="task-meta">
+                                <div class="task-owner editable" data-field="owner">
+                                    <span class="task-icon">👤</span>
+                                    ${task.owner}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                <div class="task-due editable" data-field="dueDate">
+                                    <span class="task-icon">📅</span>
+                                    ${new Date(task.dueDate).toLocaleDateString()}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="task-actions">
+                                <div class="task-status-badge ${task.status.toLowerCase().replace(/\s+/g, '-')} editable" data-field="status">
+                                    ${task.status}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                
+                                <div class="task-contact-actions">
+                                    <a href="tel:${getOwnerPhone(task.owner)}" class="task-contact-btn phone">
+                                        📞 Call
+                                    </a>
+                                    <a href="sms:${getOwnerPhone(task.owner)}&body=${encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`)}" class="task-contact-btn sms">
+                                        💬 Text
+                                    </a>
+                                    <button class="task-delete-btn" onclick="deleteTask(${task.id})">
+                                        🗑️ Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
             </div>
         </div>
         
@@ -1526,36 +1984,55 @@ module.exports = async (req, res) => {
             <div class="card">
                 <button style="float: right; background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-bottom: 16px;" onclick="hideDetails()">✕ Close</button>
                 <h4 style="margin-bottom: 16px;">All Decisions (${DECISIONS_DATA.length})</h4>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 50%;">Decision</th>
-                            <th style="width: 15%;">Assigned To</th>
-                            <th style="width: 12%;">Due Date</th>
-                            <th style="width: 11%;">Status</th>
-                            <th style="width: 8%;">Contact</th>
-                            <th style="width: 4%;">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${DECISIONS_DATA.map(decision => `
-                            <tr data-decision-id="${decision.id}">
-                                <td class="word-wrap editable" data-field="title" style="width: 50%; max-width: 400px;">
-                                    <strong>${decision.title}</strong><span class="edit-indicator">✏️ Click to edit</span><br>
-                                    <small style="color: #6c757d;" class="editable" data-field="description">${decision.description}<span class="edit-indicator">✏️</span></small>
-                                </td>
-                                <td class="editable" data-field="assignedTo" style="width: 15%;">${decision.assignedTo}<span class="edit-indicator">✏️</span></td>
-                                <td class="editable" data-field="dueDate" style="width: 12%;">${new Date(decision.dueDate).toLocaleDateString()}<span class="edit-indicator">✏️</span></td>
-                                <td class="editable status-${decision.status.toLowerCase()}" data-field="status" style="width: 11%;">${decision.status}<span class="edit-indicator">✏️</span></td>
-                                <td style="width: 8%; white-space: nowrap;">
-                                    <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
-                                    <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
-                                </td>
-                                <td style="width: 4%;"><button class="btn btn-delete" onclick="deleteDecision(${decision.id})">×</button></td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="decisions-grid">
+                    ${DECISIONS_DATA.map(decision => `
+                        <div class="decision-card status-${decision.status.toLowerCase().replace(/\s+/g, '-')}" data-decision-id="${decision.id}">
+                            <div class="decision-header">
+                                <div class="decision-title editable" data-field="title">
+                                    ${decision.title}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="decision-description editable" data-field="description">
+                                ${decision.description}
+                                <span class="edit-indicator">✏️</span>
+                            </div>
+                            
+                            <div class="decision-meta">
+                                <div class="decision-assignee editable" data-field="assignedTo">
+                                    <span class="decision-icon">👤</span>
+                                    ${decision.assignedTo}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                <div class="decision-due editable" data-field="dueDate">
+                                    <span class="decision-icon">📅</span>
+                                    ${new Date(decision.dueDate).toLocaleDateString()}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                            </div>
+                            
+                            <div class="decision-actions">
+                                <div class="decision-status-badge ${decision.status.toLowerCase().replace(/\s+/g, '-')} editable" data-field="status">
+                                    ${decision.status}
+                                    <span class="edit-indicator">✏️</span>
+                                </div>
+                                
+                                <div class="decision-contact-actions">
+                                    <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" class="decision-contact-btn phone">
+                                        📞 Call
+                                    </a>
+                                    <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}`)}" class="decision-contact-btn sms">
+                                        💬 Text
+                                    </a>
+                                    <button class="decision-delete-btn" onclick="deleteDecision(${decision.id})">
+                                        🗑️ Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
             </div>
         </div>
     </div>
