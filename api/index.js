@@ -1,4 +1,4 @@
-// Complete embedded data for serverless function
+// Complete embedded data for serverless function (matching local server)
 const TASKS_DATA = [
   {
     "id": 1,
@@ -624,14 +624,21 @@ module.exports = async (req, res) => {
       return res.json(DECISIONS_DATA);
     }
 
-    // Serve main HTML page
+    // Calculate summary statistics (matching local server)
+    const total = TASKS_DATA.length;
+    const completed = TASKS_DATA.filter(t => t.status === 'Completed').length;
+    const inProgress = TASKS_DATA.filter(t => t.status.includes('Progress')).length;
+    const critical = TASKS_DATA.filter(t => t.priority === 'Critical').length;
+    const progress = Math.round((completed / total) * 100);
+
+    // Serve main HTML page (matching local server design exactly)
     const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏗️ POOJA'S BUILD MANAGEMENT</title>
+    <title>🏗️ Potbelly Restaurant Build</title>
     <style>
         * {
             margin: 0;
@@ -704,14 +711,51 @@ module.exports = async (req, res) => {
         .tab-content {
             padding: 30px;
             min-height: 600px;
-        }
-        
-        .tab-pane {
             display: none;
         }
         
-        .tab-pane.active {
+        .tab-content.active {
             display: block;
+        }
+        
+        .progress-overview {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .progress-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .progress-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .big-number {
+            font-size: 36px;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        .card h3 {
+            margin-bottom: 16px;
+            color: #2c3e50;
         }
         
         table {
@@ -733,14 +777,14 @@ module.exports = async (req, res) => {
             font-size: 14px;
         }
         
-        /* Optimized column widths */
-        th:nth-child(1), td:nth-child(1) { width: 45%; font-size: 12px; } /* Decision */
-        th:nth-child(2), td:nth-child(2) { width: 12%; font-size: 11px; } /* Assigned To */
-        th:nth-child(3), td:nth-child(3) { width: 9%; font-size: 11px; } /* Priority */
-        th:nth-child(4), td:nth-child(4) { width: 11%; font-size: 11px; } /* Due Date */
-        th:nth-child(5), td:nth-child(5) { width: 9%; font-size: 11px; } /* Status */
-        th:nth-child(6), td:nth-child(6) { width: 8%; font-size: 11px; } /* Contact */
-        th:nth-child(7), td:nth-child(7) { width: 6%; font-size: 11px; } /* Delete */
+        /* Optimized column widths for tables */
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 45%; font-size: 12px; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 12%; font-size: 11px; }
+        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 9%; font-size: 11px; }
+        .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 11%; font-size: 11px; }
+        .data-table th:nth-child(5), .data-table td:nth-child(5) { width: 9%; font-size: 11px; }
+        .data-table th:nth-child(6), .data-table td:nth-child(6) { width: 8%; font-size: 11px; }
+        .data-table th:nth-child(7), .data-table td:nth-child(7) { width: 6%; font-size: 11px; }
         
         td {
             padding: 12px;
@@ -761,6 +805,13 @@ module.exports = async (req, res) => {
         .status-in-progress { color: #007bff; font-weight: 600; }
         .status-not-started { color: #6c757d; }
         .status-pending { color: #fd7e14; font-weight: 600; }
+        .status-awaiting-prerequisites { color: #6c757d; }
+        .status-awaiting-decision { color: #fd7e14; font-weight: 600; }
+        .status-design-approved { color: #28a745; font-weight: 600; }
+        .status-awaiting-vendor { color: #fd7e14; font-weight: 600; }
+        .status-awaiting-site-readiness { color: #6c757d; }
+        .status-design-in-progress { color: #007bff; font-weight: 600; }
+        .status-awaiting-design-approval { color: #fd7e14; font-weight: 600; }
         
         .btn {
             padding: 8px 16px;
@@ -777,7 +828,6 @@ module.exports = async (req, res) => {
         .btn-contact {
             background: #28a745;
             color: white;
-            gap: 4px;
         }
         
         .btn-contact:hover {
@@ -809,33 +859,6 @@ module.exports = async (req, res) => {
             font-size: 18px;
         }
         
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-        
         .word-wrap {
             word-wrap: break-word;
             word-break: break-word;
@@ -850,194 +873,185 @@ module.exports = async (req, res) => {
             .nav-tab { padding: 15px 10px; font-size: 14px; }
             .tab-content { padding: 20px 15px; }
             th, td { padding: 8px 6px; font-size: 12px; }
-            .stats { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .progress-overview { grid-template-columns: repeat(2, 1fr); gap: 15px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏗️ POOJA'S BUILD MANAGEMENT</h1>
-            <div class="subtitle">📱💻 Restaurant Construction & Decision Tracking Dashboard</div>
+            <h1>🏗️ Potbelly Restaurant Build</h1>
+            <div class="subtitle">Task & Decision Management</div>
         </div>
         
         <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showTab('tasks')">📋 All Tasks</button>
-            <button class="nav-tab" onclick="showTab('decisions')">⚖️ All Decisions</button>
+            <button class="nav-tab active" onclick="showTab('dashboard')">🏠 Dashboard</button>
+            <button class="nav-tab" onclick="showTab('contacts')">📞 Contacts</button>
+            <button class="nav-tab" onclick="showTab('add-task')">➕ Add Task</button>
+            <button class="nav-tab" onclick="showTab('decisions')">➕ Add Decisions</button>
         </div>
         
-        <div class="tab-content">
-            <div id="tasks" class="tab-pane active">
-                <div class="stats" id="taskStats"></div>
-                <div class="loading" id="tasksLoading">Loading tasks...</div>
-                <table id="tasksTable" style="display: none;">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="progress-overview">
+                <div class="progress-card" onclick="toggleDetails('all-tasks')">
+                    <span class="big-number" style="color: #1f2937;">${total}</span>
+                    <div style="color: #64748b; font-size: 14px;">Total Tasks</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
+                </div>
+                <div class="progress-card" onclick="toggleDetails('in-progress')">
+                    <span class="big-number" style="color: #2563eb;">${inProgress}</span>
+                    <div style="color: #64748b; font-size: 14px;">In Progress</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
+                </div>
+                <div class="progress-card" onclick="toggleDetails('decisions')">
+                    <span class="big-number" style="color: #d97706;">${DECISIONS_DATA.length}</span>
+                    <div style="color: #64748b; font-size: 14px;">Total Decisions</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
+                </div>
+                <div class="progress-card" onclick="toggleDetails('completed')">
+                    <span class="big-number" style="color: #16a34a;">${completed}</span>
+                    <div style="color: #64748b; font-size: 14px;">Completed</div>
+                    <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>📊 Project Status</h3>
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 48px; font-weight: bold; color: #1f2937; margin-bottom: 8px;">
+                        ${progress}%
+                    </div>
+                    <div style="color: #64748b; margin-bottom: 16px;">Overall Progress</div>
+                    <div style="background: #fef3c7; color: #d97706; padding: 12px; border-radius: 8px; text-align: center; font-weight: 600; margin-top: 16px;">
+                        Target Opening: Mid November 2025
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contacts Tab -->
+        <div id="contacts" class="tab-content">
+            <div class="card">
+                <h3>📞 Contacts</h3>
+                <p>Contact information for project team members.</p>
+            </div>
+        </div>
+        
+        <!-- Add Task Tab -->
+        <div id="add-task" class="tab-content">
+            <div class="card">
+                <h3>➕ Add New Task</h3>
+                <p>Task creation functionality would be implemented here.</p>
+            </div>
+        </div>
+        
+        <!-- Add Decisions Tab -->
+        <div id="decisions" class="tab-content">
+            <div class="card">
+                <h3>➕ Add Decisions</h3>
+                <p>Decision creation functionality would be implemented here.</p>
+            </div>
+        </div>
+        
+        <!-- Detail Views (hidden by default) -->
+        <div id="task-details" style="display: none;">
+            <div class="card">
+                <button style="float: right; background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-bottom: 16px;" onclick="hideDetails()">✕ Close</button>
+                <h4 style="margin-bottom: 16px;">All Tasks (${total})</h4>
+                <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Task</th>
-                            <th>Owner</th>
-                            <th>Priority</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Contact</th>
-                            <th>Delete</th>
+                            <th style="width: 45%;">Task</th>
+                            <th style="width: 12%;">Owner</th>
+                            <th style="width: 9%;">Priority</th>
+                            <th style="width: 11%;">Due Date</th>
+                            <th style="width: 9%;">Status</th>
+                            <th style="width: 8%;">Contact</th>
+                            <th style="width: 6%;">Delete</th>
                         </tr>
                     </thead>
-                    <tbody id="tasksBody"></tbody>
+                    <tbody>
+                        ${TASKS_DATA.map(task => `
+                            <tr>
+                                <td class="word-wrap" style="width: 45%; max-width: 400px;">${task.title}</td>
+                                <td style="width: 12%;">${task.owner}</td>
+                                <td class="priority-${task.priority.toLowerCase()}" style="width: 9%;">${task.priority}</td>
+                                <td style="width: 11%;">${new Date(task.dueDate).toLocaleDateString()}</td>
+                                <td class="status-${task.status.toLowerCase().replace(/\s+/g, '-')}" style="width: 9%;">${task.status}</td>
+                                <td style="width: 8%;"><a href="#" class="btn btn-contact" onclick="contactOwner('${task.owner}', '${task.title}')">📞</a></td>
+                                <td style="width: 6%;"><button class="btn btn-delete" onclick="deleteTask(${task.id})">×</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
                 </table>
             </div>
-            
-            <div id="decisions" class="tab-pane">
-                <div class="stats" id="decisionStats"></div>
-                <div class="loading" id="decisionsLoading">Loading decisions...</div>
-                <table id="decisionsTable" style="display: none;">
+        </div>
+        
+        <div id="decision-details" style="display: none;">
+            <div class="card">
+                <button style="float: right; background: #6b7280; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-bottom: 16px;" onclick="hideDetails()">✕ Close</button>
+                <h4 style="margin-bottom: 16px;">All Decisions (${DECISIONS_DATA.length})</h4>
+                <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Decision</th>
-                            <th>Assigned To</th>
-                            <th>Priority</th>
-                            <th>Due Date</th>
-                            <th>Status</th>
-                            <th>Contact</th>
-                            <th>Delete</th>
+                            <th style="width: 45%;">Decision</th>
+                            <th style="width: 12%;">Assigned To</th>
+                            <th style="width: 9%;">Priority</th>
+                            <th style="width: 11%;">Due Date</th>
+                            <th style="width: 9%;">Status</th>
+                            <th style="width: 8%;">Contact</th>
+                            <th style="width: 6%;">Delete</th>
                         </tr>
                     </thead>
-                    <tbody id="decisionsBody"></tbody>
+                    <tbody>
+                        ${DECISIONS_DATA.map(decision => `
+                            <tr>
+                                <td class="word-wrap" style="width: 45%; max-width: 400px;">
+                                    <strong>${decision.title}</strong><br>
+                                    <small style="color: #6c757d;">${decision.description}</small>
+                                </td>
+                                <td style="width: 12%;">${decision.assignedTo}</td>
+                                <td class="priority-${decision.priority.toLowerCase()}" style="width: 9%;">${decision.priority}</td>
+                                <td style="width: 11%;">${new Date(decision.dueDate).toLocaleDateString()}</td>
+                                <td class="status-${decision.status.toLowerCase()}" style="width: 9%;">${decision.status}</td>
+                                <td style="width: 8%;"><a href="#" class="btn btn-contact" onclick="contactOwner('${decision.assignedTo}', '${decision.title}')">📞</a></td>
+                                <td style="width: 6%;"><button class="btn btn-delete" onclick="deleteDecision(${decision.id})">×</button></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 
     <script>
-        let tasks = [];
-        let decisions = [];
-
         function showTab(tabName) {
-            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            // Hide all tab content
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             
+            // Show selected tab
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
+            
+            // Hide details views when switching tabs
+            hideDetails();
         }
 
-        async function loadTasks() {
-            try {
-                const response = await fetch('/api/tasks');
-                tasks = await response.json();
-                
-                document.getElementById('tasksLoading').style.display = 'none';
-                document.getElementById('tasksTable').style.display = 'table';
-                
-                renderTasks();
-                renderTaskStats();
-            } catch (error) {
-                console.error('Error loading tasks:', error);
-                document.getElementById('tasksLoading').textContent = 'Error loading tasks';
+        function toggleDetails(type) {
+            hideDetails();
+            
+            if (type === 'all-tasks') {
+                document.getElementById('task-details').style.display = 'block';
+            } else if (type === 'decisions') {
+                document.getElementById('decision-details').style.display = 'block';
             }
+            // Add other detail views as needed
         }
 
-        async function loadDecisions() {
-            try {
-                const response = await fetch('/api/decisions');
-                decisions = await response.json();
-                
-                document.getElementById('decisionsLoading').style.display = 'none';
-                document.getElementById('decisionsTable').style.display = 'table';
-                
-                renderDecisions();
-                renderDecisionStats();
-            } catch (error) {
-                console.error('Error loading decisions:', error);
-                document.getElementById('decisionsLoading').textContent = 'Error loading decisions';
-            }
-        }
-
-        function renderTasks() {
-            const tbody = document.getElementById('tasksBody');
-            tbody.innerHTML = tasks.map(task => \`
-                <tr>
-                    <td class="word-wrap">\${task.title}</td>
-                    <td>\${task.owner}</td>
-                    <td class="priority-\${task.priority.toLowerCase()}">\${task.priority}</td>
-                    <td>\${new Date(task.dueDate).toLocaleDateString()}</td>
-                    <td class="status-\${task.status.toLowerCase().replace(/\\s+/g, '-')}">\${task.status}</td>
-                    <td><a href="#" class="btn btn-contact" onclick="contactOwner('\${task.owner}', '\${task.title}')">📞</a></td>
-                    <td><button class="btn btn-delete" onclick="deleteTask(\${task.id})">×</button></td>
-                </tr>
-            \`).join('');
-        }
-
-        function renderDecisions() {
-            const tbody = document.getElementById('decisionsBody');
-            tbody.innerHTML = decisions.map(decision => \`
-                <tr>
-                    <td class="word-wrap">
-                        <strong>\${decision.title}</strong><br>
-                        <small style="color: #6c757d;">\${decision.description}</small>
-                    </td>
-                    <td>\${decision.assignedTo}</td>
-                    <td class="priority-\${decision.priority.toLowerCase()}">\${decision.priority}</td>
-                    <td>\${new Date(decision.dueDate).toLocaleDateString()}</td>
-                    <td class="status-\${decision.status.toLowerCase()}">\${decision.status}</td>
-                    <td><a href="#" class="btn btn-contact" onclick="contactOwner('\${decision.assignedTo}', '\${decision.title}')">📞</a></td>
-                    <td><button class="btn btn-delete" onclick="deleteDecision(\${decision.id})">×</button></td>
-                </tr>
-            \`).join('');
-        }
-
-        function renderTaskStats() {
-            const stats = {
-                total: tasks.length,
-                completed: tasks.filter(t => t.status === 'Completed').length,
-                inProgress: tasks.filter(t => t.status === 'In Progress').length,
-                critical: tasks.filter(t => t.priority === 'Critical').length
-            };
-
-            document.getElementById('taskStats').innerHTML = \`
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.total}</div>
-                    <div class="stat-label">Total Tasks</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.completed}</div>
-                    <div class="stat-label">Completed</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.inProgress}</div>
-                    <div class="stat-label">In Progress</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.critical}</div>
-                    <div class="stat-label">Critical Priority</div>
-                </div>
-            \`;
-        }
-
-        function renderDecisionStats() {
-            const stats = {
-                total: decisions.length,
-                pending: decisions.filter(d => d.status === 'Pending').length,
-                high: decisions.filter(d => d.priority === 'High').length,
-                overdue: decisions.filter(d => new Date(d.dueDate) < new Date()).length
-            };
-
-            document.getElementById('decisionStats').innerHTML = \`
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.total}</div>
-                    <div class="stat-label">Total Decisions</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.pending}</div>
-                    <div class="stat-label">Pending</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.high}</div>
-                    <div class="stat-label">High Priority</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">\${stats.overdue}</div>
-                    <div class="stat-label">Overdue</div>
-                </div>
-            \`;
+        function hideDetails() {
+            document.getElementById('task-details').style.display = 'none';
+            document.getElementById('decision-details').style.display = 'none';
         }
 
         function contactOwner(owner, title) {
@@ -1046,23 +1060,15 @@ module.exports = async (req, res) => {
 
         function deleteTask(id) {
             if (confirm('Are you sure you want to delete this task?')) {
-                tasks = tasks.filter(t => t.id !== id);
-                renderTasks();
-                renderTaskStats();
+                alert('Task deletion would be implemented here');
             }
         }
 
         function deleteDecision(id) {
             if (confirm('Are you sure you want to delete this decision?')) {
-                decisions = decisions.filter(d => d.id !== id);
-                renderDecisions();
-                renderDecisionStats();
+                alert('Decision deletion would be implemented here');
             }
         }
-
-        // Load data on page load
-        loadTasks();
-        loadDecisions();
     </script>
 </body>
 </html>`;
