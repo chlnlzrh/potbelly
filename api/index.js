@@ -1,3 +1,32 @@
+// Phone number mapping functions for server-side rendering
+function getOwnerPhone(owner) {
+    const phoneMap = {
+        'Pradeep': '+919810312309',
+        'Vishal': '+919868226580',
+        'Sunil': '+919310203344',
+        'Arushi': '+919810165187',
+        'Sandeep': '+919540475132',
+        'Sabharwal': '+919810086477',
+        'Team': '+919810312309',
+        'Bhargav': '+919810312309'
+    };
+    return phoneMap[owner] || '+919810312309';
+}
+
+function getDecisionContactPhone(assignedTo) {
+    const phoneMap = {
+        'Pradeep': '+919810312309',
+        'Vishal': '+919868226580',
+        'Sunil': '+919310203344',
+        'Arushi': '+919810165187',
+        'Sandeep': '+919540475132',
+        'Sabharwal': '+919810086477',
+        'Team': '+919810312309',
+        'Bhargav': '+919810312309'
+    };
+    return phoneMap[assignedTo] || '+919810312309';
+}
+
 // Complete embedded data for serverless function (matching local server)
 const TASKS_DATA = [
   {
