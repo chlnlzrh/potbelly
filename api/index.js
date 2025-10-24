@@ -692,6 +692,54 @@ module.exports = async (req, res) => {
     }
   }
 
+  if (req.method === 'PUT') {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    if (url.pathname.startsWith('/api/tasks/')) {
+      try {
+        const taskId = parseInt(url.pathname.split('/').pop());
+        const taskIndex = TASKS_DATA.findIndex(t => t.id === taskId);
+        
+        if (taskIndex === -1) {
+          return res.status(404).json({ success: false, message: 'Task not found' });
+        }
+        
+        const updateData = req.body;
+        TASKS_DATA[taskIndex] = {
+          ...TASKS_DATA[taskIndex],
+          ...updateData,
+          updatedAt: new Date().toISOString()
+        };
+        
+        return res.json({ success: true, message: 'Task updated successfully', task: TASKS_DATA[taskIndex] });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: 'Failed to update task: ' + error.message });
+      }
+    }
+    
+    if (url.pathname.startsWith('/api/decisions/')) {
+      try {
+        const decisionId = parseInt(url.pathname.split('/').pop());
+        const decisionIndex = DECISIONS_DATA.findIndex(d => d.id === decisionId);
+        
+        if (decisionIndex === -1) {
+          return res.status(404).json({ success: false, message: 'Decision not found' });
+        }
+        
+        const updateData = req.body;
+        DECISIONS_DATA[decisionIndex] = {
+          ...DECISIONS_DATA[decisionIndex],
+          ...updateData,
+          updatedAt: new Date().toISOString()
+        };
+        
+        return res.json({ success: true, message: 'Decision updated successfully', decision: DECISIONS_DATA[decisionIndex] });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: 'Failed to update decision: ' + error.message });
+      }
+    }
+  }
+
   if (req.method === 'DELETE') {
     const url = new URL(req.url, `http://${req.headers.host}`);
     
@@ -1037,6 +1085,83 @@ module.exports = async (req, res) => {
             border: 1px solid #ef4444;
         }
         
+        /* Inline editing styles */
+        .editable {
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .editable:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .editing {
+            background-color: #fffbeb !important;
+            border: 2px solid #f59e0b !important;
+        }
+        
+        .edit-input, .edit-select, .edit-textarea {
+            width: 100%;
+            padding: 4px 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 12px;
+            background: white;
+        }
+        
+        .edit-textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        
+        .edit-controls {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .edit-btn {
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .edit-btn.save {
+            background: #10b981;
+            color: white;
+        }
+        
+        .edit-btn.save:hover {
+            background: #059669;
+        }
+        
+        .edit-btn.cancel {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .edit-btn.cancel:hover {
+            background: #4b5563;
+        }
+        
+        .edit-indicator {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 6px;
+            background: #ddd6fe;
+            color: #6b46c1;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+        
         @media (max-width: 768px) {
             body { padding: 10px; }
             .header h1 { font-size: 1.8rem; }
@@ -1057,8 +1182,8 @@ module.exports = async (req, res) => {
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showTab('dashboard')">🏠 Dashboard</button>
             <button class="nav-tab" onclick="showTab('contacts')">📞 Contacts</button>
-            <button class="nav-tab" onclick="showTab('add-task')">➕ Add Task</button>
-            <button class="nav-tab" onclick="showTab('decisions')">➕ Add Decisions</button>
+            <button class="nav-tab" onclick="showTab('add-task')">➕ Task</button>
+            <button class="nav-tab" onclick="showTab('decisions')">➕ Decisions</button>
         </div>
         
         <!-- Dashboard Tab -->
@@ -1204,10 +1329,10 @@ module.exports = async (req, res) => {
             </div>
         </div>
         
-        <!-- Add Task Tab -->
+        <!-- Task Tab -->
         <div id="add-task" class="tab-content">
             <div class="card">
-                <h3>➕ Add New Task</h3>
+                <h3>➕ New Task</h3>
                 <div id="task-message" class="message"></div>
                 <form id="taskForm">
                     <div class="form-group">
@@ -1293,15 +1418,15 @@ module.exports = async (req, res) => {
                         <textarea class="form-textarea" name="notes" placeholder="Additional details, requirements, or dependencies..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn">➕ Add Task</button>
+                    <button type="submit" class="btn">➕ Create Task</button>
                 </form>
             </div>
         </div>
         
-        <!-- Add Decisions Tab -->
+        <!-- Decisions Tab -->
         <div id="decisions" class="tab-content">
             <div class="card">
-                <h3>➕ Add Decisions</h3>
+                <h3>➕ Decisions</h3>
                 <div id="decision-message" class="message"></div>
                 <form id="decisionForm">
                     <div class="form-group">
@@ -1357,7 +1482,7 @@ module.exports = async (req, res) => {
                         <textarea class="form-textarea" name="description" placeholder="Details about the decision needed, options to consider, impact on project..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn">➕ Add Decision</button>
+                    <button type="submit" class="btn">➕ Create Decision</button>
                 </form>
             </div>
         </div>
@@ -1380,11 +1505,11 @@ module.exports = async (req, res) => {
                     </thead>
                     <tbody>
                         ${TASKS_DATA.map(task => `
-                            <tr>
-                                <td class="word-wrap" style="width: 50%; max-width: 400px;">${task.title}</td>
-                                <td style="width: 15%;">${task.owner}</td>
-                                <td style="width: 12%;">${new Date(task.dueDate).toLocaleDateString()}</td>
-                                <td class="status-${task.status.toLowerCase().replace(/\s+/g, '-')}" style="width: 11%;">${task.status}</td>
+                            <tr data-task-id="${task.id}">
+                                <td class="word-wrap editable" data-field="title" style="width: 50%; max-width: 400px;">${task.title}<span class="edit-indicator">✏️ Click to edit</span></td>
+                                <td class="editable" data-field="owner" style="width: 15%;">${task.owner}<span class="edit-indicator">✏️</span></td>
+                                <td class="editable" data-field="dueDate" style="width: 12%;">${new Date(task.dueDate).toLocaleDateString()}<span class="edit-indicator">✏️</span></td>
+                                <td class="editable status-${task.status.toLowerCase().replace(/\s+/g, '-')}" data-field="status" style="width: 11%;">${task.status}<span class="edit-indicator">✏️</span></td>
                                 <td style="width: 8%; white-space: nowrap;">
                                     <a href="tel:${getOwnerPhone(task.owner)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
                                     <a href="sms:${getOwnerPhone(task.owner)}&body=${encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
@@ -1414,14 +1539,14 @@ module.exports = async (req, res) => {
                     </thead>
                     <tbody>
                         ${DECISIONS_DATA.map(decision => `
-                            <tr>
-                                <td class="word-wrap" style="width: 50%; max-width: 400px;">
-                                    <strong>${decision.title}</strong><br>
-                                    <small style="color: #6c757d;">${decision.description}</small>
+                            <tr data-decision-id="${decision.id}">
+                                <td class="word-wrap editable" data-field="title" style="width: 50%; max-width: 400px;">
+                                    <strong>${decision.title}</strong><span class="edit-indicator">✏️ Click to edit</span><br>
+                                    <small style="color: #6c757d;" class="editable" data-field="description">${decision.description}<span class="edit-indicator">✏️</span></small>
                                 </td>
-                                <td style="width: 15%;">${decision.assignedTo}</td>
-                                <td style="width: 12%;">${new Date(decision.dueDate).toLocaleDateString()}</td>
-                                <td class="status-${decision.status.toLowerCase()}" style="width: 11%;">${decision.status}</td>
+                                <td class="editable" data-field="assignedTo" style="width: 15%;">${decision.assignedTo}<span class="edit-indicator">✏️</span></td>
+                                <td class="editable" data-field="dueDate" style="width: 12%;">${new Date(decision.dueDate).toLocaleDateString()}<span class="edit-indicator">✏️</span></td>
+                                <td class="editable status-${decision.status.toLowerCase()}" data-field="status" style="width: 11%;">${decision.status}<span class="edit-indicator">✏️</span></td>
                                 <td style="width: 8%; white-space: nowrap;">
                                     <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
                                     <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
@@ -1614,6 +1739,149 @@ module.exports = async (req, res) => {
                 messageEl.style.display = 'block';
             }
         });
+
+        // Inline editing functionality
+        let currentlyEditing = null;
+
+        // Add click event listeners to all editable cells
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('editable') || e.target.closest('.editable')) {
+                const cell = e.target.classList.contains('editable') ? e.target : e.target.closest('.editable');
+                if (currentlyEditing && currentlyEditing !== cell) {
+                    cancelEdit(currentlyEditing);
+                }
+                startEdit(cell);
+            } else if (currentlyEditing && !e.target.closest('.edit-controls')) {
+                cancelEdit(currentlyEditing);
+            }
+        });
+
+        function startEdit(cell) {
+            if (cell.classList.contains('editing')) return;
+            
+            currentlyEditing = cell;
+            cell.classList.add('editing');
+            
+            const field = cell.dataset.field;
+            const row = cell.closest('tr');
+            const itemId = row.dataset.taskId || row.dataset.decisionId;
+            const isTask = !!row.dataset.taskId;
+            
+            // Get current value (strip edit indicator)
+            let currentValue = cell.textContent.replace(/✏️.*$/g, '').trim();
+            if (field === 'dueDate') {
+                // Convert display date back to YYYY-MM-DD format
+                const dateParts = currentValue.split('/');
+                if (dateParts.length === 3) {
+                    currentValue = dateParts[2] + '-' + dateParts[0].padStart(2, '0') + '-' + dateParts[1].padStart(2, '0');
+                }
+            }
+            
+            let inputElement;
+            
+            // Create appropriate input element based on field
+            if (field === 'title' || field === 'description') {
+                if (field === 'description') {
+                    inputElement = document.createElement('textarea');
+                    inputElement.className = 'edit-textarea';
+                } else {
+                    inputElement = document.createElement('input');
+                    inputElement.type = 'text';
+                    inputElement.className = 'edit-input';
+                }
+            } else if (field === 'owner' || field === 'assignedTo') {
+                inputElement = document.createElement('select');
+                inputElement.className = 'edit-select';
+                const options = [
+                    'Arushi', 'Vishal', 'Sabharwal', 'Pradeep', 
+                    'Sunil', 'Sandeep', 'Team'
+                ];
+                options.forEach(option => {
+                    const optElement = document.createElement('option');
+                    optElement.value = option;
+                    optElement.textContent = option;
+                    if (option === currentValue) optElement.selected = true;
+                    inputElement.appendChild(optElement);
+                });
+            } else if (field === 'status') {
+                inputElement = document.createElement('select');
+                inputElement.className = 'edit-select';
+                const statusOptions = isTask 
+                    ? ['Not Started', 'In Progress', 'Awaiting Decision', 'Completed', 'Awaiting Prerequisites', 'Design Approved', 'Awaiting Vendor', 'Awaiting Site Readiness', 'Design in Progress', 'Awaiting Design Approval']
+                    : ['Pending', 'In Progress', 'Decided', 'On Hold'];
+                    
+                statusOptions.forEach(option => {
+                    const optElement = document.createElement('option');
+                    optElement.value = option;
+                    optElement.textContent = option;
+                    if (option === currentValue) optElement.selected = true;
+                    inputElement.appendChild(optElement);
+                });
+            } else if (field === 'dueDate') {
+                inputElement = document.createElement('input');
+                inputElement.type = 'date';
+                inputElement.className = 'edit-input';
+            }
+            
+            inputElement.value = currentValue;
+            
+            // Create control buttons
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'edit-controls';
+            
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'edit-btn save';
+            saveBtn.textContent = '💾 Save';
+            saveBtn.onclick = () => saveEdit(cell, inputElement.value, field, itemId, isTask);
+            
+            const cancelBtn = document.createElement('button');
+            cancelBtn.className = 'edit-btn cancel';
+            cancelBtn.textContent = '❌ Cancel';
+            cancelBtn.onclick = () => cancelEdit(cell);
+            
+            controlsDiv.appendChild(saveBtn);
+            controlsDiv.appendChild(cancelBtn);
+            
+            // Replace cell content
+            cell.innerHTML = '';
+            cell.appendChild(inputElement);
+            cell.appendChild(controlsDiv);
+            
+            inputElement.focus();
+            if (inputElement.select) inputElement.select();
+        }
+
+        async function saveEdit(cell, newValue, field, itemId, isTask) {
+            try {
+                const endpoint = isTask ? \`/api/tasks/\${itemId}\` : \`/api/decisions/\${itemId}\`;
+                const updateData = { [field]: newValue };
+                
+                const response = await fetch(endpoint, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updateData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Reload page to show updated data
+                    location.reload();
+                } else {
+                    throw new Error(result.message || 'Failed to update');
+                }
+            } catch (error) {
+                alert('❌ Error saving: ' + error.message);
+                cancelEdit(cell);
+            }
+        }
+
+        function cancelEdit(cell) {
+            cell.classList.remove('editing');
+            currentlyEditing = null;
+            // Reload page to restore original content
+            location.reload();
+        }
     </script>
 </body>
 </html>`;
