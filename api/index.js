@@ -1620,8 +1620,6 @@ module.exports = async (req, res) => {
 </head>
 <body>
     <div class="container">
-        <div class="header">
-        </div>
         
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showTab('dashboard')">🏠 Dashboard</button>
@@ -1638,29 +1636,20 @@ module.exports = async (req, res) => {
                     <div style="color: #64748b; font-size: 14px;">Total Tasks</div>
                     <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
-                <div class="progress-card" onclick="toggleDetails('in-progress')">
-                    <span class="big-number" style="color: #2563eb;">${inProgress}</span>
-                    <div style="color: #64748b; font-size: 14px;">In Progress</div>
+                <div class="progress-card" onclick="toggleDetails('decisions')">
+                    <span class="big-number" style="color: #2563eb;">${DECISIONS_DATA.length}</span>
+                    <div style="color: #64748b; font-size: 14px;">Decisions</div>
                     <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
                 <div class="progress-card" onclick="toggleDetails('decisions')">
-                    <span class="big-number" style="color: #d97706;">${DECISIONS_DATA.length}</span>
-                    <div style="color: #64748b; font-size: 14px;">Project Status Card</div>
+                    <span class="big-number" style="color: #d97706;">${progress}%</span>
+                    <div style="color: #64748b; font-size: 14px;">Overall Progress</div>
                     <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
                 </div>
                 <div class="progress-card" onclick="toggleDetails('completed')">
                     <span class="big-number" style="color: #16a34a;">${completed}</span>
                     <div style="color: #64748b; font-size: 14px;">Completed</div>
                     <div style="color: #6b7280; font-size: 11px; margin-top: 4px;">Click for details</div>
-                </div>
-            </div>
-            <div class="card">
-                <h3>📊 Project Status</h3>
-                <div style="text-align: center; padding: 20px;">
-                    <div style="font-size: 48px; font-weight: bold; color: #1f2937; margin-bottom: 8px;">
-                        ${progress}%
-                    </div>
-                    <div style="color: #64748b; margin-bottom: 16px;">Overall Progress</div>
                 </div>
             </div>
         </div>
