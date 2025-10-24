@@ -692,6 +692,42 @@ module.exports = async (req, res) => {
     }
   }
 
+  if (req.method === 'DELETE') {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    
+    if (url.pathname.startsWith('/api/tasks/')) {
+      try {
+        const taskId = parseInt(url.pathname.split('/').pop());
+        const taskIndex = TASKS_DATA.findIndex(t => t.id === taskId);
+        
+        if (taskIndex === -1) {
+          return res.status(404).json({ success: false, message: 'Task not found' });
+        }
+        
+        TASKS_DATA.splice(taskIndex, 1);
+        return res.json({ success: true, message: 'Task deleted successfully' });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: 'Failed to delete task: ' + error.message });
+      }
+    }
+    
+    if (url.pathname.startsWith('/api/decisions/')) {
+      try {
+        const decisionId = parseInt(url.pathname.split('/').pop());
+        const decisionIndex = DECISIONS_DATA.findIndex(d => d.id === decisionId);
+        
+        if (decisionIndex === -1) {
+          return res.status(404).json({ success: false, message: 'Decision not found' });
+        }
+        
+        DECISIONS_DATA.splice(decisionIndex, 1);
+        return res.json({ success: true, message: 'Decision deleted successfully' });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: 'Failed to delete decision: ' + error.message });
+      }
+    }
+  }
+
   if (req.method === 'GET') {
     const url = new URL(req.url, `http://${req.headers.host}`);
     
@@ -857,13 +893,12 @@ module.exports = async (req, res) => {
         }
         
         /* Optimized column widths for tables */
-        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 45%; font-size: 12px; }
-        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 12%; font-size: 11px; }
-        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 9%; font-size: 11px; }
+        .data-table th:nth-child(1), .data-table td:nth-child(1) { width: 50%; font-size: 12px; }
+        .data-table th:nth-child(2), .data-table td:nth-child(2) { width: 15%; font-size: 11px; }
+        .data-table th:nth-child(3), .data-table td:nth-child(3) { width: 12%; font-size: 11px; }
         .data-table th:nth-child(4), .data-table td:nth-child(4) { width: 11%; font-size: 11px; }
-        .data-table th:nth-child(5), .data-table td:nth-child(5) { width: 9%; font-size: 11px; }
-        .data-table th:nth-child(6), .data-table td:nth-child(6) { width: 8%; font-size: 11px; }
-        .data-table th:nth-child(7), .data-table td:nth-child(7) { width: 6%; font-size: 11px; }
+        .data-table th:nth-child(5), .data-table td:nth-child(5) { width: 8%; font-size: 11px; }
+        .data-table th:nth-child(6), .data-table td:nth-child(6) { width: 4%; font-size: 11px; }
         
         td {
             padding: 12px;
@@ -1335,28 +1370,26 @@ module.exports = async (req, res) => {
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th style="width: 45%;">Task</th>
-                            <th style="width: 12%;">Owner</th>
-                            <th style="width: 9%;">Priority</th>
-                            <th style="width: 11%;">Due Date</th>
-                            <th style="width: 9%;">Status</th>
+                            <th style="width: 50%;">Task</th>
+                            <th style="width: 15%;">Owner</th>
+                            <th style="width: 12%;">Due Date</th>
+                            <th style="width: 11%;">Status</th>
                             <th style="width: 8%;">Contact</th>
-                            <th style="width: 6%;">Delete</th>
+                            <th style="width: 4%;">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${TASKS_DATA.map(task => `
                             <tr>
-                                <td class="word-wrap" style="width: 45%; max-width: 400px;">${task.title}</td>
-                                <td style="width: 12%;">${task.owner}</td>
-                                <td class="priority-${task.priority.toLowerCase()}" style="width: 9%;">${task.priority}</td>
-                                <td style="width: 11%;">${new Date(task.dueDate).toLocaleDateString()}</td>
-                                <td class="status-${task.status.toLowerCase().replace(/\s+/g, '-')}" style="width: 9%;">${task.status}</td>
+                                <td class="word-wrap" style="width: 50%; max-width: 400px;">${task.title}</td>
+                                <td style="width: 15%;">${task.owner}</td>
+                                <td style="width: 12%;">${new Date(task.dueDate).toLocaleDateString()}</td>
+                                <td class="status-${task.status.toLowerCase().replace(/\s+/g, '-')}" style="width: 11%;">${task.status}</td>
                                 <td style="width: 8%; white-space: nowrap;">
                                     <a href="tel:${getOwnerPhone(task.owner)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
                                     <a href="sms:${getOwnerPhone(task.owner)}&body=${encodeURIComponent(`Task: ${task.title}\nDue: ${task.dueDate}\nStatus: ${task.status}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
                                 </td>
-                                <td style="width: 6%;"><button class="btn btn-delete" onclick="deleteTask(${task.id})">×</button></td>
+                                <td style="width: 4%;"><button class="btn btn-delete" onclick="deleteTask(${task.id})">×</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -1371,31 +1404,29 @@ module.exports = async (req, res) => {
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th style="width: 45%;">Decision</th>
-                            <th style="width: 12%;">Assigned To</th>
-                            <th style="width: 9%;">Priority</th>
-                            <th style="width: 11%;">Due Date</th>
-                            <th style="width: 9%;">Status</th>
+                            <th style="width: 50%;">Decision</th>
+                            <th style="width: 15%;">Assigned To</th>
+                            <th style="width: 12%;">Due Date</th>
+                            <th style="width: 11%;">Status</th>
                             <th style="width: 8%;">Contact</th>
-                            <th style="width: 6%;">Delete</th>
+                            <th style="width: 4%;">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${DECISIONS_DATA.map(decision => `
                             <tr>
-                                <td class="word-wrap" style="width: 45%; max-width: 400px;">
+                                <td class="word-wrap" style="width: 50%; max-width: 400px;">
                                     <strong>${decision.title}</strong><br>
                                     <small style="color: #6c757d;">${decision.description}</small>
                                 </td>
-                                <td style="width: 12%;">${decision.assignedTo}</td>
-                                <td class="priority-${decision.priority.toLowerCase()}" style="width: 9%;">${decision.priority}</td>
-                                <td style="width: 11%;">${new Date(decision.dueDate).toLocaleDateString()}</td>
-                                <td class="status-${decision.status.toLowerCase()}" style="width: 9%;">${decision.status}</td>
+                                <td style="width: 15%;">${decision.assignedTo}</td>
+                                <td style="width: 12%;">${new Date(decision.dueDate).toLocaleDateString()}</td>
+                                <td class="status-${decision.status.toLowerCase()}" style="width: 11%;">${decision.status}</td>
                                 <td style="width: 8%; white-space: nowrap;">
                                     <a href="tel:${getDecisionContactPhone(decision.assignedTo)}" style="background: #3b82f6; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px; margin-right: 2px;">📞</a>
-                                    <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}\nPriority: ${decision.priority}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
+                                    <a href="sms:${getDecisionContactPhone(decision.assignedTo)}&body=${encodeURIComponent(`Decision: ${decision.title}\nDue: ${decision.dueDate}`)}" style="background: #10b981; color: white; padding: 2px 6px; border-radius: 3px; text-decoration: none; font-size: 10px;">💬</a>
                                 </td>
-                                <td style="width: 6%;"><button class="btn btn-delete" onclick="deleteDecision(${decision.id})">×</button></td>
+                                <td style="width: 4%;"><button class="btn btn-delete" onclick="deleteDecision(${decision.id})">×</button></td>
                             </tr>
                         `).join('')}
                     </tbody>
@@ -1464,18 +1495,50 @@ module.exports = async (req, res) => {
         }
         
         function contactOwner(owner, title) {
-            alert(\`Contact \${owner} about: \${title}\`);
+            alert('Contact ' + owner + ' about: ' + title);
         }
 
-        function deleteTask(id) {
+        async function deleteTask(id) {
             if (confirm('Are you sure you want to delete this task?')) {
-                alert('Task deletion would be implemented here');
+                try {
+                    const response = await fetch('/api/tasks/' + id, {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert('✅ Task deleted successfully! Page will refresh.');
+                        location.reload();
+                    } else {
+                        alert('❌ Error: ' + result.message);
+                    }
+                } catch (error) {
+                    alert('❌ Error deleting task: ' + error.message);
+                }
             }
         }
 
-        function deleteDecision(id) {
+        async function deleteDecision(id) {
             if (confirm('Are you sure you want to delete this decision?')) {
-                alert('Decision deletion would be implemented here');
+                try {
+                    const response = await fetch('/api/decisions/' + id, {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        alert('✅ Decision deleted successfully! Page will refresh.');
+                        location.reload();
+                    } else {
+                        alert('❌ Error: ' + result.message);
+                    }
+                } catch (error) {
+                    alert('❌ Error deleting decision: ' + error.message);
+                }
             }
         }
         
